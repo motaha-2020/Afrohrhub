@@ -1,0 +1,227 @@
+{
+  "common": {
+    "appName": "AfroHR Hub",
+    "searchPlaceholder": "🔍 Search by name, HR code, or National ID…",
+    "viewAs": "👤 View as:",
+    "viewAsHint": "Dev-only role switcher — replaced by real sign-in",
+    "notifications": "Notifications",
+    "localeToggle": "ع",
+    "localeToggleLabel": "التبديل إلى العربية",
+    "egp": "EGP"
+  },
+  "nav": {
+    "soon": "Soon",
+    "sections": {
+      "general": "General",
+      "lifecycle": "Employee Lifecycle",
+      "finance": "Finance & Operations",
+      "portal": "Employee Portal",
+      "system": "System"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "approvals": "My Approvals",
+      "sla": "SLA Dashboard",
+      "employees": "Employees",
+      "recruitment": "Recruitment",
+      "onboarding": "Onboarding",
+      "offboarding": "Offboarding",
+      "payroll": "Payroll & Allowances",
+      "attendance": "Attendance",
+      "leave": "Leave",
+      "ess": "ESS App (Mobile)",
+      "settings": "Settings",
+      "audit": "Audit"
+    }
+  },
+  "roles": {
+    "super_admin": "Super Admin",
+    "company_admin": "Company Admin",
+    "hr_manager": "HR Manager",
+    "talent_acquisition": "Talent Acquisition",
+    "personnel": "Personnel",
+    "payroll": "Payroll",
+    "finance": "Finance",
+    "hse": "HSE",
+    "it": "IT",
+    "operations_admin": "Operations / Admin",
+    "pmo": "PMO",
+    "direct_manager": "Direct Manager",
+    "employee": "Employee"
+  },
+  "status": {
+    "active": "Active",
+    "pending": "Pending",
+    "suspended": "Suspended",
+    "offboarding": "Offboarding",
+    "archived": "Archived"
+  },
+  "collar": {
+    "white": "White Collar",
+    "blue": "Blue Collar"
+  },
+  "dashboard": {
+    "greeting": "Good morning, {name} 👋",
+    "subtitle": "{date} — here's today's summary at {tenant}",
+    "newHiringRequest": "+ New Hiring Request",
+    "kpi": {
+      "activeEmployees": "Active Employees",
+      "activeEmployeesSub": "▲ {count} this month",
+      "openRequests": "Open Hiring Requests",
+      "openRequestsSub": "{count} × P0 critical",
+      "onboarding": "Onboarding In Progress",
+      "onboardingSub": "{count} ready for activation",
+      "payrollCycle": "June Payroll Cycle",
+      "payrollCycleSub": "Deductions stage"
+    },
+    "approvals": {
+      "title": "✅ Pending your approval",
+      "viewAll": "Approvals inbox →",
+      "item1": "Hiring request: 4 welders — Nile Bridge, Assiut",
+      "item1Time": "2h ago",
+      "item2": "Advance EGP 8,000 — Mahmoud El-Naggar",
+      "item2Time": "5h ago",
+      "item3": "Final settlement — Khaled Mansour",
+      "item3Time": "yesterday",
+      "item4": "5-day leave — Eng. Sara Adel",
+      "item4Time": "yesterday"
+    },
+    "headcount": {
+      "title": "🏗 Headcount by Project",
+      "employees": "employees"
+    }
+  },
+  "employees": {
+    "title": "👥 Employee Directory",
+    "subtitle": "{active} active · {pending} pending activation · {offboarding} offboarding",
+    "import": "Import Excel",
+    "new": "+ New Employee",
+    "filters": {
+      "allProjects": "All projects",
+      "allStatuses": "All statuses",
+      "allCollars": "White / Blue Collar",
+      "search": "Search…"
+    },
+    "columns": {
+      "employee": "Employee",
+      "hrCode": "HR Code",
+      "jobTitle": "Job Title",
+      "project": "Project",
+      "type": "Type",
+      "status": "Status",
+      "documents": "Documents",
+      "actions": ""
+    },
+    "joined": "Joined {date}",
+    "lastDay": "Last day {date}",
+    "inOnboarding": "In onboarding",
+    "view": "View →",
+    "case": "Case →",
+    "docsComplete": "{received}/{total} ✓",
+    "docsMissing": "{received}/{total} — {missing} missing",
+    "docExpiring": "⚠ {doc} expires in {days} days",
+    "assetsToReturn": "Assets to return: {count}",
+    "showing": "Showing {shown} of {total}",
+    "salaryNote": "🔒 Salary column hidden — your role accesses it only from the employee profile (Policy 9)",
+    "empty": {
+      "title": "No matching results",
+      "description": "Try adjusting the filters or the search term."
+    }
+  },
+  "profile": {
+    "notFound": {
+      "title": "Employee not found",
+      "description": "Check the link or go back to the employee directory.",
+      "back": "Back to directory"
+    },
+    "grade": "Grade {grade}",
+    "manager": "Manager: {name}",
+    "newAction": "New Action",
+    "hrLetters": "HR Letters",
+    "tabs": {
+      "documents": "Documents ({count})",
+      "timeline": "Timeline",
+      "compensation": "Compensation 🔒",
+      "projects": "Projects & Allocation",
+      "hse": "HSE"
+    },
+    "documents": {
+      "title": "🗂 Document Vault — Manual checklist",
+      "summary": "{received} received · {expiring} expiring soon",
+      "summaryComplete": "{received} received · complete ✓",
+      "originalHeld": "Original held",
+      "expires": "Expires {date}",
+      "na": "N/A",
+      "statusLabel": {
+        "required": "Required",
+        "received": "Received",
+        "verified": "✓ Verified",
+        "expired": "Expired"
+      },
+      "aiNote": "📤 On every upload: AI auto-classifies the file, matches it to the checklist, and extracts the expiry date (OCR) — then Personnel verifies it."
+    },
+    "timeline": {
+      "title": "🕐 Employment History Timeline",
+      "empty": {
+        "title": "No recorded events",
+        "description": "Hires, promotions, transfers and contract renewals appear here."
+      }
+    },
+    "compensation": {
+      "auditNotice": "🔒 Viewing this tab is recorded in the Audit Log — accessing compensation data is a logged event (Policies 9 + 16)",
+      "denied": {
+        "title": "🔒 You don't have access to compensation data",
+        "body": "Salary data is protected at the database level (Policy 9) and restricted to the Payroll, HR Manager, Finance and Company Admin roles. This access attempt has been recorded in the Audit Log (Policy 16)."
+      },
+      "netSalary": "Net Salary",
+      "netSalarySub": "Gross {gross} · Insurable {insurable}",
+      "allowancesTitle": "Monthly Allowances",
+      "allowance": {
+        "site": "Site",
+        "transport": "Transport",
+        "meal": "Meal"
+      },
+      "bank": "Bank Account",
+      "bankVerified": "✓ Verified",
+      "bankVerifiedBy": "by Payroll on {date}",
+      "bankUnverified": "Not verified — no payment is released before verification (Policy 6)",
+      "noData": "No compensation data recorded for this employee.",
+      "si": {
+        "title": "Social Insurance",
+        "body": "SI number: {number} · {office} office · Form (1) filed {date}"
+      }
+    },
+    "projects": {
+      "title": "🏗 Cost Allocation",
+      "columns": {
+        "project": "Project",
+        "code": "Code",
+        "share": "Share",
+        "location": "Location",
+        "since": "Since"
+      },
+      "totalOk": "✓ Total = 100% — payroll cost reports are distributed automatically by these shares (Policy 12)",
+      "totalBad": "⚠ Total = {total}% — active allocations must add up to 100%",
+      "empty": {
+        "title": "No active allocations",
+        "description": "This employee is not allocated to any project yet."
+      }
+    },
+    "hse": {
+      "title": "🦺 HSE Record",
+      "result": {
+        "fit": "Fit",
+        "unfit": "Unfit",
+        "pass": "Pass",
+        "fail": "Fail"
+      },
+      "validUntil": "Valid until {date}",
+      "expiresSoon": "Expires {date}",
+      "noExpiry": "No expiry",
+      "empty": {
+        "title": "No HSE records",
+        "description": "No medical exams or safety courses recorded for this employee yet."
+      }
+    }
+  }
+}
