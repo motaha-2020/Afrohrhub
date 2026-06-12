@@ -60,12 +60,13 @@
 
 ## REMAINING
 
-### Session 3 — Engines & Notifications UI
-- [ ] Approval Engine UI — inbox, chain visualization, approve/reject with comment, parallel/conditional branching
-- [ ] SLA Engine UI — countdown badges, P0/P1 coloring, auto-escalation alerts, SLA Dashboard screen
-- [ ] Notifications center — In-App bell + drawer, read/unread state
-- [ ] Email notification templates (Supabase Edge Functions)
-- [ ] Supabase Auth integration — replace mock session with real email + mobile OTP login
+### Session 3 — Engines & Notifications UI ✅ DONE (2026-06-12)
+- [x] Approval Engine UI — inbox with tabs (Pending/Completed/Delegated), approve/reject modal with comment, SLA countdown per item
+- [x] SLA Engine UI — `SlaCountdown` badge (P0/P1, color-coded by hours remaining), SLA Dashboard with KPI cards + sortable table
+- [x] Notifications center — In-App bell drawer, real unread count, mark-all-read, click-to-navigate
+- [ ] Email notification templates (Supabase Edge Functions) — Phase 2
+- [x] Supabase Auth scaffold — `lib/supabase/client.ts` + `server.ts`, login page (email + OTP UI), Supabase packages installed
+- [ ] Wire real Supabase Auth (replace mock session) — needs `.env.local` with Supabase project URL + anon key
 
 ### Session 4 — Recruitment Module
 - [ ] Jobs listing & creation
@@ -146,15 +147,11 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 3: Engines & Notifications UI + Supabase Auth**
+**Next up → Session 4: Recruitment Module**
 
-Blocking everything downstream — Approval Engine and SLA Engine must be in place before Recruitment, Onboarding, or Payroll screens go live, since every module that has a workflow step depends on them.
+Session 3 is complete. The approval/SLA UI and notification drawer are live. The Supabase Auth scaffold is in place — needs `.env.local` with a real Supabase project to activate.
 
-Priority order within Session 3:
-1. Wire Supabase Auth (replace mock session) — needed before any real data flows
-2. Approval Engine inbox & approval/rejection UI
-3. SLA countdown display & P0/P1 badge system
-4. Notifications drawer (In-App)
+Session 4 builds the Recruitment pipeline (8 stages) on top of the engines built in Session 3. Each pipeline stage transition will use the Approval Engine and SLA countdown components already built.
 
 ---
 
@@ -165,7 +162,7 @@ Priority order within Session 3:
 | Design & Docs | 2026-06-12 | 8 design docs + 9 module specs + interactive demo | Done |
 | DB Schema | 2026-06-12 | 10 migrations, 52 tables, RLS, seeds (PostgreSQL 16 verified) | Done |
 | Frontend Foundation | 2026-06-12 | App shell, i18n, RBAC, 3 screens, mock data layer (build passes) | Done |
-| Engines & Notifications | — | Approval Engine UI, SLA UI, Auth | Pending |
+| Engines & Notifications | 2026-06-12 | Approval Engine UI, SLA Dashboard, Notifications Drawer, Supabase Auth scaffold | Done |
 | Recruitment | — | 8-stage pipeline, offers, talent pool | Pending |
 | Onboarding | — | 9 stages, activation, contracts | Pending |
 | Payroll | — | Monthly cycle, payslips, tax/insurance | Pending |

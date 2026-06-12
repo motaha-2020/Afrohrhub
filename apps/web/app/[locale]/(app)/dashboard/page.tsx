@@ -98,7 +98,7 @@ export default async function DashboardPage({
           title={t("approvals.title")}
           action={
             <Link
-              href="/dashboard"
+              href="/approvals"
               className="text-[11.5px] font-semibold text-primary"
             >
               {t("approvals.viewAll")}

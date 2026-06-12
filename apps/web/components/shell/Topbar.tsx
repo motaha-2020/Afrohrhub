@@ -6,6 +6,7 @@ import { useSession } from "@/lib/auth/session";
 import { initials, localizedName } from "@/lib/utils/format";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { ViewAsSwitcher } from "./ViewAsSwitcher";
+import { NotificationsDrawer } from "@/components/ui/NotificationsDrawer";
 
 export function Topbar() {
   const { session, persona } = useSession();
@@ -26,16 +27,7 @@ export function Topbar() {
         <Suspense fallback={null}>
           <LocaleSwitcher />
         </Suspense>
-        <span
-          className="relative cursor-pointer text-lg"
-          aria-label={t("notifications")}
-          title={t("notifications")}
-        >
-          🔔
-          <span className="absolute -top-1 -end-1.5 rounded-full bg-red px-[5px] py-px text-[9px] font-bold text-white">
-            7
-          </span>
-        </span>
+        <NotificationsDrawer />
         <div className="text-end text-xs leading-tight">
           <b className="block text-[13px]">{userName}</b>
           {tRoles(persona.roles[0])}

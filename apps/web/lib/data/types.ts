@@ -186,3 +186,71 @@ export interface HseRecord extends BaseRow {
   issued_at: string;
   expiry_date: string | null;
 }
+
+/* ---------------------- Engines & Notifications ---------------------- */
+
+export type NotificationType =
+  | "approval_requested"
+  | "approval_done"
+  | "sla_warning"
+  | "sla_breach"
+  | "document_expiring"
+  | "onboarding_task";
+
+export interface Notification extends BaseRow {
+  user_id: string;
+  type: NotificationType;
+  title_ar: string;
+  title_en: string;
+  body_ar: string | null;
+  body_en: string | null;
+  link: string | null;
+  read_at: string | null;
+}
+
+export type ApprovalStatus = "pending" | "approved" | "rejected" | "delegated";
+
+export type ApprovalModule =
+  | "recruitment"
+  | "leave"
+  | "advance"
+  | "offboarding_settlement"
+  | "salary_change"
+  | "penalty"
+  | "onboarding";
+
+export interface ApprovalTask extends BaseRow {
+  module: ApprovalModule;
+  subject_ar: string;
+  subject_en: string;
+  requested_by_name_ar: string;
+  requested_by_name_en: string;
+  requested_at: string;
+  sla_deadline: string;
+  sla_hours_remaining: number;
+  sla_priority: "P0" | "P1";
+  status: ApprovalStatus;
+  comment: string | null;
+}
+
+export type SlaPriority = "P0" | "P1";
+export type SlaStatus = "on_time" | "warning" | "breach";
+export type SlaModule =
+  | "recruitment"
+  | "onboarding"
+  | "payroll"
+  | "leave"
+  | "offboarding"
+  | "advance";
+
+export interface SlaItem extends BaseRow {
+  module: SlaModule;
+  subject_ar: string;
+  subject_en: string;
+  priority: SlaPriority;
+  deadline: string;
+  sla_status: SlaStatus;
+  owner_name_ar: string;
+  owner_name_en: string;
+  hours_remaining: number;
+}

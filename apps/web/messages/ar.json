@@ -223,5 +223,101 @@
         "description": "لم تُسجَّل فحوص طبية أو دورات سلامة لهذا الموظف بعد."
       }
     }
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "empty": "لا إشعارات جديدة"
+  },
+  "approvals": {
+    "title": "✅ صندوق الاعتمادات",
+    "subtitle": "{pending} بانتظار اعتمادك",
+    "tabs": {
+      "pending": "بانتظار الاعتماد",
+      "completed": "مكتملة",
+      "delegated": "مفوَّضة"
+    },
+    "columns": {
+      "module": "الموديول",
+      "subject": "الموضوع",
+      "requestedBy": "مقدَّم من",
+      "sla": "المهلة الزمنية",
+      "status": "الحالة",
+      "actions": ""
+    },
+    "modules": {
+      "recruitment": "توظيف",
+      "leave": "إجازة",
+      "advance": "سلفة",
+      "offboarding_settlement": "تسوية نهائية",
+      "salary_change": "تعديل راتب",
+      "penalty": "جزاء",
+      "onboarding": "تعيين"
+    },
+    "statuses": {
+      "pending": "بانتظار الاعتماد",
+      "approved": "موافق عليه",
+      "rejected": "مرفوض",
+      "delegated": "مفوَّض"
+    },
+    "modal": {
+      "approveTitle": "تأكيد الموافقة",
+      "rejectTitle": "تأكيد الرفض",
+      "commentLabel": "ملاحظة",
+      "commentPlaceholder": "أضف ملاحظة للسجل…",
+      "approveBtn": "موافق",
+      "rejectBtn": "رفض",
+      "cancelBtn": "إلغاء",
+      "rejectRequired": "ملاحظة الرفض إلزامية"
+    },
+    "empty": {
+      "title": "لا طلبات بانتظارك",
+      "description": "جميع الطلبات تمت معالجتها."
+    }
+  },
+  "sla": {
+    "title": "⏱ لوحة الـ SLA",
+    "subtitle": "تتبع مواعيد الاستجابة لكل الموديولات",
+    "kpi": {
+      "total": "إجمالي العناصر المفتوحة",
+      "p0": "P0 حرجة",
+      "breached": "خرق SLA",
+      "onTime": "في المهلة"
+    },
+    "columns": {
+      "module": "الموديول",
+      "subject": "الموضوع",
+      "owner": "المسؤول",
+      "priority": "الأولوية",
+      "remaining": "الوقت المتبقي",
+      "status": "الحالة"
+    },
+    "modules": {
+      "recruitment": "توظيف",
+      "onboarding": "تعيين",
+      "payroll": "رواتب",
+      "leave": "إجازات",
+      "offboarding": "إنهاء خدمة",
+      "advance": "سلف"
+    },
+    "statuses": {
+      "on_time": "في المهلة",
+      "warning": "تحذير",
+      "breach": "خرق SLA"
+    }
+  },
+  "login": {
+    "title": "مرحبًا بك في AfroHR Hub",
+    "subtitle": "تسجيل الدخول لإدارة الموارد البشرية",
+    "emailLabel": "البريد الإلكتروني أو رقم الجوال",
+    "emailPlaceholder": "email@company.com",
+    "sendOtp": "إرسال رمز الدخول",
+    "otpLabel": "رمز التحقق",
+    "otpPlaceholder": "• • • • • •",
+    "otpHint": "أرسلنا رمزًا مكوّنًا من 6 أرقام إلى {contact}",
+    "verify": "تحقق والدخول",
+    "back": "تغيير البريد / الجوال",
+    "loading": "جاري الإرسال…",
+    "envNote": "يتطلب تكوين Supabase (.env.local) لتفعيل المصادقة الحقيقية"
   }
 }

@@ -223,5 +223,101 @@
         "description": "No medical exams or safety courses recorded for this employee yet."
       }
     }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "empty": "No new notifications"
+  },
+  "approvals": {
+    "title": "✅ Approvals Inbox",
+    "subtitle": "{pending} pending your approval",
+    "tabs": {
+      "pending": "Pending",
+      "completed": "Completed",
+      "delegated": "Delegated"
+    },
+    "columns": {
+      "module": "Module",
+      "subject": "Subject",
+      "requestedBy": "Requested by",
+      "sla": "SLA",
+      "status": "Status",
+      "actions": ""
+    },
+    "modules": {
+      "recruitment": "Recruitment",
+      "leave": "Leave",
+      "advance": "Advance",
+      "offboarding_settlement": "Final Settlement",
+      "salary_change": "Salary Change",
+      "penalty": "Penalty",
+      "onboarding": "Onboarding"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "delegated": "Delegated"
+    },
+    "modal": {
+      "approveTitle": "Confirm Approval",
+      "rejectTitle": "Confirm Rejection",
+      "commentLabel": "Note",
+      "commentPlaceholder": "Add a note to the record…",
+      "approveBtn": "Approve",
+      "rejectBtn": "Reject",
+      "cancelBtn": "Cancel",
+      "rejectRequired": "A rejection note is required"
+    },
+    "empty": {
+      "title": "Nothing pending your approval",
+      "description": "All requests have been processed."
+    }
+  },
+  "sla": {
+    "title": "⏱ SLA Dashboard",
+    "subtitle": "Track response deadlines across all modules",
+    "kpi": {
+      "total": "Open Items",
+      "p0": "P0 Critical",
+      "breached": "SLA Breached",
+      "onTime": "On Time"
+    },
+    "columns": {
+      "module": "Module",
+      "subject": "Subject",
+      "owner": "Owner",
+      "priority": "Priority",
+      "remaining": "Time Remaining",
+      "status": "Status"
+    },
+    "modules": {
+      "recruitment": "Recruitment",
+      "onboarding": "Onboarding",
+      "payroll": "Payroll",
+      "leave": "Leave",
+      "offboarding": "Offboarding",
+      "advance": "Advances"
+    },
+    "statuses": {
+      "on_time": "On Time",
+      "warning": "Warning",
+      "breach": "SLA Breach"
+    }
+  },
+  "login": {
+    "title": "Welcome to AfroHR Hub",
+    "subtitle": "Sign in to manage HR operations",
+    "emailLabel": "Email or mobile number",
+    "emailPlaceholder": "email@company.com",
+    "sendOtp": "Send OTP",
+    "otpLabel": "Verification code",
+    "otpPlaceholder": "• • • • • •",
+    "otpHint": "We sent a 6-digit code to {contact}",
+    "verify": "Verify & sign in",
+    "back": "Change email / mobile",
+    "loading": "Sending…",
+    "envNote": "Requires Supabase config (.env.local) to enable real authentication"
   }
 }
