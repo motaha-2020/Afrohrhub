@@ -16,24 +16,14 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { Role } from "@/lib/rbac/roles";
+import { getPersona, PERSONA_COOKIE, type Persona } from "./personas";
 import {
-  getPersona,
-  PERSONA_COOKIE,
-  type Persona,
-} from "./personas";
+  sessionFromPersona,
+  type MockSession,
+  type SessionTenant,
+} from "./types";
 
-export interface SessionTenant {
-  slug: string;
-  name_ar: string;
-  name_en: string;
-}
-
-export interface MockSession {
-  user: { name_ar: string; name_en: string };
-  roles: Role[];
-  tenant: SessionTenant;
-}
+export type { MockSession, SessionTenant } from "./types";
 
 interface SessionContextValue {
   session: MockSession;
@@ -42,17 +32,6 @@ interface SessionContextValue {
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null);
-
-export function sessionFromPersona(
-  persona: Persona,
-  tenant: SessionTenant
-): MockSession {
-  return {
-    user: { name_ar: persona.name_ar, name_en: persona.name_en },
-    roles: persona.roles,
-    tenant,
-  };
-}
 
 export function SessionProvider({
   initialPersonaId,
