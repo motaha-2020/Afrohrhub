@@ -275,6 +275,222 @@
       "description": "All requests have been processed."
     }
   },
+  "recruitment": {
+    "title": "🎯 Recruitment",
+    "subtitle": "Hiring requests, the 8-stage pipeline, and the talent pool",
+    "newRequest": "+ New Hiring Request",
+    "egp": "EGP",
+    "tabs": {
+      "requests": "Hiring Requests",
+      "pipeline": "Pipeline Board",
+      "talentPool": "Talent Pool"
+    },
+    "kpi": {
+      "openRequests": "Open Requests",
+      "openRequestsSub": "{count} × P0 critical",
+      "pendingApproval": "Pending Approval",
+      "pendingApprovalSub": "Same-day SLA",
+      "inPipeline": "Candidates in Pipeline",
+      "inPipelineSub": "{count} at final selection",
+      "openOffers": "Open Offers",
+      "openOffersSub": "{count} sent, awaiting reply"
+    },
+    "columns": {
+      "request": "Request",
+      "project": "Project",
+      "requestedBy": "Requested by",
+      "openings": "Openings",
+      "salaryRange": "Approved Range",
+      "priority": "Priority / SLA",
+      "status": "Status"
+    },
+    "requestTypes": {
+      "new_position": "New Position",
+      "replacement": "Replacement"
+    },
+    "statuses": {
+      "pending_approval": "Pending Approval",
+      "approved": "Approved",
+      "in_progress": "In Progress",
+      "filled": "Filled",
+      "cancelled": "Cancelled"
+    },
+    "stages": {
+      "hiring_request": "Hiring Request",
+      "sourcing_screening": "Sourcing & Screening",
+      "requester_review": "Requester Review",
+      "interviews": "Interviews",
+      "final_selection": "Final Selection",
+      "offer_issuance": "Offer Issuance",
+      "offer_acceptance": "Offer Acceptance",
+      "handover": "Handover"
+    },
+    "form": {
+      "title": "📝 New Hiring Request",
+      "subtitle": "Stage 1 — all fields are mandatory; the request enters the approval chain on submit",
+      "fields": {
+        "jobTitle": "Job title",
+        "openings": "Number of openings",
+        "project": "Project (code & name)",
+        "directManager": "Direct manager",
+        "workplace": "Workplace",
+        "salaryMin": "Approved salary — min",
+        "salaryMax": "Approved salary — max",
+        "qualifications": "Qualifications, skills & required experience",
+        "priority": "Priority",
+        "requestType": "Request type",
+        "replacedHrCode": "HR code of the departing employee"
+      },
+      "placeholders": {
+        "jobTitle": "e.g. Argon Welder",
+        "project": "Select a project…",
+        "directManager": "e.g. Eng. Mohamed Omar",
+        "qualifications": "3+ years experience, certified welder card, medically fit…"
+      },
+      "workplace": {
+        "site": "Site",
+        "office": "Office"
+      },
+      "priorities": {
+        "P0": "P0 — Critical / Immediate",
+        "P1": "P1 — Standard"
+      },
+      "requestTypes": {
+        "new_position": "New Position",
+        "replacement": "Replacement"
+      },
+      "replacementFound": "✓ Verified from Core HR: {name} — in offboarding",
+      "errors": {
+        "missingFields": "All fields are mandatory — the request cannot be submitted incomplete",
+        "salaryRange": "Maximum salary must be greater than or equal to the minimum",
+        "replacementNotFound": "No employee with this HR code was found in Core HR",
+        "replacementNotLeaving": "This employee is not in offboarding or archived — a replacement request requires a departing employee"
+      },
+      "approvalNote": "On submit the request enters the approval chain (same-day SLA) and appears in the Approvals inbox.",
+      "cancel": "Cancel",
+      "submit": "Submit for approval",
+      "success": {
+        "title": "Hiring request submitted",
+        "body": "The request entered the approval chain with a same-day SLA. You can track it from the hiring requests list or the approvals inbox.",
+        "backToList": "Back to requests",
+        "viewApprovals": "Approvals inbox"
+      }
+    },
+    "pipeline": {
+      "title": "🧭 Pipeline Board",
+      "subtitle": "{count} active candidates across the 8 stages of the manual",
+      "allRequests": "All hiring requests",
+      "handoverDone": "🤝 {name} handed over to Personnel — onboarding starts (Session 5)",
+      "emptyStage": "No candidates",
+      "openingsShort": "{count} openings",
+      "awaitingApproval": "Awaiting approval chain",
+      "match": "Match {pct}%",
+      "aboveRange": "⚠ Above range",
+      "handedOverBadge": "✓ Handed over",
+      "evalTech": "Tech",
+      "evalHse": "HSE",
+      "evalHr": "HR",
+      "offerSentNote": "Offer sent — {days} days left of the 30-day window",
+      "actions": {
+        "advance": "Advance →",
+        "sendOffer": "Generate offer",
+        "handover": "Handover 🤝"
+      },
+      "slaFootnote": "SLA per stage from the manual (P0/P1) — green > 24h · yellow < 24h · red < 4h or overdue. Breaches auto-escalate per the SLA engine."
+    },
+    "offerModal": {
+      "kicker": "Stage 6 — Job Offer Issuance",
+      "salaryLabel": "Offered salary (EGP)",
+      "startDateLabel": "Proposed start date",
+      "approvedRange": "Approved range: {min}–{max} EGP",
+      "aboveRange": "⚠ The offered salary is above the approved range — it will require an extra approval",
+      "includesTitle": "The generated offer email automatically includes:",
+      "includes": {
+        "letter": "Offer letter from the approved template (Arabic / English)",
+        "documents": "The 13 required documents checklist",
+        "training": "Required training & certificates for the role",
+        "deadline": "Acceptance link valid for 30 calendar days with automatic reminders"
+      },
+      "required": "Salary and start date are required",
+      "cancel": "Cancel",
+      "send": "Send offer 📨"
+    },
+    "rejectModal": {
+      "title": "Reject {name}",
+      "reasonLabel": "Rejection reason",
+      "reasonPlaceholder": "A reason is mandatory and is recorded on the candidate file…",
+      "required": "A rejection reason is required",
+      "poolNote": "The candidate is kept in the talent pool and a polite rejection email is sent automatically.",
+      "cancel": "Cancel",
+      "confirm": "Confirm rejection"
+    },
+    "talentPool": {
+      "title": "🗃 Talent Pool",
+      "subtitle": "{count} CVs in the searchable bank",
+      "searchPlaceholder": "🔍 Search by name, title, or skill…",
+      "allSources": "All sources",
+      "semanticNote": "Semantic search (pgvector) lands with the AI layer — Session 11",
+      "sources": {
+        "talent_pool": "Talent Pool",
+        "referral": "Referral",
+        "job_board": "Job Board",
+        "agency": "Agency",
+        "walk_in": "Walk-in"
+      },
+      "columns": {
+        "name": "Candidate",
+        "skills": "Skills",
+        "experience": "Experience",
+        "expectedSalary": "Expected Salary",
+        "lastContact": "Last Contact",
+        "source": "Source"
+      },
+      "years": "{count} yrs",
+      "egp": "EGP",
+      "neverContacted": "Never contacted",
+      "addToPipeline": "+ Add to pipeline",
+      "addedToPipeline": "✓ Added",
+      "empty": {
+        "title": "No matching CVs",
+        "description": "Try a different search term or source filter."
+      }
+    }
+  },
+  "offerPage": {
+    "invalid": {
+      "title": "Invalid or expired link",
+      "body": "This offer link is not valid. Contact the talent acquisition team for a new link."
+    },
+    "kicker": "Official Job Offer — Afro Egypt Contracting",
+    "greeting": "Dear {name}, we are pleased to offer you the following position",
+    "fields": {
+      "salary": "Monthly salary",
+      "project": "Project",
+      "startDate": "Proposed start date",
+      "workplace": "Workplace"
+    },
+    "egpMonthly": "EGP / month",
+    "workplace": {
+      "site": "Site",
+      "office": "Office"
+    },
+    "daysLeft": "⏳ {days} days left to respond",
+    "expired": "Offer expired",
+    "nextSteps": {
+      "title": "After acceptance",
+      "body": "You will receive the hiring email with the 13 required documents, the medical exam appointment (if applicable), and your first-day details."
+    },
+    "confirmDateLabel": "Confirm your start date",
+    "accept": "✓ Accept the offer",
+    "decline": "Decline",
+    "acceptedTitle": "Congratulations — offer accepted!",
+    "acceptedBody": "Your start date is confirmed for {date}. The talent acquisition team will contact you with the document checklist and first-day details.",
+    "declinedTitle": "Thank you for your time",
+    "declinedBody": "We have recorded your response. Your CV stays in our talent pool for future opportunities.",
+    "expiredTitle": "The 30-day window has passed",
+    "expiredBody": "This offer is no longer valid. Contact the talent acquisition team if you are still interested.",
+    "footer": "This page is secured with a personal token — no sign-in needed. Works in Arabic and English."
+  },
   "sla": {
     "title": "⏱ SLA Dashboard",
     "subtitle": "Track response deadlines across all modules",

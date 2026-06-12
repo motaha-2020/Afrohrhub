@@ -91,7 +91,7 @@ export const NAV_SECTIONS: NavSection[] = [
           "direct_manager",
           "pmo",
         ],
-        enabled: false,
+        enabled: true,
       },
       {
         key: "onboarding",

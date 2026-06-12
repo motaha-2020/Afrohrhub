@@ -68,12 +68,15 @@
 - [x] Supabase Auth scaffold — `lib/supabase/client.ts` + `server.ts`, login page (email + OTP UI), Supabase packages installed
 - [ ] Wire real Supabase Auth (replace mock session) — needs `.env.local` with Supabase project URL + anon key
 
-### Session 4 — Recruitment Module
-- [ ] Jobs listing & creation
-- [ ] Candidate pipeline (8 stages: Sourcing → Screening → Interview 1 → Interview 2 → Offer → Background Check → Accepted → Handover)
-- [ ] Talent pool management
-- [ ] Offer letter generation & candidate acceptance page
-- [ ] Handover-to-Onboarding flow
+### Session 4 — Recruitment Module ✅ DONE (2026-06-12)
+- [x] Hiring requests listing + KPI cards (`/recruitment`) — request code, project, openings filled/total, approved salary range, priority/SLA, status
+- [x] New Hiring Request form (`/recruitment/new`) — all Stage-1 mandatory fields from the manual; Replacement type validates the departing employee's HR code against Core HR (must exist + be offboarding/archived); P0/P1 priority picker; dashboard button wired
+- [x] Candidate pipeline board (`/recruitment/pipeline`) — 8-stage Kanban per the manual (Hiring Request → Sourcing & Screening → Requester Review → Interviews → Final Selection → Offer Issuance → Offer Acceptance → Handover), per-stage SLA countdowns (P0/P1 matrix), match %, above-salary-range flag, evaluation stars (Tech/HSE/HR), advance/reject (mandatory reason) actions, filter by request
+- [x] Offer generation modal — salary vs approved range warning, proposed start date, auto-included items (template letter, 13-document checklist, training requirements, 30-day acceptance link)
+- [x] Public candidate acceptance page (`/offer/[token]`) — tokenized, no sign-in, mobile-first, AR/EN, 30-day countdown, accept (confirm start date) / decline / expired states
+- [x] Talent pool (`/recruitment/talent-pool`) — search by name/title/skill, source filter, add-to-pipeline; semantic search marked for Session 11
+- [x] Handover-to-Onboarding flow — handover action on stage 8 marks the candidate handed over (Onboarding module consumes this in Session 5)
+- [x] Recruitment nav item enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
 
 ### Session 5 — Onboarding Module
 - [ ] 9-stage onboarding task board (per the manual)
@@ -147,11 +150,11 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 4: Recruitment Module**
+**Next up → Session 5: Onboarding Module**
 
-Session 3 is complete. The approval/SLA UI and notification drawer are live. The Supabase Auth scaffold is in place — needs `.env.local` with a real Supabase project to activate.
+Session 4 is complete. The full recruitment cycle is navigable: hiring request form (with replacement validation) → 8-stage pipeline with SLA countdowns → offer generation → public acceptance page → handover.
 
-Session 4 builds the Recruitment pipeline (8 stages) on top of the engines built in Session 3. Each pipeline stage transition will use the Approval Engine and SLA countdown components already built.
+Session 5 picks up exactly where the handover button leaves off: the 9-stage onboarding task board, the activation portal with the 6 manual conditions (`fn_can_activate()`), hiring email + contract generation (Claude API), and the candidate-to-Active-Employee promotion flow.
 
 ---
 
@@ -163,7 +166,7 @@ Session 4 builds the Recruitment pipeline (8 stages) on top of the engines built
 | DB Schema | 2026-06-12 | 10 migrations, 52 tables, RLS, seeds (PostgreSQL 16 verified) | Done |
 | Frontend Foundation | 2026-06-12 | App shell, i18n, RBAC, 3 screens, mock data layer (build passes) | Done |
 | Engines & Notifications | 2026-06-12 | Approval Engine UI, SLA Dashboard, Notifications Drawer, Supabase Auth scaffold | Done |
-| Recruitment | — | 8-stage pipeline, offers, talent pool | Pending |
+| Recruitment | 2026-06-12 | 8-stage pipeline, offers + public acceptance page, talent pool, handover | Done |
 | Onboarding | — | 9 stages, activation, contracts | Pending |
 | Payroll | — | Monthly cycle, payslips, tax/insurance | Pending |
 | Allowances + KPI | — | Allowance cycles, KPI scoring, cost reports | Pending |

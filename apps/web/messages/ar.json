@@ -275,6 +275,222 @@
       "description": "جميع الطلبات تمت معالجتها."
     }
   },
+  "recruitment": {
+    "title": "🎯 التوظيف",
+    "subtitle": "طلبات التوظيف، الـ Pipeline بالمراحل الثمانية، وبنك السير الذاتية",
+    "newRequest": "+ طلب توظيف جديد",
+    "egp": "ج.م",
+    "tabs": {
+      "requests": "طلبات التوظيف",
+      "pipeline": "لوحة الـ Pipeline",
+      "talentPool": "بنك السير الذاتية"
+    },
+    "kpi": {
+      "openRequests": "طلبات مفتوحة",
+      "openRequestsSub": "{count} × P0 حرجة",
+      "pendingApproval": "بانتظار الاعتماد",
+      "pendingApprovalSub": "SLA نفس اليوم",
+      "inPipeline": "مرشحون في الـ Pipeline",
+      "inPipelineSub": "{count} في الاختيار النهائي",
+      "openOffers": "عروض مفتوحة",
+      "openOffersSub": "{count} مُرسلة بانتظار الرد"
+    },
+    "columns": {
+      "request": "الطلب",
+      "project": "المشروع",
+      "requestedBy": "مقدم الطلب",
+      "openings": "الشواغر",
+      "salaryRange": "النطاق المعتمد",
+      "priority": "الأولوية / SLA",
+      "status": "الحالة"
+    },
+    "requestTypes": {
+      "new_position": "وظيفة جديدة",
+      "replacement": "إحلال"
+    },
+    "statuses": {
+      "pending_approval": "بانتظار الاعتماد",
+      "approved": "معتمد",
+      "in_progress": "جارٍ التوظيف",
+      "filled": "اكتمل",
+      "cancelled": "أُلغي"
+    },
+    "stages": {
+      "hiring_request": "طلب التوظيف",
+      "sourcing_screening": "الفرز والترشيح",
+      "requester_review": "مراجعة الطالب",
+      "interviews": "المقابلات",
+      "final_selection": "الاختيار النهائي",
+      "offer_issuance": "إصدار العرض",
+      "offer_acceptance": "قبول العرض",
+      "handover": "التسليم"
+    },
+    "form": {
+      "title": "📝 طلب توظيف جديد",
+      "subtitle": "المرحلة 1 — جميع الحقول إلزامية؛ لا يُرسل الطلب ناقصاً ويدخل مسار الاعتماد فور الإرسال",
+      "fields": {
+        "jobTitle": "المسمى الوظيفي",
+        "openings": "عدد الشواغر",
+        "project": "المشروع (الكود والاسم)",
+        "directManager": "المدير المباشر",
+        "workplace": "مكان العمل",
+        "salaryMin": "النطاق المعتمد — الحد الأدنى",
+        "salaryMax": "النطاق المعتمد — الحد الأقصى",
+        "qualifications": "المؤهلات والمهارات والخبرة المطلوبة",
+        "priority": "الأولوية",
+        "requestType": "نوع الطلب",
+        "replacedHrCode": "HR Code للموظف المستقيل"
+      },
+      "placeholders": {
+        "jobTitle": "مثال: لحّام أرجون",
+        "project": "اختر المشروع…",
+        "directManager": "مثال: م. محمد عمر",
+        "qualifications": "خبرة 3+ سنوات، شهادة لحام معتمدة، لياقة طبية…"
+      },
+      "workplace": {
+        "site": "موقع",
+        "office": "مكتب"
+      },
+      "priorities": {
+        "P0": "P0 — حرج / فوري",
+        "P1": "P1 — قياسي"
+      },
+      "requestTypes": {
+        "new_position": "وظيفة جديدة",
+        "replacement": "إحلال"
+      },
+      "replacementFound": "✓ تم التحقق من Core HR: ‏{name} — في حالة إنهاء خدمة",
+      "errors": {
+        "missingFields": "جميع الحقول إلزامية — لا يُرسل الطلب ناقصاً",
+        "salaryRange": "الحد الأقصى للراتب يجب ألا يقل عن الحد الأدنى",
+        "replacementNotFound": "لا يوجد موظف بهذا الكود في Core HR",
+        "replacementNotLeaving": "هذا الموظف ليس في حالة إنهاء خدمة أو مؤرشف — طلب الإحلال يستلزم موظفاً مستقيلاً"
+      },
+      "approvalNote": "بعد الإرسال يدخل الطلب مسار الاعتماد (SLA نفس اليوم) ويظهر في صندوق الاعتمادات.",
+      "cancel": "إلغاء",
+      "submit": "إرسال للاعتماد",
+      "success": {
+        "title": "تم إرسال طلب التوظيف",
+        "body": "دخل الطلب مسار الاعتماد بمهلة نفس اليوم. يمكنك متابعته من قائمة طلبات التوظيف أو صندوق الاعتمادات.",
+        "backToList": "العودة للطلبات",
+        "viewApprovals": "صندوق الاعتمادات"
+      }
+    },
+    "pipeline": {
+      "title": "🧭 لوحة الـ Pipeline",
+      "subtitle": "{count} مرشحاً نشطاً عبر المراحل الثمانية من الدليل",
+      "allRequests": "كل طلبات التوظيف",
+      "handoverDone": "🤝 تم تسليم {name} لشؤون العاملين — يبدأ الـ Onboarding (الجلسة 5)",
+      "emptyStage": "لا مرشحين",
+      "openingsShort": "{count} شواغر",
+      "awaitingApproval": "بانتظار مسار الاعتماد",
+      "match": "تطابق {pct}٪",
+      "aboveRange": "⚠ أعلى من النطاق",
+      "handedOverBadge": "✓ تم التسليم",
+      "evalTech": "فني",
+      "evalHse": "HSE",
+      "evalHr": "HR",
+      "offerSentNote": "العرض مُرسل — متبقٍ {days} يوماً من مهلة الـ 30",
+      "actions": {
+        "advance": "← المرحلة التالية",
+        "sendOffer": "توليد العرض",
+        "handover": "تسليم 🤝"
+      },
+      "slaFootnote": "عدّاد SLA لكل مرحلة من الدليل (P0/P1) — أخضر > 24س · أصفر < 24س · أحمر < 4س أو متأخر. التجاوز يُصعَّد تلقائياً وفق محرك الـ SLA."
+    },
+    "offerModal": {
+      "kicker": "المرحلة 6 — إصدار عرض العمل",
+      "salaryLabel": "الراتب المعروض (ج.م)",
+      "startDateLabel": "تاريخ المباشرة المقترح",
+      "approvedRange": "النطاق المعتمد: {min}–{max} ج.م",
+      "aboveRange": "⚠ الراتب المعروض أعلى من النطاق المعتمد — سيتطلب اعتماداً إضافياً",
+      "includesTitle": "إيميل العرض المُولَّد يتضمن تلقائياً:",
+      "includes": {
+        "letter": "خطاب العرض من القالب المعتمد (عربي / إنجليزي)",
+        "documents": "قائمة المستندات المطلوبة الـ 13",
+        "training": "متطلبات التدريب والشهادات للدور",
+        "deadline": "رابط قبول صالح 30 يوماً تقويمياً مع تذكيرات تلقائية"
+      },
+      "required": "الراتب وتاريخ المباشرة إلزاميان",
+      "cancel": "إلغاء",
+      "send": "إرسال العرض 📨"
+    },
+    "rejectModal": {
+      "title": "رفض {name}",
+      "reasonLabel": "سبب الرفض",
+      "reasonPlaceholder": "السبب إلزامي ويُسجَّل في ملف المرشح…",
+      "required": "سبب الرفض إلزامي",
+      "poolNote": "يُحتفظ بالمرشح في بنك السير الذاتية ويُرسل له رد رفض مهذب تلقائياً.",
+      "cancel": "إلغاء",
+      "confirm": "تأكيد الرفض"
+    },
+    "talentPool": {
+      "title": "🗃 بنك السير الذاتية",
+      "subtitle": "{count} سيرة ذاتية في البنك القابل للبحث",
+      "searchPlaceholder": "🔍 ابحث بالاسم أو المسمى أو المهارة…",
+      "allSources": "كل المصادر",
+      "semanticNote": "البحث الدلالي (pgvector) يصل مع طبقة الذكاء الاصطناعي — الجلسة 11",
+      "sources": {
+        "talent_pool": "بنك السير",
+        "referral": "ترشيح داخلي",
+        "job_board": "موقع توظيف",
+        "agency": "مكتب توظيف",
+        "walk_in": "تقديم مباشر"
+      },
+      "columns": {
+        "name": "المرشح",
+        "skills": "المهارات",
+        "experience": "الخبرة",
+        "expectedSalary": "الراتب المتوقع",
+        "lastContact": "آخر تواصل",
+        "source": "المصدر"
+      },
+      "years": "{count} سنوات",
+      "egp": "ج.م",
+      "neverContacted": "لم يُتواصل معه",
+      "addToPipeline": "+ إضافة للـ Pipeline",
+      "addedToPipeline": "✓ أُضيف",
+      "empty": {
+        "title": "لا سير ذاتية مطابقة",
+        "description": "جرّب كلمة بحث أخرى أو غيّر فلتر المصدر."
+      }
+    }
+  },
+  "offerPage": {
+    "invalid": {
+      "title": "رابط غير صالح أو منتهٍ",
+      "body": "رابط العرض هذا غير صالح. تواصل مع فريق التوظيف للحصول على رابط جديد."
+    },
+    "kicker": "عرض عمل رسمي — أفرو إيجيبت للمقاولات",
+    "greeting": "عزيزي {name}، يسعدنا أن نقدم لك العرض التالي",
+    "fields": {
+      "salary": "الراتب الشهري",
+      "project": "المشروع",
+      "startDate": "تاريخ المباشرة المقترح",
+      "workplace": "مكان العمل"
+    },
+    "egpMonthly": "ج.م / شهرياً",
+    "workplace": {
+      "site": "موقع",
+      "office": "مكتب"
+    },
+    "daysLeft": "⏳ متبقٍ {days} يوماً للرد",
+    "expired": "انتهت صلاحية العرض",
+    "nextSteps": {
+      "title": "بعد القبول",
+      "body": "ستصلك رسالة التعيين بقائمة المستندات الـ 13 المطلوبة، وموعد الكشف الطبي (إن وُجد)، وتفاصيل يومك الأول."
+    },
+    "confirmDateLabel": "أكّد تاريخ المباشرة",
+    "accept": "✓ أقبل العرض",
+    "decline": "أعتذر عن العرض",
+    "acceptedTitle": "مبروك — تم قبول العرض!",
+    "acceptedBody": "تم تأكيد مباشرتك يوم {date}. سيتواصل معك فريق التوظيف بقائمة المستندات وتفاصيل اليوم الأول.",
+    "declinedTitle": "شكراً لوقتك",
+    "declinedBody": "سجلنا ردك. تبقى سيرتك الذاتية في بنك السير لدينا للفرص القادمة.",
+    "expiredTitle": "انقضت مهلة الـ 30 يوماً",
+    "expiredBody": "هذا العرض لم يعد صالحاً. تواصل مع فريق التوظيف إن كنت لا تزال مهتماً.",
+    "footer": "هذه الصفحة مؤمَّنة برمز شخصي — بلا تسجيل دخول. تعمل بالعربية والإنجليزية."
+  },
   "sla": {
     "title": "⏱ لوحة الـ SLA",
     "subtitle": "تتبع مواعيد الاستجابة لكل الموديولات",

@@ -234,6 +234,140 @@ export interface ApprovalTask extends BaseRow {
 }
 
 export type SlaPriority = "P0" | "P1";
+
+/* --------------------------- Recruitment --------------------------- */
+
+/** The 8 pipeline stages from the manual (docs/modules/02-recruitment.md). */
+export type RecruitmentStage =
+  | "hiring_request"
+  | "sourcing_screening"
+  | "requester_review"
+  | "interviews"
+  | "final_selection"
+  | "offer_issuance"
+  | "offer_acceptance"
+  | "handover";
+
+export const RECRUITMENT_STAGES: RecruitmentStage[] = [
+  "hiring_request",
+  "sourcing_screening",
+  "requester_review",
+  "interviews",
+  "final_selection",
+  "offer_issuance",
+  "offer_acceptance",
+  "handover",
+];
+
+export type HiringRequestStatus =
+  | "pending_approval"
+  | "approved"
+  | "in_progress"
+  | "filled"
+  | "cancelled";
+
+export type HiringRequestType = "new_position" | "replacement";
+
+export type WorkplaceType = "office" | "site";
+
+export interface HiringRequest extends BaseRow {
+  request_code: string;
+  job_title_ar: string;
+  job_title_en: string;
+  openings: number;
+  filled: number;
+  project_id: string;
+  direct_manager_name_ar: string;
+  direct_manager_name_en: string;
+  workplace: WorkplaceType;
+  salary_min: number;
+  salary_max: number;
+  qualifications_ar: string;
+  qualifications_en: string;
+  priority: SlaPriority;
+  request_type: HiringRequestType;
+  /** Replacement only — validated against Core HR. */
+  replaced_hr_code: string | null;
+  replaced_employee_name_ar: string | null;
+  replaced_employee_name_en: string | null;
+  status: HiringRequestStatus;
+  requested_by_name_ar: string;
+  requested_by_name_en: string;
+  requested_at: string;
+}
+
+export type CandidateSource =
+  | "talent_pool"
+  | "referral"
+  | "job_board"
+  | "agency"
+  | "walk_in";
+
+export type CandidateStatus = "active" | "rejected" | "handed_over";
+
+/** Digital evaluation forms — Stage 4 (technical / HSE / HR). */
+export interface CandidateEvaluation {
+  /** 1–5 per the manual's scoring forms. */
+  technical: number | null;
+  /** Safety-sensitive roles only. */
+  hse: number | null;
+  hr: number | null;
+  recommendation_ar: string | null;
+  recommendation_en: string | null;
+}
+
+export interface Candidate extends BaseRow {
+  hiring_request_id: string;
+  name_ar: string;
+  name_en: string;
+  mobile: string;
+  email: string | null;
+  source: CandidateSource;
+  years_experience: number;
+  /** Phone-screen salary expectation — auto-compared to the approved range. */
+  expected_salary: number;
+  /** Notice period / availability in days. */
+  readiness_days: number;
+  /** AI matching score (Session 11 fills this for real). */
+  match_pct: number;
+  stage: RecruitmentStage;
+  stage_entered_at: string;
+  sla_hours_remaining: number;
+  status: CandidateStatus;
+  rejection_reason_ar: string | null;
+  rejection_reason_en: string | null;
+  evaluation: CandidateEvaluation;
+}
+
+export type OfferStatus = "draft" | "sent" | "accepted" | "declined" | "expired";
+
+export interface JobOffer extends BaseRow {
+  candidate_id: string;
+  status: OfferStatus;
+  offered_salary: number;
+  proposed_start_date: string;
+  sent_at: string | null;
+  /** 30 calendar days from sending (manual hard limit). */
+  expires_at: string | null;
+  responded_at: string | null;
+  /** Public acceptance-page token (no-login link sent to the candidate). */
+  token: string;
+}
+
+/** Searchable CV bank — Stage 2 sourcing (semantic search in Session 11). */
+export interface TalentPoolEntry extends BaseRow {
+  name_ar: string;
+  name_en: string;
+  title_ar: string;
+  title_en: string;
+  years_experience: number;
+  skills: string[];
+  expected_salary: number | null;
+  mobile: string;
+  source: CandidateSource;
+  last_contacted_at: string | null;
+  cv_path: string | null;
+}
 export type SlaStatus = "on_time" | "warning" | "breach";
 export type SlaModule =
   | "recruitment"
