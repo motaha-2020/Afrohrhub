@@ -30,10 +30,15 @@ const STATUS_VALUES: EmployeeStatus[] = [
 ];
 const COLLAR_VALUES: Collar[] = ["white", "blue"];
 
+type Translator = (
+  key: string,
+  values?: Record<string, string | number>
+) => string;
+
 function docBadge(
   item: EmployeeListItem,
   locale: string,
-  t: Awaited<ReturnType<typeof getTranslations<"employees">>>
+  t: Translator
 ): { variant: BadgeVariant; text: string } {
   const d = item.documents;
   if (item.employee.status === "offboarding" && d.assets_to_return) {

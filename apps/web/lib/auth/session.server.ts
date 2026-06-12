@@ -6,7 +6,7 @@ import {
   PERSONA_COOKIE,
   type Persona,
 } from "./personas";
-import { sessionFromPersona, type MockSession } from "./session";
+import { sessionFromPersona, type MockSession } from "./types";
 import { MOCK_TENANT } from "@/lib/data/mock/seed";
 
 /**
