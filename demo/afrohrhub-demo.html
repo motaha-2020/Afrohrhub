@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AfroHR Hub — ديمو تفاعلي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1a56db; --primary-dark:#1340a3; --primary-light:#e8f0fe;
+  --sidebar:#0f1f3d; --sidebar-hover:#1b3263;
+  --bg:#f4f6fa; --card:#fff; --border:#e5e9f0;
+  --text:#1b2430; --muted:#6b7686;
+  --green:#0e9f6e; --green-bg:#e6f6f0; --yellow:#c27803; --yellow-bg:#fdf6e3;
+  --red:#e02424; --red-bg:#fde8e8; --blue-bg:#e8f0fe; --purple:#7e3af2; --purple-bg:#f1e9fe;
+  --radius:12px; --shadow:0 1px 3px rgba(16,24,40,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',Tahoma,sans-serif}
+body{background:var(--bg);color:var(--text);font-size:14px}
+/* ===== Layout ===== */
+.app{display:flex;min-height:100vh}
+.sidebar{width:248px;background:var(--sidebar);color:#cbd5e8;position:fixed;top:0;bottom:0;right:0;overflow-y:auto;z-index:50}
+.main{margin-right:248px;flex:1;display:flex;flex-direction:column;min-width:0}
+.logo{display:flex;align-items:center;gap:10px;padding:18px 20px;border-bottom:1px solid #1c2f57}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7e3af2);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:16px}
+.logo b{color:#fff;font-size:16px}.logo small{display:block;font-size:10px;color:#8da2c8}
+.nav-sec{padding:14px 20px 4px;font-size:10px;letter-spacing:1px;color:#7187b3;font-weight:700}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 20px;color:#cbd5e8;text-decoration:none;font-size:13.5px;border-right:3px solid transparent;cursor:pointer}
+.nav a:hover{background:var(--sidebar-hover)}
+.nav a.active{background:var(--sidebar-hover);color:#fff;border-right-color:#4f8df9;font-weight:700}
+.nav a .ic{width:20px;text-align:center;font-size:15px}
+.nav a .pill{margin-right:auto;background:#e02424;color:#fff;font-size:10px;border-radius:99px;padding:0 7px;font-weight:700}
+.topbar{height:60px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 24px;position:sticky;top:0;z-index:40}
+.search{flex:1;max-width:420px;background:var(--bg);border:1px solid var(--border);border-radius:99px;padding:8px 16px;color:var(--muted);font-size:13px}
+.top-actions{margin-right:auto;display:flex;align-items:center;gap:14px}
+.bell{position:relative;font-size:18px;cursor:pointer}
+.bell .dot{position:absolute;top:-4px;left:-6px;background:var(--red);color:#fff;font-size:9px;border-radius:99px;padding:1px 5px;font-weight:700}
+.avatar{width:36px;height:36px;border-radius:99px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.who{font-size:12px;line-height:1.3}.who b{display:block;font-size:13px}
+.content{padding:24px;max-width:1280px;width:100%}
+.demo-note{background:#fff8e6;border:1px solid #f3d27a;color:#8a6100;border-radius:var(--radius);padding:10px 16px;margin-bottom:18px;font-size:12.5px}
+/* ===== Components ===== */
+.page-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.page-head h1{font-size:21px}
+.page-head p{color:var(--muted);font-size:12.5px}
+.btn{border:none;border-radius:9px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.btn-p{background:var(--primary);color:#fff}.btn-p:hover{background:var(--primary-dark)}
+.btn-o{background:#fff;color:var(--primary);border:1.5px solid var(--primary)}
+.btn-g{background:var(--green);color:#fff}.btn-r{background:#fff;color:var(--red);border:1.5px solid var(--red)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.cards{display:grid;gap:16px;margin-bottom:20px}
+.cards-4{grid-template-columns:repeat(4,1fr)}.cards-3{grid-template-columns:repeat(3,1fr)}.cards-2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.kpi .lbl{color:var(--muted);font-size:12px;font-weight:600}
+.kpi .val{font-size:26px;font-weight:800;margin:4px 0}
+.kpi .sub{font-size:11.5px}
+.up{color:var(--green)}.down{color:var(--red)}
+.card h3{font-size:14.5px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.card h3 a{font-size:11.5px;color:var(--primary);text-decoration:none;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:right;color:var(--muted);font-size:11.5px;font-weight:700;padding:8px 10px;border-bottom:1.5px solid var(--border);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfd}
+.badge{display:inline-block;border-radius:99px;padding:2px 11px;font-size:11px;font-weight:700;white-space:nowrap}
+.b-green{background:var(--green-bg);color:var(--green)}.b-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--primary)}
+.b-purple{background:var(--purple-bg);color:var(--purple)}.b-gray{background:#eef1f5;color:var(--muted)}
+.emp{display:flex;align-items:center;gap:10px}
+.emp .av{width:34px;height:34px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0}
+.emp small{display:block;color:var(--muted);font-size:11px}
+.filters{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.filters select,.filters input{border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:inherit;font-size:12.5px;background:#fff;color:var(--text)}
+.bar{height:7px;background:#edf0f5;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px}
+/* SLA chip */
+.sla{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;border-radius:8px;padding:3px 9px}
+.sla::before{content:'⏱'}
+/* Stepper */
+.stepper{display:flex;align-items:flex-start;overflow-x:auto;padding:6px 0 14px;gap:0}
+.step{flex:1;min-width:96px;text-align:center;position:relative;font-size:11px;color:var(--muted)}
+.step::before{content:'';position:absolute;top:14px;right:50%;width:100%;height:3px;background:#e3e8f0;z-index:0}
+.step:first-child::before{display:none}
+.step .dot{width:30px;height:30px;border-radius:99px;background:#e3e8f0;color:var(--muted);display:flex;align-items:center;justify-content:center;font-weight:800;margin:0 auto 6px;position:relative;z-index:1;font-size:12px}
+.step.done .dot{background:var(--green);color:#fff}.step.done::before{background:var(--green)}
+.step.cur .dot{background:var(--primary);color:#fff;box-shadow:0 0 0 4px var(--primary-light)}.step.cur::before{background:var(--green)}
+.step.cur{color:var(--primary);font-weight:700}
+/* Kanban */
+.kanban{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px}
+.kcol{background:#eef1f6;border-radius:var(--radius);min-width:230px;max-width:230px;padding:12px}
+.kcol h4{font-size:12.5px;display:flex;justify-content:space-between;margin-bottom:10px;color:#3a4860}
+.kcol h4 span{background:#fff;border-radius:99px;padding:0 8px;font-size:11px}
+.kcard{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:var(--shadow);cursor:pointer}
+.kcard b{font-size:12.5px;display:block}
+.kcard small{color:var(--muted);font-size:11px;display:block;margin:2px 0 6px}
+/* Checklist */
+.chk{list-style:none}
+.chk li{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px dashed var(--border);font-size:13px}
+.chk li:last-child{border:none}
+.chk .st{width:21px;height:21px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:800}
+.st-ok{background:var(--green);color:#fff}.st-no{background:#eef1f5;color:var(--muted)}.st-warn{background:var(--yellow);color:#fff}.st-x{background:var(--red);color:#fff}
+.chk .meta{margin-right:auto;font-size:11px;color:var(--muted)}
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:18px;overflow-x:auto}
+.tabs button{border:none;background:none;padding:10px 16px;font-family:inherit;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tabs button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:800}
+/* Timeline */
+.tl{list-style:none;position:relative;padding-right:22px}
+.tl::before{content:'';position:absolute;right:7px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.tl li{position:relative;padding:0 0 18px}
+.tl li::before{content:'';position:absolute;right:-21px;top:5px;width:12px;height:12px;border-radius:99px;background:var(--primary);border:2.5px solid #fff;box-shadow:0 0 0 2px var(--primary-light)}
+.tl b{font-size:13px}.tl small{display:block;color:var(--muted);font-size:11.5px}
+/* Phone mock */
+.phone-wrap{display:flex;gap:30px;align-items:flex-start;flex-wrap:wrap}
+.phone{width:330px;background:#0b1220;border-radius:38px;padding:14px;box-shadow:0 18px 50px rgba(10,20,50,.3);flex-shrink:0}
+.phone .scr{background:var(--bg);border-radius:26px;overflow:hidden;min-height:600px}
+.p-head{background:linear-gradient(135deg,var(--primary),#7e3af2);color:#fff;padding:38px 18px 16px;border-radius:0 0 22px 22px}
+.p-head small{opacity:.85;font-size:11px}
+.p-head .row{display:flex;justify-content:space-between;align-items:center}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+.p-tile{background:#fff;border-radius:16px;padding:16px 12px;text-align:center;border:1px solid var(--border);cursor:pointer}
+.p-tile .em{font-size:26px}
+.p-tile b{display:block;font-size:13px;margin-top:6px}
+.p-tile small{color:var(--muted);font-size:10.5px}
+.checkin{margin:4px 16px 14px;background:#fff;border-radius:18px;padding:16px;text-align:center;border:1px solid var(--border)}
+.checkin .big{width:108px;height:108px;border-radius:99px;border:none;background:var(--green);color:#fff;font-family:inherit;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 8px 22px rgba(14,159,110,.4)}
+.checkin .big.out{background:var(--red);box-shadow:0 8px 22px rgba(224,36,36,.35)}
+.wapp{max-width:330px;background:#e7f8ef;border:1px solid #bfe8d2;border-radius:14px;padding:14px;font-size:12.5px}
+.wapp .h{display:flex;gap:8px;align-items:center;font-weight:800;color:#0c6b43;margin-bottom:8px}
+.wapp .msg{background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;box-shadow:var(--shadow)}
+.wapp .msg small{color:var(--muted);font-size:10px;display:block;text-align:left}
+/* Toast */
+#toast{position:fixed;bottom:24px;left:24px;background:#0f1f3d;color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;opacity:0;transform:translateY(15px);transition:.3s;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+#toast.show{opacity:1;transform:none}
+/* misc */
+.grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.grid-2e{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.chart{display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:10px}
+.chart .c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;font-size:10.5px;color:var(--muted)}
+.chart .c i{width:100%;background:linear-gradient(180deg,#4f8df9,var(--primary));border-radius:6px 6px 0 0;display:block}
+.screen{display:none}.screen.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.note-sm{font-size:11.5px;color:var(--muted);margin-top:8px}
+.alert{border-radius:10px;padding:10px 14px;font-size:12.5px;margin-bottom:12px;font-weight:600}
+.al-red{background:var(--red-bg);color:var(--red);border:1px solid #f5c2c2}
+.al-yellow{background:var(--yellow-bg);color:var(--yellow);border:1px solid #ecd9a0}
+.al-green{background:var(--green-bg);color:var(--green);border:1px solid #b8e6d3}
+.lock{font-size:12px;color:var(--muted)}
+@media(max-width:1100px){.cards-4{grid-template-columns:1fr 1fr}.grid-2,.grid-2e{grid-template-columns:1fr}.sidebar{display:none}.main{margin-right:0}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+  <div class="logo"><div class="logo-mark">A</div><div><b>AfroHR Hub</b><small>أفرو إيجيبت للمقاولات</small></div></div>
+  <nav class="nav">
+    <div class="nav-sec">عام</div>
+    <a data-s="dash" class="active"><span class="ic">📊</span> لوحة المعلومات</a>
+    <a data-s="approvals"><span class="ic">✅</span> اعتماداتي <span class="pill">4</span></a>
+    <a data-s="sla"><span class="ic">⏱</span> لوحة الـ SLA <span class="pill">3</span></a>
+    <div class="nav-sec">دورة حياة الموظف</div>
+    <a data-s="employees"><span class="ic">👥</span> الموظفون</a>
+    <a data-s="profile"><span class="ic">🪪</span> ملف موظف 360°</a>
+    <a data-s="recruit"><span class="ic">🎯</span> التوظيف</a>
+    <a data-s="onboard"><span class="ic">🚀</span> الـ Onboarding</a>
+    <a data-s="offboard"><span class="ic">📦</span> الـ Offboarding</a>
+    <div class="nav-sec">المالية والعمليات</div>
+    <a data-s="payroll"><span class="ic">💰</span> الرواتب والبدلات</a>
+    <a data-s="attendance"><span class="ic">📍</span> الحضور</a>
+    <a data-s="leave"><span class="ic">🏖</span> الإجازات</a>
+    <div class="nav-sec">بوابة الموظف</div>
+    <a data-s="ess"><span class="ic">📱</span> تطبيق ESS (موبايل)</a>
+    <div class="nav-sec">النظام</div>
+    <a data-s="settings"><span class="ic">⚙️</span> الإعدادات</a>
+  </nav>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+<header class="topbar">
+  <input class="search" placeholder="🔍 ابحث بالاسم أو كود HR أو الرقم القومي…">
+  <div class="top-actions">
+    <span class="bell" onclick="toast('🔔 7 إشعارات جديدة — أحدثها: مستند فيش جنائي ينتهي خلال 7 أيام لـ كريم فوزي')">🔔<span class="dot">7</span></span>
+    <div class="who"><b>منى طه</b>HR Manager</div>
+    <div class="avatar">م ط</div>
+  </div>
+</header>
+<main class="content">
+<div class="demo-note">🧪 <b>نسخة ديمو تفاعلية</b> — كل البيانات تجريبية. تنقّل بين الشاشات من القائمة الجانبية، وجرّب الأزرار والتبويبات. هذا تصور لشكل المنتج النهائي وفق وثائق التصميم.</div>
+
+<!-- ======== 1) DASHBOARD ======== -->
+<section class="screen active" id="s-dash">
+  <div class="page-head"><div><h1>صباح الخير يا منى 👋</h1><p>الخميس 12 يونيو 2026 — إليك ملخص اليوم في أفرو إيجيبت</p></div><button class="btn btn-p" onclick="go('recruit')">+ طلب توظيف جديد</button></div>
+  <div class="cards cards-4">
+    <div class="card kpi"><div class="lbl">إجمالي الموظفين النشطين</div><div class="val">3,247</div><div class="sub up">▲ 38 هذا الشهر</div></div>
+    <div class="card kpi"><div class="lbl">طلبات توظيف مفتوحة</div><div class="val">14</div><div class="sub"><span class="badge b-red">5 × P0 حرجة</span></div></div>
+    <div class="card kpi"><div class="lbl">Onboarding جارية</div><div class="val">23</div><div class="sub up">9 جاهزة للتفعيل</div></div>
+    <div class="card kpi"><div class="lbl">دورة رواتب يونيو</div><div class="val">20–23</div><div class="sub"><span class="badge b-yellow">مرحلة الاستقطاعات</span></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>⏱ مراحل تقترب من تجاوز الـ SLA <a onclick="go('sla')" href="#">عرض الكل ←</a></h3>
+      <table>
+        <tr><th>الكيان</th><th>المرحلة</th><th>الأولوية</th><th>المتبقي</th></tr>
+        <tr><td>طلب #HR-118 — مهندس كهرباء باور</td><td>الفرز والترشيح</td><td><span class="badge b-red">P0</span></td><td><span class="sla" style="background:var(--red-bg);color:var(--red)">متأخر 6 ساعات</span></td></tr>
+        <tr><td>عرض عمل — م. حسام الديب</td><td>قبول العرض (30 يوم)</td><td><span class="badge b-blue">P1</span></td><td><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">باقي 3 أيام</span></td></tr>
+        <tr><td>Onboarding — أحمد رجب (ريجر)</td><td>متطلبات HSE</td><td><span class="badge b-red">P0</span></td><td><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">باقي يومان</span></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>✅ بانتظار اعتمادك <a onclick="go('approvals')" href="#">صندوق الاعتمادات ←</a></h3>
+      <ul class="chk">
+        <li><span class="st st-warn">!</span> طلب توظيف: 4 فنيي لحام — كوبري النيل أسيوط <span class="meta">منذ ساعتين</span></li>
+        <li><span class="st st-warn">!</span> سلفة 8,000 ج — محمود النجار <span class="meta">منذ 5 ساعات</span></li>
+        <li><span class="st st-warn">!</span> تسوية نهائية — خالد منصور <span class="meta">أمس</span></li>
+        <li><span class="st st-warn">!</span> إجازة 5 أيام — م. سارة عادل <span class="meta">أمس</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid-2e" style="margin-top:16px">
+    <div class="card">
+      <h3>📈 التعيينات مقابل المغادرات (6 أشهر)</h3>
+      <div class="chart">
+        <div class="c"><i style="height:42%"></i>يناير</div><div class="c"><i style="height:58%"></i>فبراير</div>
+        <div class="c"><i style="height:35%"></i>مارس</div><div class="c"><i style="height:72%"></i>أبريل</div>
+        <div class="c"><i style="height:65%"></i>مايو</div><div class="c"><i style="height:88%"></i>يونيو</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🏗 توزيع الموظفين بالمشروع</h3>
+      <table>
+        <tr><td>محطة محولات بنبان 500 ك.ف <small style="color:var(--muted)">(PRJ-014)</small></td><td style="width:38%"><div class="bar"><i style="width:84%;background:var(--primary)"></i></div></td><td><b>1,120</b></td></tr>
+        <tr><td>أبراج العلمين الجديدة <small style="color:var(--muted)">(PRJ-009)</small></td><td><div class="bar"><i style="width:62%;background:#7e3af2"></i></div></td><td><b>846</b></td></tr>
+        <tr><td>كوبري النيل — أسيوط <small style="color:var(--muted)">(PRJ-021)</small></td><td><div class="bar"><i style="width:47%;background:var(--green)"></i></div></td><td><b>633</b></td></tr>
+        <tr><td>مصنع أسمنت العين السخنة <small style="color:var(--muted)">(PRJ-017)</small></td><td><div class="bar"><i style="width:33%;background:var(--yellow)"></i></div></td><td><b>451</b></td></tr>
+        <tr><td>المكتب الرئيسي — القاهرة</td><td><div class="bar"><i style="width:15%;background:#94a3b8"></i></div></td><td><b>197</b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 2) EMPLOYEES ======== -->
+<section class="screen" id="s-employees">
+  <div class="page-head"><div><h1>👥 دليل الموظفين</h1><p>3,247 موظفاً نشطاً · 41 قيد التفعيل · 12 في إجراءات خروج</p></div>
+  <div><button class="btn btn-o" onclick="toast('📥 فتح معالج استيراد Excel — خريطة أعمدة + فحص أخطاء + Dry-Run')">استيراد Excel</button> <button class="btn btn-p" onclick="toast('➕ نموذج إضافة موظف يدوياً')">+ موظف جديد</button></div></div>
+  <div class="filters">
+    <select><option>كل المشاريع</option><option>بنبان 500 ك.ف</option><option>أبراج العلمين</option><option>كوبري أسيوط</option></select>
+    <select><option>كل الحالات</option><option>Active</option><option>Pending</option><option>Offboarding</option><option>Archived</option></select>
+    <select><option>White / Blue Collar</option><option>White Collar</option><option>Blue Collar</option></select>
+    <select><option>⚠️ المستندات</option><option>مستندات منتهية</option><option>مستندات ناقصة</option><option>فحص طبي منتهي</option></select>
+    <input placeholder="بحث…">
+  </div>
+  <div class="card" style="padding:0 18px">
+    <table>
+      <tr><th>الموظف</th><th>كود HR</th><th>المسمى</th><th>المشروع</th><th>النوع</th><th>الحالة</th><th>المستندات</th><th></th></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#1a56db">أ ع</div><div><b>أحمد عبد الحليم سعد</b><small>انضم 03/2024</small></div></div></td><td>AFR-2024-0312</td><td>مهندس موقع مدني</td><td>بنبان 500 ك.ف</td><td><span class="badge b-blue">White</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-green">13/13 ✓</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">عرض ←</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#7e3af2">م ن</div><div><b>محمود سيد النجار</b><small>انضم 07/2023</small></div></div></td><td>AFR-2023-0871</td><td>فني لحام أرجون</td><td>مصنع أسمنت السخنة</td><td><span class="badge b-purple">Blue</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-yellow">⚠ ترخيص مزاولة ينتهي 28 يوم</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">عرض ←</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#0e9f6e">س ع</div><div><b>سارة عادل توفيق</b><small>انضمت 01/2025</small></div></div></td><td>AFR-2025-0044</td><td>مهندسة تخطيط PMO</td><td>المكتب الرئيسي</td><td><span class="badge b-blue">White</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-green">13/13 ✓</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">عرض ←</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#c27803">أ ر</div><div><b>أحمد رجب عطية</b><small>قيد الـ Onboarding</small></div></div></td><td>AFR-2026-0119</td><td>ريجر CM/PM</td><td>أبراج العلمين</td><td><span class="badge b-purple">Blue</span></td><td><span class="badge b-yellow">Pending</span></td><td><span class="badge b-red">9/13 — ينقصه 4</span></td><td><a href="#" onclick="go('onboard')" style="color:var(--primary);font-weight:700;font-size:12px">الحالة ←</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#e02424">خ م</div><div><b>خالد منصور إبراهيم</b><small>آخر يوم 19/06</small></div></div></td><td>AFR-2021-0233</td><td>محاسب موقع</td><td>كوبري أسيوط</td><td><span class="badge b-blue">White</span></td><td><span class="badge b-red">Offboarding</span></td><td><span class="badge b-gray">أصول للإرجاع: 3</span></td><td><a href="#" onclick="go('offboard')" style="color:var(--primary);font-weight:700;font-size:12px">الحالة ←</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#475569">ك ف</div><div><b>كريم فوزي الشناوي</b><small>انضم 11/2022</small></div></div></td><td>AFR-2022-0540</td><td>كهربائي تركيبات</td><td>بنبان 500 ك.ف</td><td><span class="badge b-purple">Blue</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-red">⚠ فيش جنائي ينتهي خلال 7 أيام</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">عرض ←</a></td></tr>
+    </table>
+  </div>
+  <p class="note-sm">عرض 6 من 3,247 — <b style="color:var(--primary)">‹ 1 2 3 … 542 ›</b> &nbsp;·&nbsp; 🔒 عمود الراتب غير ظاهر — صلاحيتك لا تشمله إلا من ملف الموظف (Policy 9)</p>
+</section>
+
+<!-- ======== 3) PROFILE 360 ======== -->
+<section class="screen" id="s-profile">
+  <div class="card" style="display:flex;gap:18px;align-items:center;margin-bottom:18px;flex-wrap:wrap">
+    <div class="av" style="width:72px;height:72px;border-radius:18px;background:#1a56db;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800">أ ع</div>
+    <div style="flex:1;min-width:220px">
+      <h1 style="font-size:19px">أحمد عبد الحليم سعد <span class="badge b-green">Active</span></h1>
+      <p style="color:var(--muted);font-size:12.5px">مهندس موقع مدني · درجة E3 · AFR-2024-0312 · بنبان 500 ك.ف (80%) + المكتب الرئيسي (20%)</p>
+      <p style="font-size:12px;margin-top:4px">📞 0100 234 5678 · ✉️ a.abdelhalim@afroegypt.com · المدير: م. وليد الجندي</p>
+    </div>
+    <div><button class="btn btn-o btn-sm" onclick="toast('📝 فتح إجراء: ترقية / نقل مشروع / تعديل راتب — يمر بمسار اعتماد')">إجراء جديد</button> <button class="btn btn-p btn-sm" onclick="toast('🖨 توليد خطاب تعريف بالراتب / مفردات مرتب')">خطابات HR</button></div>
+  </div>
+  <div class="tabs" id="ptabs">
+    <button class="active" data-t="p1">المستندات (13)</button><button data-t="p2">الـ Timeline</button><button data-t="p3">المالية 🔒</button><button data-t="p4">المشاريع والتحميل</button><button data-t="p5">HSE</button>
+  </div>
+  <div class="ptab" id="p1">
+    <div class="card">
+      <h3>🗂 خزنة المستندات — Checklist الدليل <span class="badge b-green">12 مستلم · 1 يوشك على الانتهاء</span></h3>
+      <div class="grid-2e">
+        <ul class="chk">
+          <li><span class="st st-ok">✓</span> شهادة ميلاد كمبيوتر <span class="badge b-blue">أصل مستلم</span><span class="meta">استلمته: هبة سمير 12/03/2024</span></li>
+          <li><span class="st st-ok">✓</span> شهادة المؤهل (بكالوريوس هندسة مدنية) <span class="badge b-blue">أصل مستلم</span><span class="meta">✓ متحقق</span></li>
+          <li><span class="st st-ok">✓</span> شهادة الخدمة العسكرية <span class="badge b-blue">أصل</span><span class="meta">✓ متحقق</span></li>
+          <li><span class="st st-ok">✓</span> نموذج 6 / برنت تأمينات <span class="meta">✓ متحقق</span></li>
+          <li><span class="st st-ok">✓</span> كعب العمل <span class="meta">✓ متحقق</span></li>
+          <li><span class="st st-warn">!</span> فيش جنائي باسم الشركة <span class="badge b-yellow">ينتهي 30/06/2026</span><span class="meta">تنبيه 60/30/7 مفعّل</span></li>
+          <li><span class="st st-ok">✓</span> 6 صور شخصية <span class="meta">✓</span></li>
+        </ul>
+        <ul class="chk">
+          <li><span class="st st-ok">✓</span> صورتا بطاقة سارية <span class="meta">تنتهي 2030 · OCR ✓ مطابق</span></li>
+          <li><span class="st st-ok">✓</span> الفحص الطبي — نموذج 111 <span class="badge b-green">لائق</span><span class="meta">يُجدد 03/2027</span></li>
+          <li><span class="st st-ok">✓</span> كارنيه نقابة المهندسين <span class="meta">عضوية 2024 ✓</span></li>
+          <li><span class="st st-no">—</span> شهادة قياس مهارة <span class="badge b-gray">لا تنطبق (مهندس)</span></li>
+          <li><span class="st st-no">—</span> ترخيص مزاولة <span class="badge b-gray">لا تنطبق</span></li>
+          <li><span class="st st-ok">✓</span> عقد العمل الموقّع + إقرار الـ Handbook <span class="meta">وُقّع 10/03/2024</span></li>
+        </ul>
+      </div>
+      <p class="note-sm">📤 عند رفع أي ملف: الـ AI يصنّفه تلقائياً ويطابقه بالـ Checklist ويستخرج تاريخ الانتهاء (OCR) — ثم يعتمده الـ Personnel.</p>
+    </div>
+  </div>
+  <div class="ptab" id="p2" style="display:none">
+    <div class="card"><h3>🕐 سجل التغييرات (Employment History)</h3>
+      <ul class="tl">
+        <li><b>ترقية إلى درجة E3</b> + علاوة استثنائية<small>01/05/2026 · اعتماد: HR Manager ← مدير المشروع · مرفق: خطاب الترقية</small></li>
+        <li><b>نقل جزئي للمكتب الرئيسي</b> — تحميل التكلفة أصبح 80/20<small>15/01/2026 · بطلب من PMO · اعتماد كامل</small></li>
+        <li><b>تجديد عقد سنوي</b><small>01/03/2025 · وُقّع إلكترونياً</small></li>
+        <li><b>إنذار شفهي — تأخر متكرر</b> (مغلق)<small>22/08/2024 · المدير المباشر · سُوّي بعد شهر التزام</small></li>
+        <li><b>تعيين — مهندس موقع مدني</b><small>10/03/2024 · Onboarding اكتمل في 9 أيام عمل (P0 ✓ ضمن SLA)</small></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ptab" id="p3" style="display:none">
+    <div class="alert al-yellow">🔒 هذا التبويب مسجَّل في الـ Audit Log — اطلاعك على بيانات مالية حدث موثق (Policy 9 + 16)</div>
+    <div class="cards cards-3">
+      <div class="card kpi"><div class="lbl">الراتب الصافي</div><div class="val">28,500 <small style="font-size:13px">ج.م</small></div><div class="sub">إجمالي 36,200 · تأميني 12,600</div></div>
+      <div class="card kpi"><div class="lbl">البدلات الشهرية</div><div class="val">6,400</div><div class="sub">بدل موقع 4,000 · انتقال 1,400 · وجبة 1,000</div></div>
+      <div class="card kpi"><div class="lbl">الحساب البنكي</div><div class="val" style="font-size:16px">CIB •••• 4471</div><div class="sub"><span class="badge b-green">✓ Verified</span> بواسطة Payroll في 11/03/2024</div></div>
+    </div>
+    <div class="card"><h3>التأمين الاجتماعي</h3><p style="font-size:13px">رقم تأميني: 1198xxxx21 · مكتب مدينة نصر · نموذج (1) مقدم 11/03/2024 · آخر سداد: مايو 2026 ✓</p></div>
+  </div>
+  <div class="ptab" id="p4" style="display:none">
+    <div class="card"><h3>🏗 تحميل التكلفة (Cost Allocation)</h3>
+      <table>
+        <tr><th>المشروع</th><th>الكود</th><th>النسبة</th><th>الموقع</th><th>من</th></tr>
+        <tr><td>محطة محولات بنبان 500 ك.ف</td><td>PRJ-014</td><td><b>80%</b></td><td>موقع بنبان — أسوان</td><td>15/01/2026</td></tr>
+        <tr><td>المكتب الرئيسي (دعم فني)</td><td>HQ-001</td><td><b>20%</b></td><td>القاهرة الجديدة</td><td>15/01/2026</td></tr>
+      </table>
+      <div class="alert al-green" style="margin-top:12px">✓ المجموع = 100% — تقارير تكلفة الرواتب تُوزع آلياً بهذه النسب (Policy 12)</div>
+    </div>
+  </div>
+  <div class="ptab" id="p5" style="display:none">
+    <div class="card"><h3>🦺 سجل HSE</h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> فحص طبي (نموذج 111) — <b>لائق</b> <span class="meta">يُجدد 03/2027</span></li>
+        <li><span class="st st-ok">✓</span> Fire Fighting <span class="meta">شهادة سارية حتى 09/2026 — تنبيه 60 يوم سيُرسل 07/2026</span></li>
+        <li><span class="st st-ok">✓</span> First Aid <span class="meta">سارية حتى 03/2027</span></li>
+        <li><span class="st st-ok">✓</span> Risk Assessment <span class="meta">سارية</span></li>
+        <li><span class="st st-warn">!</span> Working at Heights <span class="badge b-yellow">تنتهي 20/07/2026</span><span class="meta">مجدول تجديد 05/07</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 4) RECRUITMENT ======== -->
+<section class="screen" id="s-recruit">
+  <div class="page-head"><div><h1>🎯 التوظيف — Pipeline</h1><p>14 طلباً مفتوحاً · 87 مرشحاً في الـ Pipeline · متوسط Time-to-Hire: 11 يوماً (P0)</p></div>
+  <button class="btn btn-p" onclick="toast('📋 نموذج طلب توظيف: المسمى، الشواغر، كود المشروع، النطاق المعتمد، P0/P1، جديد/إحلال (مع تحقق آلي من كود الموظف المستقيل)')">+ طلب توظيف</button></div>
+  <div class="filters">
+    <select><option>طلب: HR-118 — مهندس كهرباء باور (بنبان) — P0</option><option>HR-121 — 4 فنيي لحام (أسيوط) — P1</option><option>HR-117 — محاسب موقع (إحلال: خالد منصور AFR-2021-0233 ✓)</option></select>
+    <span class="sla" style="background:var(--red-bg);color:var(--red)">SLA الفرز P0 = 72 ساعة — متأخر 6 ساعات، صعّد تلقائياً لـ HR Manager</span>
+  </div>
+  <div class="kanban">
+    <div class="kcol"><h4>2· الفرز والترشيح <span>12</span></h4>
+      <div class="kcard" onclick="toast('فتح بروفايل المرشح — CV مستخرج آلياً بالـ AI')"><b>م. عمرو السباعي</b><small>كهرباء باور · خبرة 7 سنوات · متاح فوراً</small><span class="badge b-green">Match 92%</span> <span class="badge b-gray">توقع: ضمن النطاق</span></div>
+      <div class="kcard"><b>م. دينا مجدي</b><small>كهرباء تحكم · 5 سنوات · شهر إخطار</small><span class="badge b-green">Match 87%</span></div>
+      <div class="kcard"><b>م. شريف حلمي</b><small>باور · 4 سنوات · محطات شمسية</small><span class="badge b-yellow">Match 74%</span> <span class="badge b-red">توقعه أعلى من النطاق</span></div>
+    </div>
+    <div class="kcol"><h4>3· مراجعة الطالب <span>3</span></h4>
+      <div class="kcard"><b>م. ياسمين فؤاد</b><small>بانتظار م. وليد الجندي منذ 22 ساعة</small><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">P0: باقي ساعتان</span></div>
+    </div>
+    <div class="kcol"><h4>4· المقابلات <span>4</span></h4>
+      <div class="kcard"><b>م. حاتم الشيخ</b><small>فنية ✓ 4.2/5 · HSE اليوم 2:00 م · HR غداً</small><span class="badge b-blue">دعوات تقويم مرسلة</span></div>
+      <div class="kcard"><b>م. نهى عبد العزيز</b><small>فنية مجدولة الأحد</small><span class="badge b-gray">تذكير آلي للمقيّم</span></div>
+    </div>
+    <div class="kcol"><h4>5· الاختيار النهائي <span>2</span></h4>
+      <div class="kcard" onclick="toast('🆚 فتح شاشة مقارنة المرشحين النهائيين جنباً إلى جنب')"><b>مقارنة: حاتم × كريم</b><small>التقييمات + الرواتب + الجاهزية</small><span class="badge b-purple">اعتماد متسلسل 2/3</span></div>
+    </div>
+    <div class="kcol"><h4>6–7· العرض والقبول <span>2</span></h4>
+      <div class="kcard"><b>م. حسام الديب</b><small>عرض مرسل 18/05 · رابط قبول إلكتروني</small><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">مهلة 30 يوم: باقي 3 أيام</span></div>
+      <div class="kcard"><b>م. منار صبري</b><small>✓ قبلت — مباشرة 01/07</small><span class="badge b-green">جاهزة للتسليم</span></div>
+    </div>
+    <div class="kcol"><h4>8· التسليم لـ Personnel <span>1</span></h4>
+      <div class="kcard" onclick="toast('📨 زر التسليم: ينقل الملف كاملاً ويولّد الـ Hiring Email بحقوله الـ 14 تلقائياً ويفتح Onboarding')"><b>م. منار صبري</b><small>الملف مكتمل</small><button class="btn btn-g btn-sm" style="margin-top:4px">تسليم ← Onboarding</button></div>
+    </div>
+  </div>
+  <p class="note-sm">🤖 الـ AI: ترتيب المرشحين بالـ Match % · بحث دلالي في الـ Talent Pool ("ميكانيكا باور اشتغل في محطات") · توليد JD · رفض مهذب تلقائي</p>
+</section>
+
+<!-- ======== 5) ONBOARDING ======== -->
+<section class="screen" id="s-onboard">
+  <div class="page-head"><div><h1>🚀 Onboarding — أحمد رجب عطية</h1><p>ريجر CM/PM · أبراج العلمين (PRJ-009) · مباشرة 01/06/2026 · أولوية P0</p></div>
+  <span class="badge b-yellow" style="font-size:13px;padding:6px 16px">المرحلة 7 من 9 — متطلبات HSE</span></div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="stepper">
+      <div class="step done"><div class="dot">✓</div>بدء الـ Onboarding</div>
+      <div class="step done"><div class="dot">✓</div>إخطار التعيين</div>
+      <div class="step done"><div class="dot">✓</div>المستندات</div>
+      <div class="step done"><div class="dot">✓</div>التعاقد</div>
+      <div class="step done"><div class="dot">✓</div>تسجيل الأنظمة</div>
+      <div class="step done"><div class="dot">✓</div>العهدة</div>
+      <div class="step cur"><div class="dot">7</div>متطلبات HSE</div>
+      <div class="step"><div class="dot">8</div>التهيئة والتعريف</div>
+      <div class="step"><div class="dot">9</div>التفعيل</div>
+    </div>
+    <div class="alert al-yellow">⏱ SLA المرحلة (P0): 10–15 يوم عمل — مضى 8 أيام، باقي يومان على عتبة التحذير</div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>🦺 المرحلة 7: متطلبات HSE <span class="badge b-red">ريجر = فحص طبي إلزامي</span></h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> الفحص الطبي (إلزامي لريجرز CM/PM) — <b>لائق</b> <span class="meta">05/06 · نموذج 111 مرفوع</span></li>
+        <li><span class="st st-ok">✓</span> Fire Fighting <span class="meta">شهادة 07/06</span></li>
+        <li><span class="st st-ok">✓</span> First Aid <span class="meta">شهادة 08/06</span></li>
+        <li><span class="st st-warn">!</span> Working at Heights <span class="badge b-yellow">الكورس غداً 13/06</span><span class="meta">مسؤول: م. طارق HSE</span></li>
+        <li><span class="st st-no">○</span> Risk Assessment <span class="meta">مجدول 15/06</span></li>
+      </ul>
+    </div>
+    <div class="card"><h3>🔐 بوابة التفعيل — الشروط الستة</h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> المستندات مكتملة (13/13 بعد استكمال 4 هذا الأسبوع)</li>
+        <li><span class="st st-ok">✓</span> العقود موقعة (عقد + نموذج 1 + إقرار Handbook)</li>
+        <li><span class="st st-warn">!</span> متطلبات HSE — كورسان متبقيان</li>
+        <li><span class="st st-ok">✓</span> الفحص الطبي — لائق</li>
+        <li><span class="st st-ok">✓</span> الأنظمة جاهزة (HR Code وُلّد · لا إيميل شركة — Blue Collar)</li>
+        <li><span class="st st-ok">✓</span> الشهادات المطلوبة (قياس مهارة + مزاولة ✓)</li>
+      </ul>
+      <button class="btn btn-p" style="width:100%;margin-top:10px;opacity:.5;cursor:not-allowed">تفعيل الموظف — معطّل حتى اكتمال الشروط (5/6)</button>
+      <p class="note-sm">عند الاكتمال يتحول Active ويدخل New Hire Sheet التالية تلقائياً يوم 18 (Policy 1)</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>📨 الـ Hiring Email (وُلّد تلقائياً عند التسليم — الحقول الـ 14)</h3>
+    <p style="font-size:12.5px;color:var(--muted);line-height:2">Ahmed Ragab Attia · أحمد رجب عطية · رقم قومي 2940112xxxxxxx · 0109 887 2231 · ريجر CM/PM · <b>PRJ-009</b> · أبراج العلمين الجديدة · المدير: م. هاني عبد الفتاح · موقع: العلمين · الراتب الصافي: 🔒 · البدلات: 🔒 · تأمين اجتماعي: 1311xxxx08 · توقيع العقد: 01/06/2026 · المباشرة: 01/06/2026</p>
+  </div>
+</section>
+
+<!-- ======== 6) OFFBOARDING ======== -->
+<section class="screen" id="s-offboard">
+  <div class="page-head"><div><h1>📦 Offboarding — خالد منصور إبراهيم</h1><p>محاسب موقع · كوبري النيل أسيوط · AFR-2021-0233 · المحفز: <b>استقالة</b> (قُدمت من ESS) · آخر يوم عمل: <b>19/06/2026</b></p></div>
+  <span class="badge b-yellow" style="font-size:13px;padding:6px 16px">المرحلة 4 من 6 — إخلاء الطرف</span></div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="stepper">
+      <div class="step done"><div class="dot">✓</div>فتح الحالة</div>
+      <div class="step done"><div class="dot">✓</div>قطع الـ Access</div>
+      <div class="step done"><div class="dot">✓</div>الـ Handover</div>
+      <div class="step cur"><div class="dot">4</div>إخلاء الطرف</div>
+      <div class="step"><div class="dot">5</div>الإغلاق القانوني والمالي</div>
+      <div class="step"><div class="dot">6</div>الأرشفة</div>
+    </div>
+    <div class="alert al-green">✓ القاعدة الإلزامية: مهمة قطع الـ Access مجدولة 19/06 (آخر يوم عمل) — مهمة IT مفتوحة بتصعيد تلقائي إن تأخرت</div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>🧾 مصفوفة إخلاء الطرف</h3>
+      <table>
+        <tr><th>القسم</th><th>البنود</th><th>الحالة</th></tr>
+        <tr><td><b>IT</b></td><td>لابتوب · إغلاق الإيميل · استرداد الأجهزة</td><td><span class="badge b-green">✓ تم 2/3</span> <span class="badge b-yellow">لابتوب يوم 19</span></td></tr>
+        <tr><td><b>Operations / إداري</b></td><td>كارت الدخول · كارت التأمين الطبي · العهدة</td><td><span class="badge b-yellow">قيد التنفيذ</span></td></tr>
+        <tr><td><b>Finance</b></td><td>تسوية سلفة (متبقي 2,400 ج) · عهدة نقدية · التزامات</td><td><span class="badge b-yellow">السلفة ستُخصم من التسوية</span></td></tr>
+        <tr><td><b>المدير المباشر</b></td><td>اعتماد الـ Handover</td><td><span class="badge b-green">✓ اعتُمد 10/06</span></td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>💰 التسوية النهائية (مسودة — تُصرف بعد الـ Clearance واعتماد Finance)</h3>
+      <table>
+        <tr><td>راتب 19 يوماً من يونيو</td><td style="text-align:left"><b>+ 11,083 ج</b></td></tr>
+        <tr><td>رصيد إجازات غير مستخدم (9 أيام × أجر اليوم)</td><td style="text-align:left"><b>+ 5,250 ج</b></td></tr>
+        <tr><td>خصم: باقي السلفة</td><td style="text-align:left;color:var(--red)"><b>− 2,400 ج</b></td></tr>
+        <tr><td><b>الصافي المستحق</b></td><td style="text-align:left;font-size:16px"><b>13,933 ج</b></td></tr>
+      </table>
+      <ul class="chk" style="margin-top:8px">
+        <li><span class="st st-ok">✓</span> Exit Interview موثقة <span class="meta">السبب: عرض أفضل — قطاع بترول</span></li>
+        <li><span class="st st-no">○</span> نموذج تأمينات (6) — يُقدم يوم 19</li>
+        <li><span class="st st-no">○</span> إرجاع المستندات الأصلية + إقرار استلام</li>
+      </ul>
+      <button class="btn btn-p btn-sm" onclick="toast('🔒 الصرف محجوب حتى اكتمال الـ Clearance واعتماد Finance (Policy 13)')">إرسال لاعتماد Finance</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 7) PAYROLL ======== -->
+<section class="screen" id="s-payroll">
+  <div class="page-head"><div><h1>💰 دورة رواتب يونيو 2026</h1><p>3,247 موظفاً مؤهلاً · إجمالي تقديري: 41.2 مليون ج.م · اليوم 12/06 — <b>الدورة تُفتح آلياً يوم 18</b></p></div>
+  <span class="badge b-blue" style="font-size:13px;padding:6px 16px">دورة مايو: مدفوعة ✓ ومقفلة 🔒</span></div>
+  <div class="card" style="margin-bottom:16px"><h3>📅 تقويم الدورة (من الدليل — Policy 2)</h3>
+    <div class="stepper">
+      <div class="step done"><div class="dot">18</div>New Hire Sheet<br>آلي من الـ Onboarding</div>
+      <div class="step done"><div class="dot">19</div>تدقيق البيانات</div>
+      <div class="step done"><div class="dot">19</div>تحديث السجل</div>
+      <div class="step cur"><div class="dot">23</div>تخصيص المشاريع</div>
+      <div class="step cur"><div class="dot">23</div>الاستقطاعات</div>
+      <div class="step"><div class="dot">23</div>المعالجة والضرائب</div>
+      <div class="step"><div class="dot">25</div>التسليم للمالية</div>
+      <div class="step"><div class="dot">28</div>الدفع</div>
+      <div class="step"><div class="dot">10</div>تقارير التكلفة</div>
+    </div>
+    <p class="note-sm">⬆ معروضة دورة مايو المكتملة كمثال للتقويم. تخصيصات المشاريع المتأخرة عن يوم 23 تُرحَّل آلياً للدورة التالية (Policy 3)</p>
+  </div>
+  <div class="alert al-red">⛔ 3 موظفين مستبعدون من الدورة آلياً: 2 بحالة Pending (Policy 1 — لا Payroll قبل التفعيل) · 1 حساب بنكي غير متحقق (Policy 6)</div>
+  <div class="alert al-yellow">🤖 كشف شذوذ AI: راتب "م. هشام قنديل" أعلى 22% من الشهر السابق بلا تسوية معتمدة — راجع قبل التسليم (Policy 11)</div>
+  <div class="grid-2">
+    <div class="card" style="padding:0 18px"><h3 style="padding-top:18px">سجل الدورة (عينة)</h3>
+      <table>
+        <tr><th>الموظف</th><th>المشروع</th><th>الصافي</th><th>استقطاعات</th><th>الحالة</th></tr>
+        <tr><td>أحمد عبد الحليم</td><td>بنبان 80% / HQ 20%</td><td>28,500</td><td>—</td><td><span class="badge b-green">جاهز</span></td></tr>
+        <tr><td>محمود النجار</td><td>السخنة 100%</td><td>14,200</td><td>قسط سلفة 1,000 <span class="badge b-green">معتمد ✓</span></td><td><span class="badge b-green">جاهز</span></td></tr>
+        <tr><td>سارة عادل</td><td>HQ 100%</td><td>31,000</td><td>—</td><td><span class="badge b-green">جاهز</span></td></tr>
+        <tr><td>هشام قنديل</td><td>العلمين 100%</td><td style="color:var(--red)"><b>22,600 ⚠</b></td><td>—</td><td><span class="badge b-red">مراجعة شذوذ</span></td></tr>
+        <tr><td>أحمد رجب</td><td>العلمين</td><td colspan="2" style="color:var(--muted)">مستبعد — Pending (يدخل دورة يوليو بعد التفعيل)</td><td><span class="badge b-gray">مستبعد</span></td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px"><h3>💵 البدلات (دورة 10–17)</h3>
+        <table>
+          <tr><td>بنبان — بدلات موقع 1,120 موظف</td><td><span class="badge b-green">✓ مستلمة من PM</span></td></tr>
+          <tr><td>العلمين — 846 موظف</td><td><span class="badge b-green">✓ مستلمة</span></td></tr>
+          <tr><td>كوبري أسيوط — 633</td><td><span class="badge b-red">متأخرة — تذكير أُرسل للـ PM</span></td></tr>
+        </table>
+        <p class="note-sm">التسليم للمالية بحد أقصى يوم 17 · الدفع 20–25</p>
+      </div>
+      <div class="card"><h3>🏆 KPI — الربع الثاني 2026</h3>
+        <p style="font-size:13px">تقييمات PMO تصل نهاية يونيو · آخر دفعة (Q1): 2.84 مليون ج لـ 412 موظفاً ✓ · تقارير التكلفة وُزعت بالمشروع</p>
+        <button class="btn btn-o btn-sm" style="margin-top:8px" onclick="toast('📊 تقارير تكلفة Q1 بالمشروع: بنبان 41% · العلمين 28% · أسيوط 19% · السخنة 12%')">تقارير التكلفة بالمشروع</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 8) ATTENDANCE ======== -->
+<section class="screen" id="s-attendance">
+  <div class="page-head"><div><h1>📍 الحضور — اليوم 12/06/2026</h1><p>تحديث حي من المواقع · 4 طرق تسجيل: GPS · كشف المشرف · بصمة المكتب · يدوي مبرر</p></div></div>
+  <div class="cards cards-4">
+    <div class="card kpi"><div class="lbl">حاضر الآن</div><div class="val" style="color:var(--green)">2,987</div><div class="sub">92% من المتوقع</div></div>
+    <div class="card kpi"><div class="lbl">إجازة معتمدة</div><div class="val">184</div><div class="sub">مُعلّمة آلياً من موديول الإجازات</div></div>
+    <div class="card kpi"><div class="lbl">غياب غير مبرر</div><div class="val" style="color:var(--red)">31</div><div class="sub">تنبيهات أُرسلت للمديرين</div></div>
+    <div class="card kpi"><div class="lbl">أوفرتايم بانتظار اعتماد</div><div class="val">126 <small style="font-size:13px">ساعة</small></div><div class="sub">لدى المديرين المباشرين</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>🏗 المواقع الآن</h3>
+      <table>
+        <tr><th>الموقع</th><th>طريقة التسجيل</th><th>حاضر/متوقع</th><th></th></tr>
+        <tr><td>بنبان — أسوان</td><td>GPS + Geofence 400م</td><td>1,058 / 1,120</td><td><div class="bar"><i style="width:94%;background:var(--green)"></i></div></td></tr>
+        <tr><td>أبراج العلمين</td><td>كشف مشرف (3 مشرفين)</td><td>791 / 846</td><td><div class="bar"><i style="width:93%;background:var(--green)"></i></div></td></tr>
+        <tr><td>كوبري أسيوط</td><td>GPS + كشف مشرف</td><td>562 / 633</td><td><div class="bar"><i style="width:89%;background:var(--yellow)"></i></div></td></tr>
+        <tr><td>المكتب الرئيسي</td><td>بصمة</td><td>176 / 197</td><td><div class="bar"><i style="width:89%;background:var(--yellow)"></i></div></td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>⚠️ استثناءات تحتاج مراجعة</h3>
+      <ul class="chk">
+        <li><span class="st st-x">!</span> <div><b>تسجيل GPS خارج النطاق</b> — عامل ببنبان على بعد 2.1 كم<small style="color:var(--muted)">طُلبت صورة تحقق آلياً</small></div></li>
+        <li><span class="st st-warn">!</span> <div><b>نمط مشبوه (AI)</b> — كشف مشرف العلمين: 14 تسجيلاً بفارق أقل من ثانية<small style="color:var(--muted)">أُحيل لـ Operations</small></div></li>
+        <li><span class="st st-warn">!</span> <div><b>تأخر متكرر</b> — كريم فوزي: 5 مرات هذا الشهر<small style="color:var(--muted)">إن اعتُمد خصم → يدخل تسويات الدورة بمستند واعتماد (Policy 4+7)</small></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 9) LEAVE ======== -->
+<section class="screen" id="s-leave">
+  <div class="page-head"><div><h1>🏖 الإجازات</h1><p>وفق قانون العمل المصري — الأرصدة تُحتسب آلياً من مدة الخدمة والسن</p></div></div>
+  <div class="grid-2">
+    <div class="card" style="padding:0 18px"><h3 style="padding-top:18px">طلبات بانتظار الاعتماد</h3>
+      <table>
+        <tr><th>الموظف</th><th>النوع</th><th>المدة</th><th>الرصيد بعد</th><th>المعتمد</th><th></th></tr>
+        <tr><td>م. سارة عادل</td><td>سنوية</td><td>5 أيام (21–25/06)</td><td>9 ← 4</td><td>مدير PMO</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">اعتماد</button> <button class="btn btn-r btn-sm" onclick="reject(this)">رفض</button></td></tr>
+        <tr><td>محمود النجار</td><td>عارضة</td><td>يوم (15/06)</td><td>4 ← 3 (من السنوي)</td><td>مدير الموقع</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">اعتماد</button> <button class="btn btn-r btn-sm" onclick="reject(this)">رفض</button></td></tr>
+        <tr><td>م. هاني عبد الفتاح</td><td>مرضية</td><td>3 أيام + تقرير طبي مرفق</td><td>75% أجر (تأمينات)</td><td>HR</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">اعتماد</button> <button class="btn btn-r btn-sm" onclick="reject(this)">رفض</button></td></tr>
+      </table>
+      <div class="alert al-yellow" style="margin:12px 0">⚠️ تنبيه تداخل: 34% من مهندسي موقع بنبان طلبوا إجازة في أسبوع عيد الأضحى — راجع التغطية</div>
+    </div>
+    <div class="card"><h3>قواعد الاستحقاق (مزروعة — قابلة للتهيئة)</h3>
+      <table>
+        <tr><td>سنوية — أول سنة (بعد 6 أشهر)</td><td><b>15 يوماً</b></td></tr>
+        <tr><td>سنوية — بعد سنة</td><td><b>21 يوماً</b></td></tr>
+        <tr><td>سنوية — 10 سنوات خدمة أو سن 50</td><td><b>30 يوماً</b></td></tr>
+        <tr><td>عارضة (تُخصم من السنوي)</td><td><b>7 أيام</b></td></tr>
+        <tr><td>وضع</td><td><b>4 أشهر</b></td></tr>
+        <tr><td>حج/عمرة (بعد 5 سنوات — مرة واحدة)</td><td><b>شهر</b></td></tr>
+      </table>
+      <p class="note-sm">الرصيد غير المستخدم يتدفق آلياً للتسوية النهائية عند الـ Offboarding</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 10) APPROVALS ======== -->
+<section class="screen" id="s-approvals">
+  <div class="page-head"><div><h1>✅ صندوق اعتماداتي</h1><p>كل ما ينتظر قرارك عبر كل الموديولات — تذكير بعد 24 ساعة، تصعيد بعد 48</p></div></div>
+  <div class="card" style="padding:0 18px">
+    <table>
+      <tr><th>الطلب</th><th>النوع</th><th>مقدم الطلب</th><th>المسار</th><th>منذ</th><th>القرار</th></tr>
+      <tr><td><b>طلب توظيف HR-121:</b> 4 فنيي لحام — كوبري أسيوط — P1<br><small style="color:var(--muted)">النطاق المعتمد: ضمن ميزانية المشروع ✓</small></td><td><span class="badge b-blue">توظيف</span></td><td>م. عادل رشدي (PM)</td><td>PM ✓ ← <b>HR Manager</b> ← Admin</td><td>ساعتان</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">اعتماد</button> <button class="btn btn-r btn-sm" onclick="reject(this)">رفض</button></td></tr>
+      <tr><td><b>سلفة 8,000 ج</b> — محمود النجار (قسط 1,000 × 8)<br><small style="color:var(--muted)">مستند داعم مرفق ✓ (Policy 7)</small></td><td><span class="badge b-purple">مالي</span></td><td>ESS</td><td>المدير ✓ ← <b>HR</b> ← Finance</td><td>5 ساعات</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">اعتماد</button> <button class="btn btn-r btn-sm" onclick="reject(this)">رفض</button></td></tr>
+      <tr><td><b>تسوية نهائية 13,933 ج</b> — خالد منصور<br><small style="color:var(--muted)">بانتظار اكتمال الـ Clearance (يوم 19)</small></td><td><span class="badge b-red">Offboarding</span></td><td>Personnel</td><td>HR ← <b>أنت</b> ← Finance</td><td>أمس</td><td><button class="btn btn-g btn-sm" onclick="toast('🔒 لا يمكن الاعتماد قبل اكتمال إخلاء الطرف — Policy 13')">اعتماد</button></td></tr>
+      <tr><td><b>إجازة 5 أيام</b> — م. سارة عادل<br><small style="color:var(--muted)">الرصيد يسمح ✓ · لا تداخل مع فريقها</small></td><td><span class="badge b-green">إجازة</span></td><td>ESS</td><td>المدير ✓ ← <b>HR</b></td><td>أمس</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">اعتماد</button> <button class="btn btn-r btn-sm" onclick="reject(this)">رفض</button></td></tr>
+    </table>
+  </div>
+  <p class="note-sm">كل قرار يُسجل في الـ Audit Log باسمك وتوقيتك وتعليقك (Policy 16) · يمكنك تفويض اعتماداتك أثناء إجازتك</p>
+</section>
+
+<!-- ======== 11) SLA DASHBOARD ======== -->
+<section class="screen" id="s-sla">
+  <div class="page-head"><div><h1>⏱ لوحة الـ SLA</h1><p>عدادات حية بساعات العمل (الجمعة عطلة + العطلات الرسمية) · أصفر عند 75% · تصعيد تلقائي عند التجاوز</p></div></div>
+  <div class="cards cards-3">
+    <div class="card kpi"><div class="lbl">التزام هذا الشهر</div><div class="val" style="color:var(--green)">91%</div><div class="sub up">▲ 4% عن مايو</div></div>
+    <div class="card kpi"><div class="lbl">مراحل متجاوزة الآن</div><div class="val" style="color:var(--red)">3</div><div class="sub">صُعّدت تلقائياً</div></div>
+    <div class="card kpi"><div class="lbl">متوسط Time-to-Hire (P0)</div><div class="val">11 يوماً</div><div class="sub">المستهدف من الدليل: 9–14</div></div>
+  </div>
+  <div class="card" style="padding:0 18px">
+    <table>
+      <tr><th>الكيان</th><th>الموديول</th><th>المرحلة</th><th>الأولوية</th><th>SLA</th><th>المنقضي</th><th>الحالة</th></tr>
+      <tr><td>HR-118 مهندس كهرباء باور</td><td>توظيف</td><td>الفرز والترشيح</td><td><span class="badge b-red">P0</span></td><td>72 ساعة عمل</td><td>78 ساعة</td><td><span class="badge b-red">🔴 متجاوز — صُعد لـ HR Manager</span></td></tr>
+      <tr><td>Onboarding — منار صبري</td><td>Onboarding</td><td>تجهيز العهدة</td><td><span class="badge b-red">P0</span></td><td>1–2 يوم عمل</td><td>1.6 يوم</td><td><span class="badge b-yellow">🟡 تحذير 80%</span></td></tr>
+      <tr><td>Offboarding — خالد منصور</td><td>Offboarding</td><td>إخلاء الطرف</td><td>—</td><td>يوم الخروج 19/06</td><td>—</td><td><span class="badge b-green">🟢 في الموعد</span></td></tr>
+      <tr><td>HR-117 محاسب (إحلال)</td><td>توظيف</td><td>المقابلات</td><td><span class="badge b-blue">P1</span></td><td>5–7 أيام عمل</td><td>3 أيام</td><td><span class="badge b-green">🟢</span></td></tr>
+      <tr><td>دورة رواتب يونيو</td><td>Payroll</td><td>بدلات كوبري أسيوط</td><td>—</td><td>يوم 15 من الشهر</td><td>متأخر يومين</td><td><span class="badge b-red">🔴 تذكير ثانٍ للـ PM + إخطار Payroll</span></td></tr>
+    </table>
+  </div>
+  <div class="alert al-yellow" style="margin-top:14px">📌 ملاحظة معايرة: SLA "الفرز P1" مصحح إلى <b>5 أيام عمل</b> (الدليل الأصلي: "5 ساعات" — خطأ مطبعي موثق، بانتظار الاعتماد الرسمي للإدارة — قابل للتعديل من الإعدادات)</div>
+</section>
+
+<!-- ======== 12) ESS ======== -->
+<section class="screen" id="s-ess">
+  <div class="page-head"><div><h1>📱 تطبيق الموظف (ESS)</h1><p>موبايل أولاً · عربية مبسطة · دخول برقم الموبايل + OTP (بلا إيميل) · يعمل بشبكة ضعيفة</p></div></div>
+  <div class="phone-wrap">
+    <div class="phone"><div class="scr">
+      <div class="p-head">
+        <div class="row"><div><small>صباح الخير 👷</small><div style="font-weight:800;font-size:17px">محمود النجار</div><small>فني لحام أرجون · مصنع أسمنت السخنة</small></div><span style="font-size:24px">🔔</span></div>
+      </div>
+      <div class="checkin">
+        <small style="color:var(--muted)">الخميس 12 يونيو · وردية صباحية 7:00 ص – 3:00 م</small><br><br>
+        <button class="big" id="cibtn" onclick="checkin()">تسجيل<br>حضور ✋</button>
+        <p class="note-sm" id="cista">اضغط الزر داخل نطاق الموقع (GPS)</p>
+      </div>
+      <div class="p-grid">
+        <div class="p-tile" onclick="toast('🏖 رصيدك: 12 يوماً سنوي + 4 عارضة — اطلب إجازة في 3 خطوات')"><span class="em">🏖</span><b>إجازاتي</b><small>الرصيد: 12 يوم</small></div>
+        <div class="p-tile" onclick="toast('🔐 أدخل الرقم السري لعرض قسيمة راتب مايو (PDF عربي)')"><span class="em">💰</span><b>راتبي</b><small>قسيمة مايو ✓</small></div>
+        <div class="p-tile" onclick="toast('📄 مستند ينتهي قريباً: ترخيص مزاولة المهنة — صوّره بالكاميرا وسيُصنف تلقائياً')"><span class="em">📄</span><b>مستنداتي</b><small>⚠️ 1 ينتهي قريباً</small></div>
+        <div class="p-tile" onclick="toast('💵 طلب سلفة: حدد المبلغ وعدد الأقساط — يمر باعتماد مديرك ثم HR ثم Finance')"><span class="em">🤲</span><b>طلب سلفة</b><small>قسط حالي: 1,000 ج</small></div>
+      </div>
+    </div></div>
+    <div style="flex:1;min-width:280px">
+      <div class="wapp">
+        <div class="h">🟢 واتساب — رسائل النظام للموظف</div>
+        <div class="msg">أهلاً محمود 👋 تم صرف راتب شهر مايو. التفاصيل الكاملة داخل التطبيق.<small>28/05 · 4:02 م ✓✓</small></div>
+        <div class="msg">⚠️ تنبيه: ترخيص مزاولة المهنة الخاص بك ينتهي بعد 28 يوماً (10/07). من فضلك جدد وارفع الصورة من التطبيق.<small>اليوم · 9:00 ص ✓✓</small></div>
+        <div class="msg">✅ تمت الموافقة على إجازتك يوم 15/06. إجازة سعيدة!<small>اليوم · 11:30 ص ✓</small></div>
+      </div>
+      <div class="card" style="margin-top:16px"><h3>لماذا هذا التصميم؟</h3>
+        <ul class="chk">
+          <li><span class="st st-ok">✓</span> أزرار كبيرة وجمل قصيرة — عمالة زرقاء</li>
+          <li><span class="st st-ok">✓</span> لا إيميل مطلوب — موبايل + OTP</li>
+          <li><span class="st st-ok">✓</span> الراتب خلف PIN إضافي (Policy 9)</li>
+          <li><span class="st st-ok">✓</span> تسجيل الحضور يعمل Offline ويُزامن</li>
+          <li><span class="st st-ok">✓</span> المدير له تبويب "فريقي" للاعتمادات اليومية</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 13) SETTINGS ======== -->
+<section class="screen" id="s-settings">
+  <div class="page-head"><div><h1>⚙️ إعدادات الشركة</h1><p>Tenant: أفرو إيجيبت للمقاولات · خطة Enterprise · 3,247 موظفاً</p></div></div>
+  <div class="grid-2e">
+    <div class="card"><h3>🏗 الهيكل التنظيمي</h3>
+      <table>
+        <tr><td>الأقسام</td><td>14</td><td><a href="#" style="color:var(--primary);font-size:12px;font-weight:700" onclick="toast('إدارة الأقسام')">إدارة</a></td></tr>
+        <tr><td>الدرجات (Grades)</td><td>E1–E5 · T1–T4 · M1–M3</td><td><a href="#" style="color:var(--primary);font-size:12px;font-weight:700" onclick="toast('إدارة الدرجات')">إدارة</a></td></tr>
+        <tr><td>المشاريع النشطة</td><td>4 + المكتب الرئيسي</td><td><a href="#" style="color:var(--primary);font-size:12px;font-weight:700" onclick="toast('إدارة المشاريع والمواقع والـ Geofence')">إدارة</a></td></tr>
+        <tr><td>صيغة كود HR</td><td><code>AFR-{YYYY}-{####}</code></td><td><span class="lock">🔒 لا يُعاد استخدام الأكواد</span></td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>⏱ قيم الـ SLA (قابلة للتعديل)</h3>
+      <table>
+        <tr><th>المرحلة</th><th>P0</th><th>P1</th></tr>
+        <tr><td>الفرز والترشيح</td><td>72 ساعة عمل</td><td>5 أيام عمل <span class="badge b-yellow">مصحح — بانتظار اعتماد الإدارة</span></td></tr>
+        <tr><td>المقابلات</td><td>3–5 أيام</td><td>5–7 أيام</td></tr>
+        <tr><td>متطلبات HSE</td><td>10–15 يوم</td><td>20–25 يوم</td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>📅 تقويم الـ Payroll</h3>
+      <table>
+        <tr><td>New Hire Sheet</td><td>يوم <b>18</b></td></tr>
+        <tr><td>التسليم للمالية</td><td>بحد أقصى يوم <b>25</b></td></tr>
+        <tr><td>الدفع</td><td><b>28</b> — نهاية الشهر</td></tr>
+        <tr><td>تقارير التكلفة</td><td>بحد أقصى يوم <b>10</b></td></tr>
+      </table>
+      <p class="note-sm">القيم الافتراضية من الدليل — أي انحراف يتطلب تبريراً واعتماداً (Policy 15)</p>
+    </div>
+    <div class="card"><h3>🔔 قنوات الإشعارات</h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> In-App + Email (Resend)</li>
+        <li><span class="st st-ok">✓</span> WhatsApp Business API <span class="badge b-green">12 قالباً معتمداً</span></li>
+        <li><span class="st st-ok">✓</span> SMS (مزود محلي) — احتياطي و OTP</li>
+        <li><span class="st st-ok">✓</span> تنبيهات الانتهاء: 60 / 30 / 7 أيام</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+<div id="toast"></div>
+<script>
+// Navigation
+const links=document.querySelectorAll('.nav a');
+function go(s){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById('s-'+s).classList.add('active');
+  links.forEach(l=>l.classList.toggle('active',l.dataset.s===s));
+  document.querySelector('.content').scrollIntoView({behavior:'smooth',block:'start'});
+}
+links.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();go(l.dataset.s)}));
+// Profile tabs
+document.querySelectorAll('#ptabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#ptabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  document.querySelectorAll('.ptab').forEach(p=>p.style.display='none');
+  document.getElementById(b.dataset.t).style.display='block';
+}));
+// Toast
+let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3800)}
+// Approve/Reject demo
+function approve(b){const row=b.closest('tr');b.parentElement.innerHTML='<span class="badge b-green">✓ اعتُمد — سُجل في الـ Audit Log</span>';toast('✅ تم الاعتماد وانتقل الطلب للخطوة التالية في المسار')}
+function reject(b){b.parentElement.innerHTML='<span class="badge b-red">✗ مرفوض — أُخطر مقدم الطلب بالسبب</span>';toast('❌ تم الرفض — صاحب الطلب أُخطر فوراً')}
+// ESS check-in
+let cin=false;
+function checkin(){const b=document.getElementById('cibtn'),s=document.getElementById('cista');
+ if(!cin){b.classList.add('out');b.innerHTML='تسجيل<br>انصراف 🏁';s.innerHTML='✅ حضور 6:54 ص — داخل نطاق الموقع (GPS متحقق)';toast('✋ تم تسجيل حضورك 6:54 ص — موقع مصنع أسمنت السخنة ✓');cin=true}
+ else{b.classList.remove('out');b.innerHTML='تسجيل<br>حضور ✋';s.innerHTML='🏁 انصراف 3:02 م — يوم عمل كامل · أوفرتايم: 0';toast('🏁 تم تسجيل انصرافك — شكراً لمجهودك اليوم!');cin=false}}
+</script>
+</body>
+</html>
