@@ -1,0 +1,323 @@
+{
+  "common": {
+    "appName": "AfroHR Hub",
+    "searchPlaceholder": "🔍 ابحث بالاسم أو كود HR أو الرقم القومي…",
+    "viewAs": "👤 اعرض بدور:",
+    "viewAsHint": "مبدّل تجريبي للأدوار — يُستبدل بتسجيل الدخول الفعلي",
+    "notifications": "الإشعارات",
+    "localeToggle": "EN",
+    "localeToggleLabel": "Switch to English",
+    "egp": "ج.م"
+  },
+  "nav": {
+    "soon": "قريباً",
+    "sections": {
+      "general": "عام",
+      "lifecycle": "دورة حياة الموظف",
+      "finance": "المالية والعمليات",
+      "portal": "بوابة الموظف",
+      "system": "النظام"
+    },
+    "items": {
+      "dashboard": "لوحة المعلومات",
+      "approvals": "اعتماداتي",
+      "sla": "لوحة الـ SLA",
+      "employees": "الموظفون",
+      "recruitment": "التوظيف",
+      "onboarding": "تعيين الموظفين (Onboarding)",
+      "offboarding": "إنهاء الخدمة (Offboarding)",
+      "payroll": "الرواتب والبدلات",
+      "attendance": "الحضور",
+      "leave": "الإجازات",
+      "ess": "تطبيق الموظف (ESS)",
+      "settings": "الإعدادات",
+      "audit": "التدقيق"
+    }
+  },
+  "roles": {
+    "super_admin": "مشرف المنصة",
+    "company_admin": "مدير الشركة",
+    "hr_manager": "مدير الموارد البشرية",
+    "talent_acquisition": "استقطاب المواهب",
+    "personnel": "شؤون العاملين",
+    "payroll": "الرواتب",
+    "finance": "المالية",
+    "hse": "السلامة والصحة المهنية",
+    "it": "تقنية المعلومات",
+    "operations_admin": "العمليات والشؤون الإدارية",
+    "pmo": "مكتب إدارة المشاريع",
+    "direct_manager": "مدير مباشر",
+    "employee": "موظف"
+  },
+  "status": {
+    "active": "نشط",
+    "pending": "قيد التفعيل",
+    "suspended": "موقوف",
+    "offboarding": "إنهاء خدمة",
+    "archived": "مؤرشف"
+  },
+  "collar": {
+    "white": "ياقة بيضاء",
+    "blue": "ياقة زرقاء"
+  },
+  "dashboard": {
+    "greeting": "صباح الخير، {name} 👋",
+    "subtitle": "{date} — هذا ملخص اليوم في {tenant}",
+    "newHiringRequest": "+ طلب توظيف جديد",
+    "kpi": {
+      "activeEmployees": "الموظفون النشطون",
+      "activeEmployeesSub": "▲ {count} هذا الشهر",
+      "openRequests": "طلبات توظيف مفتوحة",
+      "openRequestsSub": "{count} × P0 حرجة",
+      "onboarding": "حالات تعيين جارية",
+      "onboardingSub": "{count} جاهزة للتفعيل",
+      "payrollCycle": "دورة رواتب يونيو",
+      "payrollCycleSub": "مرحلة الاستقطاعات"
+    },
+    "approvals": {
+      "title": "✅ بانتظار اعتمادك",
+      "viewAll": "صندوق الاعتمادات ←",
+      "item1": "طلب توظيف: 4 لحّامين — كوبري النيل، أسيوط",
+      "item1Time": "منذ ساعتين",
+      "item2": "سلفة 8,000 ج.م — محمود النجار",
+      "item2Time": "منذ 5 ساعات",
+      "item3": "تسوية نهائية — خالد منصور",
+      "item3Time": "أمس",
+      "item4": "إجازة 5 أيام — م. سارة عادل",
+      "item4Time": "أمس"
+    },
+    "headcount": {
+      "title": "🏗 توزيع العمالة على المشاريع",
+      "employees": "موظف"
+    }
+  },
+  "employees": {
+    "title": "👥 دليل الموظفين",
+    "subtitle": "{active} نشط · {pending} قيد التفعيل · {offboarding} إنهاء خدمة",
+    "import": "استيراد Excel",
+    "new": "+ موظف جديد",
+    "filters": {
+      "allProjects": "كل المشاريع",
+      "allStatuses": "كل الحالات",
+      "allCollars": "كل الفئات (White/Blue)",
+      "search": "بحث…"
+    },
+    "columns": {
+      "employee": "الموظف",
+      "hrCode": "كود HR",
+      "jobTitle": "المسمى الوظيفي",
+      "project": "المشروع",
+      "type": "الفئة",
+      "status": "الحالة",
+      "documents": "المستندات",
+      "actions": ""
+    },
+    "joined": "انضم {date}",
+    "lastDay": "آخر يوم عمل {date}",
+    "inOnboarding": "قيد التعيين",
+    "view": "عرض ←",
+    "case": "الحالة ←",
+    "docsComplete": "{received}/{total} ✓",
+    "docsMissing": "{received}/{total} — {missing} ناقصة",
+    "docExpiring": "⚠ {doc} تنتهي خلال {days} يومًا",
+    "assetsToReturn": "عُهد مطلوب استردادها: {count}",
+    "showing": "عرض {shown} من {total}",
+    "salaryNote": "🔒 عمود الراتب مخفي — دورك يصل إليه من ملف الموظف فقط (السياسة 9)",
+    "empty": {
+      "title": "لا توجد نتائج مطابقة",
+      "description": "جرّب تعديل عوامل التصفية أو كلمة البحث."
+    }
+  },
+  "profile": {
+    "notFound": {
+      "title": "الموظف غير موجود",
+      "description": "تحقق من الرابط أو عُد إلى دليل الموظفين.",
+      "back": "العودة إلى الدليل"
+    },
+    "grade": "الدرجة {grade}",
+    "manager": "المدير المباشر: {name}",
+    "newAction": "إجراء جديد",
+    "hrLetters": "خطابات HR",
+    "tabs": {
+      "documents": "المستندات ({count})",
+      "timeline": "الخط الزمني",
+      "compensation": "التعويضات 🔒",
+      "projects": "المشاريع والتخصيص",
+      "hse": "السلامة (HSE)"
+    },
+    "documents": {
+      "title": "🗂 خزنة المستندات — Checklist الدليل",
+      "summary": "{received} مستلم · {expiring} يوشك على الانتهاء",
+      "summaryComplete": "{received} مستلم · مكتملة ✓",
+      "originalHeld": "أصل محفوظ",
+      "expires": "تنتهي {date}",
+      "na": "لا ينطبق",
+      "statusLabel": {
+        "required": "مطلوب",
+        "received": "مستلم",
+        "verified": "✓ تم التحقق",
+        "expired": "منتهٍ"
+      },
+      "aiNote": "📤 عند كل رفع: يصنّف الذكاء الاصطناعي الملف تلقائيًا، ويطابقه مع الـ Checklist، ويستخرج تاريخ الانتهاء (OCR) — ثم يتحقق منه فريق شؤون العاملين."
+    },
+    "timeline": {
+      "title": "🕐 الخط الزمني الوظيفي",
+      "empty": {
+        "title": "لا أحداث مسجلة",
+        "description": "تظهر هنا أحداث التعيين والترقيات والنقل وتجديد العقود."
+      }
+    },
+    "compensation": {
+      "auditNotice": "🔒 الاطلاع على هذا التبويب يُسجَّل في سجل التدقيق — قراءة بيانات التعويضات حدث مسجَّل (السياستان 9 + 16)",
+      "denied": {
+        "title": "🔒 لا تملك صلاحية الاطلاع على بيانات التعويضات",
+        "body": "بيانات الرواتب محمية على مستوى قاعدة البيانات (السياسة 9) وتقتصر على أدوار الرواتب ومدير الموارد البشرية والمالية ومدير الشركة. تم تسجيل محاولة الوصول هذه في سجل التدقيق (السياسة 16)."
+      },
+      "netSalary": "الراتب الصافي",
+      "netSalarySub": "إجمالي {gross} · تأميني {insurable}",
+      "allowancesTitle": "البدلات الشهرية",
+      "allowance": {
+        "site": "بدل موقع",
+        "transport": "بدل انتقال",
+        "meal": "بدل وجبة"
+      },
+      "bank": "الحساب البنكي",
+      "bankVerified": "✓ مُتحقق",
+      "bankVerifiedBy": "بواسطة فريق الرواتب في {date}",
+      "bankUnverified": "غير مُتحقق — لا تُصرف أي دفعة قبل التحقق (السياسة 6)",
+      "noData": "لا توجد بيانات تعويضات مسجلة لهذا الموظف.",
+      "si": {
+        "title": "التأمينات الاجتماعية",
+        "body": "الرقم التأميني: {number} · مكتب {office} · نموذج (1) مقدَّم {date}"
+      }
+    },
+    "projects": {
+      "title": "🏗 تخصيص التكلفة على المشاريع",
+      "columns": {
+        "project": "المشروع",
+        "code": "الكود",
+        "share": "النسبة",
+        "location": "الموقع",
+        "since": "منذ"
+      },
+      "totalOk": "✓ الإجمالي = 100% — تُوزَّع تقارير تكلفة الرواتب تلقائيًا وفق هذه النسب (السياسة 12)",
+      "totalBad": "⚠ الإجمالي = {total}% — يجب أن يساوي مجموع التخصيصات النشطة 100%",
+      "empty": {
+        "title": "لا تخصيصات نشطة",
+        "description": "لم يُخصَّص هذا الموظف على أي مشروع بعد."
+      }
+    },
+    "hse": {
+      "title": "🦺 سجل السلامة والصحة المهنية",
+      "result": {
+        "fit": "لائق",
+        "unfit": "غير لائق",
+        "pass": "اجتاز",
+        "fail": "لم يجتز"
+      },
+      "validUntil": "صالح حتى {date}",
+      "expiresSoon": "تنتهي {date}",
+      "noExpiry": "بلا تاريخ انتهاء",
+      "empty": {
+        "title": "لا سجلات HSE",
+        "description": "لم تُسجَّل فحوص طبية أو دورات سلامة لهذا الموظف بعد."
+      }
+    }
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "empty": "لا إشعارات جديدة"
+  },
+  "approvals": {
+    "title": "✅ صندوق الاعتمادات",
+    "subtitle": "{pending} بانتظار اعتمادك",
+    "tabs": {
+      "pending": "بانتظار الاعتماد",
+      "completed": "مكتملة",
+      "delegated": "مفوَّضة"
+    },
+    "columns": {
+      "module": "الموديول",
+      "subject": "الموضوع",
+      "requestedBy": "مقدَّم من",
+      "sla": "المهلة الزمنية",
+      "status": "الحالة",
+      "actions": ""
+    },
+    "modules": {
+      "recruitment": "توظيف",
+      "leave": "إجازة",
+      "advance": "سلفة",
+      "offboarding_settlement": "تسوية نهائية",
+      "salary_change": "تعديل راتب",
+      "penalty": "جزاء",
+      "onboarding": "تعيين"
+    },
+    "statuses": {
+      "pending": "بانتظار الاعتماد",
+      "approved": "موافق عليه",
+      "rejected": "مرفوض",
+      "delegated": "مفوَّض"
+    },
+    "modal": {
+      "approveTitle": "تأكيد الموافقة",
+      "rejectTitle": "تأكيد الرفض",
+      "commentLabel": "ملاحظة",
+      "commentPlaceholder": "أضف ملاحظة للسجل…",
+      "approveBtn": "موافق",
+      "rejectBtn": "رفض",
+      "cancelBtn": "إلغاء",
+      "rejectRequired": "ملاحظة الرفض إلزامية"
+    },
+    "empty": {
+      "title": "لا طلبات بانتظارك",
+      "description": "جميع الطلبات تمت معالجتها."
+    }
+  },
+  "sla": {
+    "title": "⏱ لوحة الـ SLA",
+    "subtitle": "تتبع مواعيد الاستجابة لكل الموديولات",
+    "kpi": {
+      "total": "إجمالي العناصر المفتوحة",
+      "p0": "P0 حرجة",
+      "breached": "خرق SLA",
+      "onTime": "في المهلة"
+    },
+    "columns": {
+      "module": "الموديول",
+      "subject": "الموضوع",
+      "owner": "المسؤول",
+      "priority": "الأولوية",
+      "remaining": "الوقت المتبقي",
+      "status": "الحالة"
+    },
+    "modules": {
+      "recruitment": "توظيف",
+      "onboarding": "تعيين",
+      "payroll": "رواتب",
+      "leave": "إجازات",
+      "offboarding": "إنهاء خدمة",
+      "advance": "سلف"
+    },
+    "statuses": {
+      "on_time": "في المهلة",
+      "warning": "تحذير",
+      "breach": "خرق SLA"
+    }
+  },
+  "login": {
+    "title": "مرحبًا بك في AfroHR Hub",
+    "subtitle": "تسجيل الدخول لإدارة الموارد البشرية",
+    "emailLabel": "البريد الإلكتروني أو رقم الجوال",
+    "emailPlaceholder": "email@company.com",
+    "sendOtp": "إرسال رمز الدخول",
+    "otpLabel": "رمز التحقق",
+    "otpPlaceholder": "• • • • • •",
+    "otpHint": "أرسلنا رمزًا مكوّنًا من 6 أرقام إلى {contact}",
+    "verify": "تحقق والدخول",
+    "back": "تغيير البريد / الجوال",
+    "loading": "جاري الإرسال…",
+    "envNote": "يتطلب تكوين Supabase (.env.local) لتفعيل المصادقة الحقيقية"
+  }
+}
