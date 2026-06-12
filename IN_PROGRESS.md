@@ -78,12 +78,14 @@
 - [x] Handover-to-Onboarding flow — handover action on stage 8 marks the candidate handed over (Onboarding module consumes this in Session 5)
 - [x] Recruitment nav item enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 5 — Onboarding Module
-- [ ] 9-stage onboarding task board (per the manual)
-- [ ] Task assignment & completion tracking
-- [ ] Activation portal (6 manual conditions check + `fn_can_activate()`)
-- [ ] Hiring email & contract generation (Claude API)
-- [ ] Candidate-to-Active-Employee promotion flow
+### Session 5 — Onboarding Module ✅ DONE (2026-06-12)
+- [x] Onboarding Tracker (`/onboarding`) — open cases × 9-stage progress bar, joining-date SLA chip, KPI cards (open, ready-to-activate, joining this week, activated), ready/in-progress/activated status
+- [x] Onboarding case board (`/onboarding/[id]`) — 9-stage checklist generated from the template, per-task owner-role badges, click-to-complete task tracking; conditional tasks (medical exam / safety courses) only emitted for safety-sensitive / medical-required roles
+- [x] Activation portal — the six conditions of `fn_can_activate()` computed live from task state (documents complete · contracts signed · HSE requirements · medical exam · systems ready · certificates valid); Activate button gated until all six met, missing-items list shows the owner of each, Policy 1 enforced (activation = only entry into Payroll)
+- [x] Hiring Email card — the 14 mandatory fields auto-rendered from the case (Stage 1 artifact)
+- [x] Candidate-to-Active promotion flow — activation sets status Active (mock); demo case `onb-001` is one click from activation, `onb-004` already activated
+- [x] Onboarding nav item enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
+- [ ] Contract / hiring-email *generation* via Claude API — deferred to Session 11 (AI layer); fields are assembled deterministically for now
 
 ### Session 6 — Payroll Module
 - [ ] Monthly payroll cycle UI (9 steps per the manual calendar)
@@ -150,11 +152,11 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 5: Onboarding Module**
+**Next up → Session 6: Payroll Module**
 
-Session 4 is complete. The full recruitment cycle is navigable: hiring request form (with replacement validation) → 8-stage pipeline with SLA countdowns → offer generation → public acceptance page → handover.
+Session 5 is complete. The lifecycle is now continuous from a hiring request all the way to an Active employee: recruitment handover → onboarding case → 9-stage checklist → activation gate (six conditions) → status Active → enters Payroll.
 
-Session 5 picks up exactly where the handover button leaves off: the 9-stage onboarding task board, the activation portal with the 6 manual conditions (`fn_can_activate()`), hiring email + contract generation (Claude API), and the candidate-to-Active-Employee promotion flow.
+Session 6 builds the monthly payroll cycle (9 steps per the manual calendar), the payslip builder (base + allowances + deductions + advances), Egyptian tax/social-insurance tables (configurable), and the Finance approval step. Only Active employees (the ones the activation gate let through) appear on the payroll run — Policy 1.
 
 ---
 
@@ -167,7 +169,7 @@ Session 5 picks up exactly where the handover button leaves off: the 9-stage onb
 | Frontend Foundation | 2026-06-12 | App shell, i18n, RBAC, 3 screens, mock data layer (build passes) | Done |
 | Engines & Notifications | 2026-06-12 | Approval Engine UI, SLA Dashboard, Notifications Drawer, Supabase Auth scaffold | Done |
 | Recruitment | 2026-06-12 | 8-stage pipeline, offers + public acceptance page, talent pool, handover | Done |
-| Onboarding | — | 9 stages, activation, contracts | Pending |
+| Onboarding | 2026-06-12 | 9-stage tracker, activation gate (6 conditions), hiring email | Done |
 | Payroll | — | Monthly cycle, payslips, tax/insurance | Pending |
 | Allowances + KPI | — | Allowance cycles, KPI scoring, cost reports | Pending |
 | Attendance + Leave | — | GPS attendance, leave requests & balances | Pending |

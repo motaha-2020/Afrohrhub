@@ -491,6 +491,86 @@
     "expiredBody": "هذا العرض لم يعد صالحاً. تواصل مع فريق التوظيف إن كنت لا تزال مهتماً.",
     "footer": "هذه الصفحة مؤمَّنة برمز شخصي — بلا تسجيل دخول. تعمل بالعربية والإنجليزية."
   },
+  "onboarding": {
+    "title": "🚀 متابعة التعيين (Onboarding)",
+    "subtitle": "الحالات المفتوحة عبر المراحل التسع من الدليل، مع بوابة التفعيل بالمرحلة 9",
+    "egp": "ج.م",
+    "stageOf": "{done}/{total} مراحل",
+    "kpi": {
+      "open": "حالات مفتوحة",
+      "openSub": "{count} × أولوية P0",
+      "readyToActivate": "جاهزة للتفعيل",
+      "readyToActivateSub": "اكتملت الشروط الستة",
+      "joiningThisWeek": "مباشرة هذا الأسبوع",
+      "joiningThisWeekSub": "خلال 7 أيام",
+      "activatedThisMonth": "تم تفعيلها",
+      "activatedThisMonthSub": "دخلت الـ Payroll (Policy 1)"
+    },
+    "columns": {
+      "employee": "الموظف الجديد",
+      "project": "المشروع",
+      "stage": "تقدم المراحل",
+      "joining": "تاريخ المباشرة",
+      "sla": "المهلة",
+      "status": "الحالة"
+    },
+    "statuses": {
+      "in_progress": "جارٍ التنفيذ",
+      "ready": "جاهز للتفعيل",
+      "activated": "مُفعّل"
+    },
+    "stages": {
+      "1": "1. بدء التعيين",
+      "2": "2. إخطار التعيين وبدء شؤون العاملين",
+      "3": "3. جمع المستندات والتحقق",
+      "4": "4. التعاقد والالتزام",
+      "5": "5. التسجيل في الأنظمة",
+      "6": "6. تجهيز العهدة والمعدات",
+      "7": "7. متطلبات السلامة HSE",
+      "8": "8. التوجيه والتعريف",
+      "9": "9. تفعيل التوظيف"
+    },
+    "gate": {
+      "title": "بوابة التفعيل",
+      "subtitle": "الشروط الستة من الدليل — يتحقق منها النظام آلياً. التفعيل هو المدخل الوحيد للـ Payroll (Policy 1).",
+      "conditions": {
+        "documents_complete": "المستندات مكتملة",
+        "contracts_signed": "العقود موقعة",
+        "hse_requirements": "متطلبات HSE مكتملة",
+        "medical_exam": "الفحص الطبي (Clearance)",
+        "systems_ready": "الأنظمة جاهزة (HR Code + صلاحيات)",
+        "certificates_valid": "الشهادات المطلوبة مستلمة"
+      },
+      "activateBtn": "✓ تفعيل الموظف",
+      "missingNote": "متبقٍ {count} شرط — راجع مالك كل عنصر.",
+      "activated": "✓ تم تفعيل الموظف — الحالة الآن Active ودخل دورة الـ Payroll (Policy 1).",
+      "policyNote": "التفعيل يضبط employees.status = Active ويُسجَّل في سجل التدقيق (Policy 16)."
+    },
+    "hiringEmail": {
+      "title": "الـ Hiring Email",
+      "subtitle": "الحقول الـ 14 الإلزامية، مُولّدة آلياً من الـ Handover (المرحلة 1).",
+      "nameEn": "الاسم (إنجليزي)",
+      "nameAr": "الاسم (عربي)",
+      "nationalId": "الرقم القومي",
+      "mobile": "الموبايل",
+      "jobTitle": "المسمى الوظيفي",
+      "projectCode": "كود المشروع",
+      "projectName": "اسم المشروع",
+      "directManager": "المدير المباشر",
+      "workLocation": "موقع العمل",
+      "netSalary": "الراتب الصافي",
+      "allowances": "البدلات والمزايا",
+      "siNumber": "رقم التأمين الاجتماعي",
+      "contractDate": "تاريخ توقيع العقد",
+      "joiningDate": "تاريخ المباشرة",
+      "pending": "قيد الإنجاز"
+    },
+    "notFound": {
+      "title": "حالة التعيين غير موجودة",
+      "description": "تحقق من الرابط أو عُد إلى لوحة المتابعة.",
+      "back": "العودة إلى متابعة التعيين"
+    }
+  },
   "sla": {
     "title": "⏱ لوحة الـ SLA",
     "subtitle": "تتبع مواعيد الاستجابة لكل الموديولات",

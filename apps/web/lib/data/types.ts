@@ -235,6 +235,97 @@ export interface ApprovalTask extends BaseRow {
 
 export type SlaPriority = "P0" | "P1";
 
+/* --------------------------- Onboarding ---------------------------- */
+
+export type OnboardingStatus =
+  | "open"
+  | "in_progress"
+  | "activated"
+  | "cancelled";
+
+export type TaskStatus =
+  | "pending"
+  | "in_progress"
+  | "done"
+  | "blocked"
+  | "skipped";
+
+/** The 9 onboarding stages from the manual (docs/modules/03-onboarding.md). */
+export type OnboardingStage = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export type OnboardingOwnerRole =
+  | "talent_acquisition"
+  | "personnel"
+  | "it"
+  | "hse"
+  | "operations_admin"
+  | "hr_manager";
+
+export interface OnboardingTask extends BaseRow {
+  case_id: string;
+  stage: OnboardingStage;
+  task_key: string;
+  title_ar: string;
+  title_en: string;
+  owner_role: OnboardingOwnerRole;
+  due_date: string | null;
+  status: TaskStatus;
+  completed_at: string | null;
+}
+
+/** The 14 mandatory fields of the manual's Hiring Email (Stage 1). */
+export interface HiringEmail {
+  name_en: string;
+  name_ar: string;
+  national_id: string;
+  mobile: string;
+  job_title: string;
+  project_code: string;
+  project_name: string;
+  direct_manager: string;
+  work_location: string;
+  net_salary: number;
+  allowances: string;
+  social_insurance_number: string;
+  contract_signing_date: string | null;
+  joining_date: string;
+}
+
+export interface OnboardingCase extends BaseRow {
+  case_code: string;
+  job_offer_id: string | null;
+  candidate_name_ar: string;
+  candidate_name_en: string;
+  job_title_ar: string;
+  job_title_en: string;
+  project_id: string;
+  joining_date: string;
+  priority: SlaPriority;
+  status: OnboardingStatus;
+  /** Furthest stage that has at least one task in progress / done. */
+  current_stage: OnboardingStage;
+  safety_sensitive_role: boolean;
+  requires_medical_exam: boolean;
+  hiring_email: HiringEmail;
+  activated_at: string | null;
+}
+
+/** The six activation-gate conditions of Stage 9 (app.fn_can_activate). */
+export type ActivationConditionKey =
+  | "documents_complete"
+  | "contracts_signed"
+  | "hse_requirements"
+  | "medical_exam"
+  | "systems_ready"
+  | "certificates_valid";
+
+export interface ActivationCondition {
+  key: ActivationConditionKey;
+  met: boolean;
+  /** Owner role responsible for clearing it (for the missing-items list). */
+  owner_role: OnboardingOwnerRole;
+}
+
 /* --------------------------- Recruitment --------------------------- */
 
 /** The 8 pipeline stages from the manual (docs/modules/02-recruitment.md). */

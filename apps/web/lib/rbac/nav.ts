@@ -106,7 +106,7 @@ export const NAV_SECTIONS: NavSection[] = [
           "hse",
           "operations_admin",
         ],
-        enabled: false,
+        enabled: true,
       },
       {
         key: "offboarding",

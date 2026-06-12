@@ -491,6 +491,86 @@
     "expiredBody": "This offer is no longer valid. Contact the talent acquisition team if you are still interested.",
     "footer": "This page is secured with a personal token — no sign-in needed. Works in Arabic and English."
   },
+  "onboarding": {
+    "title": "🚀 Onboarding Tracker",
+    "subtitle": "Open cases across the 9 stages of the manual, with the Stage-9 activation gate",
+    "egp": "EGP",
+    "stageOf": "{done}/{total} stages",
+    "kpi": {
+      "open": "Open Cases",
+      "openSub": "{count} × P0 priority",
+      "readyToActivate": "Ready to Activate",
+      "readyToActivateSub": "All six conditions met",
+      "joiningThisWeek": "Joining This Week",
+      "joiningThisWeekSub": "Within 7 days",
+      "activatedThisMonth": "Activated",
+      "activatedThisMonthSub": "Now in Payroll (Policy 1)"
+    },
+    "columns": {
+      "employee": "New Hire",
+      "project": "Project",
+      "stage": "Stage Progress",
+      "joining": "Joining Date",
+      "sla": "SLA",
+      "status": "Status"
+    },
+    "statuses": {
+      "in_progress": "In Progress",
+      "ready": "Ready to Activate",
+      "activated": "Activated"
+    },
+    "stages": {
+      "1": "1. Onboarding Initiation",
+      "2": "2. Hiring Notification & Personnel Initiation",
+      "3": "3. Document Collection & Verification",
+      "4": "4. Contracting & Compliance",
+      "5": "5. System Setup Registration",
+      "6": "6. Equipment & Operational Preparation",
+      "7": "7. HSE Requirements",
+      "8": "8. Orientation & Induction",
+      "9": "9. Employment Activation"
+    },
+    "gate": {
+      "title": "Activation Gate",
+      "subtitle": "The six conditions of the manual — checked automatically. Activation is the only way into Payroll (Policy 1).",
+      "conditions": {
+        "documents_complete": "Documents complete",
+        "contracts_signed": "Contracts signed",
+        "hse_requirements": "HSE requirements complete",
+        "medical_exam": "Medical exam (clearance)",
+        "systems_ready": "Systems ready (HR code + access)",
+        "certificates_valid": "Required certificates received"
+      },
+      "activateBtn": "✓ Activate employee",
+      "missingNote": "{count} condition(s) still pending — see the owner of each item.",
+      "activated": "✓ Employee activated — status is now Active and they have entered the Payroll cycle (Policy 1).",
+      "policyNote": "Activation sets employees.status = Active and is recorded in the audit log (Policy 16)."
+    },
+    "hiringEmail": {
+      "title": "Hiring Email",
+      "subtitle": "The 14 mandatory fields, auto-generated from the handover (Stage 1).",
+      "nameEn": "Name (EN)",
+      "nameAr": "Name (AR)",
+      "nationalId": "National ID",
+      "mobile": "Mobile",
+      "jobTitle": "Job title",
+      "projectCode": "Project code",
+      "projectName": "Project name",
+      "directManager": "Direct manager",
+      "workLocation": "Work location",
+      "netSalary": "Net salary",
+      "allowances": "Allowances & benefits",
+      "siNumber": "Social Insurance no.",
+      "contractDate": "Contract signing date",
+      "joiningDate": "Joining date",
+      "pending": "Pending"
+    },
+    "notFound": {
+      "title": "Onboarding case not found",
+      "description": "Check the link or go back to the tracker.",
+      "back": "Back to onboarding tracker"
+    }
+  },
   "sla": {
     "title": "⏱ SLA Dashboard",
     "subtitle": "Track response deadlines across all modules",
