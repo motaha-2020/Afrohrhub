@@ -182,6 +182,19 @@ tr:hover td{background:#fafbfd}
 <div class="main">
 <header class="topbar">
   <input class="search" placeholder="🔍 Search by name, HR code, or National ID…">
+  <div style="display:flex;align-items:center;gap:8px;background:var(--primary-light);border:1.5px solid var(--primary);border-radius:99px;padding:4px 6px 4px 14px">
+    <b style="font-size:12px;color:var(--primary);white-space:nowrap">👤 View as:</b>
+    <select id="roleSel" onchange="applyRole(this.value)" style="border:none;background:#fff;border-radius:99px;padding:5px 10px;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--primary);cursor:pointer">
+      <option value="hrm">HR Manager — Mona Taha</option>
+      <option value="ta">Talent Acquisition — Heba Samir</option>
+      <option value="personnel">Personnel — Mostafa Kamel</option>
+      <option value="payroll">Payroll — Nermin Lotfy</option>
+      <option value="finance">Finance — Sherif Anwar</option>
+      <option value="hse">HSE — Tarek Selim</option>
+      <option value="pm">Project Manager — Walid El-Gendy</option>
+      <option value="ess">Employee (ESS) — Mahmoud El-Naggar</option>
+    </select>
+  </div>
   <div class="top-actions">
     <span class="bell" onclick="toast('🔔 7 new notifications — latest: Criminal record certificate expires in 7 days for Karim Fawzy')">🔔<span class="dot">7</span></span>
     <div class="who"><b>Mona Taha</b>HR Manager</div>
@@ -189,7 +202,8 @@ tr:hover td{background:#fafbfd}
   </div>
 </header>
 <main class="content">
-<div class="demo-note">🧪 <b>Interactive demo</b> — all data is sample data. Navigate between screens from the sidebar and try the buttons and tabs. This is a preview of how the final product will look, based on the design docs.</div>
+<div class="demo-note">🧪 <b>Interactive demo</b> — all data is sample data. Navigate between screens from the sidebar and try the buttons and tabs. <b>Try the "View as" switcher in the top bar</b> to see how each HR role gets a different app: different menus, screens, and data access (RBAC + Row Level Security).</div>
+<div class="alert" id="roleBanner" style="display:none"></div>
 
 <!-- ======== 1) DASHBOARD ======== -->
 <section class="screen active" id="s-dash">
@@ -706,8 +720,46 @@ function go(s){
   document.querySelector('.content').scrollIntoView({behavior:'smooth',block:'start'});
 }
 links.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();go(l.dataset.s)}));
-// Profile tabs
+// ===== RBAC role switcher =====
+// Each role: visible screens (in sidebar order), compensation-tab access, who label, and scope description.
+const ROLES={
+ hrm:{name:'Mona Taha',title:'HR Manager',av:'MT',comp:true,screens:['dash','approvals','sla','employees','profile','recruit','onboard','offboard','payroll','attendance','leave','ess','settings'],
+   banner:'🟢 <b>HR Manager</b> — full HR oversight: all modules, approvals, SLA, and compensation access (every read is audit-logged).'},
+ ta:{name:'Heba Samir',title:'Talent Acquisition',av:'HS',comp:false,screens:['dash','approvals','sla','recruit','employees','onboard'],
+   banner:'🎯 <b>Talent Acquisition</b> — owns Recruitment stages 1–8 and the handover to Personnel. Can read employee basics (e.g., to validate a replacement\'s HR code) but has <b>no access to salaries, payroll, offboarding, or settings</b>.'},
+ personnel:{name:'Mostafa Kamel',title:'Personnel',av:'MK',comp:false,screens:['dash','approvals','sla','employees','profile','onboard','offboard','leave'],
+   banner:'🗂 <b>Personnel</b> — manages employee files, documents, contracts, onboarding and offboarding cases. <b>Cannot see salaries</b> (Policy 9): the Compensation tab is locked even though they manage the rest of the profile.'},
+ payroll:{name:'Nermin Lotfy',title:'Payroll',av:'NL',comp:true,screens:['dash','approvals','sla','payroll','employees','profile','attendance','leave'],
+   banner:'💰 <b>Payroll</b> — runs the monthly cycle, adjustments, allowances and KPI sheets. Full compensation access (audit-logged). <b>Cannot create employees, run recruitment, or approve final payments</b> — payment release is Finance\'s call (Policy 13).'},
+ finance:{name:'Sherif Anwar',title:'Finance',av:'SA',comp:true,screens:['dash','approvals','payroll','offboard'],
+   banner:'🏦 <b>Finance</b> — approves and executes payments (salaries, allowances, KPI, final settlements) and clears financial obligations at offboarding. <b>No access to recruitment, documents, or HR operations</b>.'},
+ hse:{name:'Tarek Selim',title:'HSE',av:'TS',comp:false,screens:['dash','approvals','sla','onboard','employees','profile'],
+   banner:'🦺 <b>HSE</b> — owns medical exams, safety courses and HSE interviews. Sees the HSE tab of employee profiles and HSE onboarding tasks. <b>No financial or contractual access</b>.'},
+ pm:{name:'Walid El-Gendy',title:'Project Manager — Benban 500kV',av:'WG',comp:false,screens:['dash','approvals','recruit','attendance','leave'],
+   banner:'🏗 <b>Project Manager</b> — scope limited to <b>his own project and team</b>: submits hiring requests, reviews his candidates, approves his team\'s leave/overtime, and submits project allowance data. Sees no other projects and no salaries.'},
+ ess:{name:'Mahmoud El-Naggar',title:'Employee (ESS)',av:'MN',comp:false,screens:['ess'],
+   banner:'📱 <b>Employee (ESS)</b> — sees <b>only himself</b>: his attendance, leave, payslip (behind a PIN), documents and requests. Enforced at the database row level (employee_id = jwt.employee_id), not just in the UI.'}
+};
+let curRole='hrm';
+function applyRole(r){
+  curRole=r;const cfg=ROLES[r];
+  // sidebar visibility
+  links.forEach(l=>{l.style.display=cfg.screens.includes(l.dataset.s)?'flex':'none'});
+  // identity in topbar
+  document.querySelector('.who').innerHTML='<b>'+cfg.name+'</b>'+cfg.title;
+  document.querySelector('.avatar').textContent=cfg.av;
+  // banner
+  const bn=document.getElementById('roleBanner');bn.style.display='block';bn.className='alert '+(r==='hrm'?'al-green':'al-yellow');bn.innerHTML=cfg.banner;
+  // compensation tab lock
+  const p3btn=document.querySelector('#ptabs button[data-t="p3"]');
+  if(p3btn)p3btn.innerHTML=cfg.comp?'Compensation 🔒':'Compensation 🚫';
+  // land on the first allowed screen
+  go(cfg.screens[0]);
+  toast('👤 Now viewing as: '+cfg.title+' — sidebar and access rights changed');
+}
+// Profile tabs (with field-level RBAC on the Compensation tab)
 document.querySelectorAll('#ptabs button').forEach(b=>b.addEventListener('click',()=>{
+  if(b.dataset.t==='p3'&&!ROLES[curRole].comp){toast('🚫 Access denied: compensation data is restricted to Payroll / HR Manager / Finance (Policy 9). This attempt is recorded in the Audit Log.');return}
   document.querySelectorAll('#ptabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
   document.querySelectorAll('.ptab').forEach(p=>p.style.display='none');
   document.getElementById(b.dataset.t).style.display='block';
