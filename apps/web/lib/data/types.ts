@@ -479,3 +479,63 @@ export interface SlaItem extends BaseRow {
   owner_name_en: string;
   hours_remaining: number;
 }
+
+/* ----------------------------- Payroll ----------------------------- */
+
+export type PayrollCycleStatus =
+  | "new_hires"
+  | "validation"
+  | "register_updated"
+  | "allocations_review"
+  | "adjustments"
+  | "processing"
+  | "submitted_to_finance"
+  | "paid"
+  | "cost_reported";
+
+export type PayrollItemStatus = "draft" | "validated" | "processed" | "paid";
+
+export type AdjustmentType =
+  | "medical_deduction"
+  | "insurance_update"
+  | "advance"
+  | "loan_deduction"
+  | "reimbursement"
+  | "correction";
+
+export interface PayrollComponents {
+  basic_salary: number;
+  allowances: Record<string, number>;
+}
+
+export interface PayrollCycle extends BaseRow {
+  month: string;
+  status: PayrollCycleStatus;
+  deadline_at: string | null;
+  locked: boolean;
+  employee_count: number;
+  total_gross: number;
+  total_net: number;
+}
+
+export interface PayrollItem extends BaseRow {
+  cycle_id: string;
+  employee_id: string;
+  gross: number;
+  net: number;
+  taxes: number;
+  social_insurance: number;
+  components: PayrollComponents;
+  status: PayrollItemStatus;
+}
+
+export interface PayrollAdjustment extends BaseRow {
+  cycle_id: string;
+  employee_id: string;
+  type: AdjustmentType;
+  amount: number;
+  label_ar: string;
+  label_en: string;
+  supporting_doc_path: string;
+  approval_request_id: string;
+}

@@ -602,6 +602,111 @@
       "breach": "SLA Breach"
     }
   },
+  "payroll": {
+    "title": "Payroll",
+    "subtitle": "Monthly payroll cycle — 9-stage mandatory calendar",
+    "currentCycle": "Current Cycle",
+    "history": "Cycle History",
+    "viewCycle": "View Cycle",
+    "view": "View",
+    "backToPayroll": "Back to Payroll",
+    "employees": "employees",
+    "deadline": "Deadline",
+    "egp": "EGP",
+    "advance": "Advance Stage",
+    "locked": "Locked",
+    "notFound": "Cycle not found",
+    "advancedTo": "Advanced to: {stage}",
+    "policyNote": "Policy 1: Only Active employees with a verified bank account are eligible for payroll.",
+    "kpi": {
+      "activeEmployees": "Active Employees",
+      "totalGross": "Total Gross",
+      "totalNet": "Total Net",
+      "nextDeadline": "Next Deadline",
+      "adjustments": "Adjustments"
+    },
+    "stages": {
+      "new_hires": "New Hire Submission",
+      "validation": "Data Validation",
+      "register_updated": "Register Update",
+      "allocations_review": "Allocations Review",
+      "adjustments": "Adjustments & Deductions",
+      "processing": "Payroll Processing",
+      "submitted_to_finance": "Submitted to Finance",
+      "paid": "Salary Payment",
+      "cost_reported": "Cost Reporting"
+    },
+    "stageDays": {
+      "new_hires": "Day 18",
+      "validation": "Days 18–19",
+      "register_updated": "Days 18–19",
+      "allocations_review": "Days 20–23",
+      "adjustments": "Days 20–23",
+      "processing": "Days 20–23",
+      "submitted_to_finance": "By Day 25",
+      "paid": "Days 28–EOM",
+      "cost_reported": "By Day 10"
+    },
+    "cycleStatus": {
+      "new_hires": "New Hires",
+      "validation": "Validation",
+      "register_updated": "Register Updated",
+      "allocations_review": "Allocations Review",
+      "adjustments": "Adjustments",
+      "processing": "Processing",
+      "submitted_to_finance": "At Finance",
+      "paid": "Paid",
+      "cost_reported": "Cost Reported"
+    },
+    "itemStatus": {
+      "draft": "Draft",
+      "validated": "Validated",
+      "processed": "Processed",
+      "paid": "Paid"
+    },
+    "register": {
+      "title": "Payroll Register",
+      "employee": "Employee",
+      "grade": "Grade",
+      "project": "Project",
+      "gross": "Gross",
+      "taxes": "Tax",
+      "si": "SI",
+      "net": "Net",
+      "status": "Status",
+      "selectEmployee": "Click a row to view the payslip"
+    },
+    "payslip": {
+      "title": "Payslip",
+      "earnings": "Earnings",
+      "basicSalary": "Basic Salary",
+      "allowances": "Allowances",
+      "gross": "Gross Pay",
+      "deductions": "Deductions",
+      "incomeTax": "Income Tax",
+      "socialInsurance": "Social Insurance",
+      "totalDeductions": "Total Deductions",
+      "netPay": "Net Pay",
+      "taxNote": "Tax per Egyptian Law 91/2005 brackets. SI: 11% of insurable salary ≤ EGP 11,800."
+    },
+    "allowanceTypes": {
+      "site": "Site Allowance",
+      "transport": "Transport Allowance",
+      "meal": "Meal Allowance"
+    },
+    "adjustments": {
+      "title": "Adjustments & Deductions",
+      "policyNote": "Policies 4 & 7: each adjustment is backed by an approved document.",
+      "types": {
+        "medical_deduction": "Medical Deduction",
+        "insurance_update": "Insurance Update",
+        "advance": "Advance",
+        "loan_deduction": "Loan Installment",
+        "reimbursement": "Reimbursement",
+        "correction": "Correction"
+      }
+    }
+  },
   "login": {
     "title": "Welcome to AfroHR Hub",
     "subtitle": "Sign in to manage HR operations",

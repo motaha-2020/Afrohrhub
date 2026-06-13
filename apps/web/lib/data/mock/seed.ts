@@ -504,6 +504,19 @@ export const COMPENSATIONS: EmployeeCompensation[] = [
     bank_verified: true,
     bank_verified_at: "2022-11-25",
   },
+  {
+    ...base("comp-007"),
+    ...compDefaults,
+    employee_id: "emp-007",
+    net_salary: 39600,
+    gross_salary: 52000,
+    insurable_salary: 12600,
+    allowances: { transport: 2000 },
+    bank_name: "NBE",
+    bank_account: "•••• 2210",
+    bank_verified: true,
+    bank_verified_at: "2019-09-05",
+  },
 ];
 
 /* ------------------------- Document checklist --------------------------- */

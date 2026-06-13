@@ -602,6 +602,111 @@
       "breach": "خرق SLA"
     }
   },
+  "payroll": {
+    "title": "الرواتب",
+    "subtitle": "دورة الـ Payroll الشهرية — 9 مراحل إلزامية",
+    "currentCycle": "الدورة الحالية",
+    "history": "الدورات السابقة",
+    "viewCycle": "عرض الدورة",
+    "view": "عرض",
+    "backToPayroll": "العودة للرواتب",
+    "employees": "موظف",
+    "deadline": "الموعد النهائي",
+    "egp": "ج.م",
+    "advance": "الانتقال للمرحلة التالية",
+    "locked": "مقفل",
+    "notFound": "الدورة غير موجودة",
+    "advancedTo": "تم الانتقال إلى: {stage}",
+    "policyNote": "السياسة 1: لا يدخل الرواتب إلا الموظف بحالة Active مع حساب بنكي متحقق.",
+    "kpi": {
+      "activeEmployees": "الموظفون النشطون",
+      "totalGross": "إجمالي المرتبات",
+      "totalNet": "صافي المرتبات",
+      "nextDeadline": "الموعد التالي",
+      "adjustments": "التسويات"
+    },
+    "stages": {
+      "new_hires": "إدراج الموظفين الجدد",
+      "validation": "التحقق من البيانات",
+      "register_updated": "تحديث سجل الرواتب",
+      "allocations_review": "مراجعة التخصيصات",
+      "adjustments": "الخصومات والتسويات",
+      "processing": "معالجة الرواتب",
+      "submitted_to_finance": "تسليم للمالية",
+      "paid": "صرف الرواتب",
+      "cost_reported": "تقارير التكلفة"
+    },
+    "stageDays": {
+      "new_hires": "يوم 18",
+      "validation": "18–19",
+      "register_updated": "18–19",
+      "allocations_review": "20–23",
+      "adjustments": "20–23",
+      "processing": "20–23",
+      "submitted_to_finance": "بحد أقصى 25",
+      "paid": "28 – نهاية الشهر",
+      "cost_reported": "بحد أقصى 10"
+    },
+    "cycleStatus": {
+      "new_hires": "الموظفون الجدد",
+      "validation": "التحقق",
+      "register_updated": "السجل محدّث",
+      "allocations_review": "مراجعة التخصيصات",
+      "adjustments": "التسويات",
+      "processing": "المعالجة",
+      "submitted_to_finance": "عند المالية",
+      "paid": "مصروف",
+      "cost_reported": "تم التقرير"
+    },
+    "itemStatus": {
+      "draft": "مسودة",
+      "validated": "متحقق",
+      "processed": "معالج",
+      "paid": "مصروف"
+    },
+    "register": {
+      "title": "سجل الرواتب",
+      "employee": "الموظف",
+      "grade": "الدرجة",
+      "project": "المشروع",
+      "gross": "إجمالي",
+      "taxes": "ضريبة",
+      "si": "تأمينات",
+      "net": "صافي",
+      "status": "الحالة",
+      "selectEmployee": "اضغط على سطر لعرض قسيمة الراتب"
+    },
+    "payslip": {
+      "title": "قسيمة الراتب",
+      "earnings": "المستحقات",
+      "basicSalary": "الراتب الأساسي",
+      "allowances": "البدلات",
+      "gross": "إجمالي المرتب",
+      "deductions": "الخصومات",
+      "incomeTax": "ضريبة الدخل",
+      "socialInsurance": "التأمينات الاجتماعية",
+      "totalDeductions": "إجمالي الخصومات",
+      "netPay": "صافي الراتب",
+      "taxNote": "الضريبة وفق شرائح القانون 91/2005. التأمينات: 11% من الأجر التأميني بحد أقصى 11,800 ج.م."
+    },
+    "allowanceTypes": {
+      "site": "بدل موقع",
+      "transport": "بدل انتقال",
+      "meal": "بدل وجبة"
+    },
+    "adjustments": {
+      "title": "الخصومات والتسويات",
+      "policyNote": "السياستان 4 و7: كل تسوية مدعومة بمستند معتمد.",
+      "types": {
+        "medical_deduction": "خصم طبي",
+        "insurance_update": "تحديث تأمين",
+        "advance": "سلفة",
+        "loan_deduction": "قسط قرض",
+        "reimbursement": "تسوية",
+        "correction": "تصحيح"
+      }
+    }
+  },
   "login": {
     "title": "مرحبًا بك في AfroHR Hub",
     "subtitle": "تسجيل الدخول لإدارة الموارد البشرية",
