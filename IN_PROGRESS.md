@@ -87,12 +87,18 @@
 - [x] Onboarding nav item enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
 - [ ] Contract / hiring-email *generation* via Claude API — deferred to Session 11 (AI layer); fields are assembled deterministically for now
 
-### Session 6 — Payroll Module
-- [ ] Monthly payroll cycle UI (9 steps per the manual calendar)
-- [ ] Payslip builder — base salary, allowances, deductions, advances
-- [ ] Egyptian tax brackets & social insurance calculation (configurable tables)
-- [ ] Finance approval step
-- [ ] Payroll run history & audit trail
+### Session 6 — Payroll Module ✅ DONE (2026-06-13)
+- [x] Monthly payroll cycle UI — 9-step stepper with mandatory calendar (days 18/19/23/25/28/10), current-stage highlighting, deadline display
+- [x] KPI cards — active employees, total gross, total net, next deadline
+- [x] Payroll register table — per-employee gross / income-tax / social-insurance / net columns, click row to open payslip side panel
+- [x] Egyptian tax engine (`lib/utils/payroll.ts`) — Law 91/2005 marginal brackets (0–25%), EGP 15k personal exemption, SI at 11% capped at EGP 11,800/month
+- [x] Payslip breakdown — basic salary + itemised allowances = gross, then income tax + SI + adjustments = deductions, net pay highlighted
+- [x] Adjustments & Deductions section — loan installment (emp-002, −1,000) + medical deduction (emp-006, −450), each with doc-path + approval ref
+- [x] Stage advancement button — advances cycle to next stage (local state), banner confirmation
+- [x] Payroll run history — past cycles with status badges + view links
+- [x] Policy 1 enforced — only `active` + `bank_verified` employees in register (emp-004 pending, emp-005 offboarding excluded)
+- [x] Added comp-007 (Walid El-Gendy, gross 52,000, NBE •••• 2210, bank_verified)
+- [x] Payroll nav item enabled; full `ar` + `en` catalogs; typecheck passes
 
 ### Session 7 — Allowances + KPI + Cost Reports
 - [ ] Allowance definitions & monthly allocation cycle
@@ -152,11 +158,14 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 6: Payroll Module**
+**Next up → Session 7: Allowances + KPI + Cost Reports**
 
-Session 5 is complete. The lifecycle is now continuous from a hiring request all the way to an Active employee: recruitment handover → onboarding case → 9-stage checklist → activation gate (six conditions) → status Active → enters Payroll.
+Session 6 is complete. The payroll lifecycle is now fully connected: an activated employee enters the monthly payroll cycle, goes through 9 mandatory stages (calendar 18/19/23/25/28/10), and receives a computed payslip with Egyptian tax + social insurance applied, adjustments deducted, and net pay shown.
 
-Session 6 builds the monthly payroll cycle (9 steps per the manual calendar), the payslip builder (base + allowances + deductions + advances), Egyptian tax/social-insurance tables (configurable), and the Finance approval step. Only Active employees (the ones the activation gate let through) appear on the payroll run — Policy 1.
+Session 7 builds the three remaining financial cycles from Part IV of the manual:
+1. **Monthly Allowance Cycle** (6 stages, calendar 10–15/15–17/≤17/20–25/≤10) — project managers submit site/transport/meal allowances per project; Payroll validates, Finance approves and pays
+2. **Quarterly KPI Bonus Cycle** (6 stages) — PMO submits evaluation scores, Payroll computes bonus, Finance approves and pays
+3. **Project Cost Reports** — payroll + allowances + KPI distributed by project per `employee_project_allocations` (Policy 12), due day 10 of next month
 
 ---
 
@@ -170,7 +179,7 @@ Session 6 builds the monthly payroll cycle (9 steps per the manual calendar), th
 | Engines & Notifications | 2026-06-12 | Approval Engine UI, SLA Dashboard, Notifications Drawer, Supabase Auth scaffold | Done |
 | Recruitment | 2026-06-12 | 8-stage pipeline, offers + public acceptance page, talent pool, handover | Done |
 | Onboarding | 2026-06-12 | 9-stage tracker, activation gate (6 conditions), hiring email | Done |
-| Payroll | — | Monthly cycle, payslips, tax/insurance | Pending |
+| Payroll | 2026-06-13 | 9-stage cycle, Egyptian tax engine, payslip breakdown, Policy 1 gate | Done |
 | Allowances + KPI | — | Allowance cycles, KPI scoring, cost reports | Pending |
 | Attendance + Leave | — | GPS attendance, leave requests & balances | Pending |
 | Offboarding | — | 6 stages, clearance, final settlement | Pending |
