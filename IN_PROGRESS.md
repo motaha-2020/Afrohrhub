@@ -123,11 +123,16 @@
 - [x] Nav items enabled: attendance 📍, leave 🏖
 - [x] Full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 9 — Offboarding Module
-- [ ] 6-stage offboarding workflow (per the manual)
-- [ ] Clearance checklist per department
-- [ ] Final settlement calculation (leave balance encashment + deductions)
-- [ ] Document archiving & employee status → Archived
+### Session 9 — Offboarding Module ✅ DONE (2026-06-13)
+- [x] Offboarding tracker (`/offboarding`) — open exits with a 6-stage progress bar, last-working-day SLA chip, reason badges, KPI cards (open, in clearance, pending settlement, archived)
+- [x] 6-stage workflow (per the manual) — Initiation → Access Deactivation → Handover → Clearance → Legal & Financial Closure → File Closure & Archiving; live stepper derived from case flags + clearance state
+- [x] Clearance matrix (`/offboarding/[id]`) — department sign-off (IT / Operations & Admin / Finance / Direct Manager) generated from the manual's table, click-to-clear, blocked-item state (a held advance blocks payout)
+- [x] Final settlement — last salary (prorated to LWD) + unused annual-leave encashment (fed from the Leave module) + dues − deductions; Finance approval gate (Policy 13) blocked until clearance is complete
+- [x] Access & handover panel — mandatory access-deactivation-by-LWD rule, direct-manager handover approval
+- [x] Closure & archiving — exit interview, Social Insurance Form (6), original-document return; Archive action gated on approved settlement + returned originals, sets status → Archived (Policy 14, HR code retained for rehire detection)
+- [x] New types: `OffboardingCase`, `ClearanceItem`, `FinalSettlement` (+ `OffboardingReason` / `OffboardingStatus` / `OffboardingStage` / `ClearanceDept` / `ClearanceStatus` enums)
+- [x] Mock data: `offboarding.ts` (3 cases — resignation/settlement, contract-end/clearance, project-end/archived); emp-005 annual balance added to Leave as the encashment source
+- [x] Nav item enabled: offboarding 📦; full `ar` + `en` catalogs; build/lint/typecheck pass
 
 ### Session 10 — ESS Portal & Messaging Channels
 - [ ] Employee Self-Service PWA (mobile-first, Blue Collar optimized)
@@ -167,15 +172,16 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 9: Offboarding Module**
+**Next up → Session 10: ESS Portal & Messaging Channels**
 
-Session 8 is complete. Attendance & Leave are now live:
-- **Attendance** (`/attendance`) — today's site sheet with GPS / site-supervisor / manual capture, status badges, late & overtime tracking, inline exception approval, and a monthly summary that feeds Payroll Stage 5 (overtime + / deductions −)
-- **Leave** (`/leave`) — Egyptian Labor Law leave-type catalog, per-employee balances (entitled / used / pending / remaining), and the request → manager → HR approval flow
+Session 9 is complete. Offboarding is now live:
+- **Offboarding tracker** (`/offboarding`) — open exits across the 6 stages with a progress bar, last-working-day SLA chip, reason badges and KPI cards
+- **Case board** (`/offboarding/[id]`) — the 6-stage workflow, the department clearance matrix (IT / Ops & Admin / Finance / Manager), the final-settlement calculation with the Finance approval gate (Policy 13), and the closure/archiving step (status → Archived, Policy 14)
+- The final settlement encashes the unused annual-leave balance fed from the **Leave** module, nets off outstanding advances, and stays blocked until clearance is complete and Finance approves
 
-Session 9 builds the Offboarding module:
-1. **6-stage offboarding workflow** (per the manual) with clearance checklist per department
-2. **Final settlement** — unused annual-leave encashment (fed from the Leave module) + deductions, document archiving, and employee status → Archived
+Session 10 builds the ESS Portal & Messaging Channels:
+1. **Employee Self-Service PWA** (mobile-first, Blue Collar optimized) — attendance log, payslip viewer, leave request, document download
+2. **Messaging channels** — WhatsApp Business API + Egyptian SMS provider, notification template builder
 
 ---
 
@@ -192,7 +198,7 @@ Session 9 builds the Offboarding module:
 | Payroll | 2026-06-13 | 9-stage cycle, Egyptian tax engine, payslip breakdown, Policy 1 gate | Done |
 | Allowances + KPI | 2026-06-13 | 6-stage allowance cycle, 6-stage KPI cycle, project cost reports (Policy 12) | Done |
 | Attendance + Leave | 2026-06-13 | Daily attendance sheet, exception approval → Payroll feed, leave types/balances/requests | Done |
-| Offboarding | — | 6 stages, clearance, final settlement | Pending |
+| Offboarding | 2026-06-13 | 6-stage exit workflow, department clearance matrix, final settlement + Finance gate (Policy 13), archiving (Policy 14) | Done |
 | ESS + Messaging | — | PWA, WhatsApp, SMS | Pending |
 | AI Layer | — | OCR, CV parsing, matching, semantic search | Pending |
 | Pilot Launch | — | Import, security audit, Vercel deploy | Pending |

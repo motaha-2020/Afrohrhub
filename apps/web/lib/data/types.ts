@@ -744,3 +744,95 @@ export interface LeaveRequest extends BaseRow {
   status: LeaveRequestStatus;
   requested_at: string;
 }
+
+/* --------------------------- Offboarding --------------------------- */
+/* The manual's Part III — 6-stage exit workflow (docs/modules/04). */
+
+/** The four exit triggers from the manual. */
+export type OffboardingReason =
+  | "resignation"
+  | "contract_end"
+  | "termination"
+  | "project_end";
+
+export type OffboardingStatus =
+  | "in_progress"
+  | "clearance"
+  | "settlement"
+  | "archived";
+
+/** The 6 offboarding stages from the manual. */
+export type OffboardingStage = 1 | 2 | 3 | 4 | 5 | 6;
+
+/** Departments that sign off the Stage-4 clearance matrix. */
+export type ClearanceDept =
+  | "it"
+  | "operations_admin"
+  | "finance"
+  | "direct_manager";
+
+export type ClearanceStatus = "pending" | "cleared" | "blocked";
+
+/** One line of the digital clearance form, owned by a department. */
+export interface ClearanceItem {
+  id: string;
+  dept: ClearanceDept;
+  label_ar: string;
+  label_en: string;
+  status: ClearanceStatus;
+}
+
+/**
+ * Stage-5 final settlement (Policy 13 — Finance approval before payout).
+ * Leave encashment is fed from the Leave module's unused annual balance.
+ */
+export interface FinalSettlement {
+  /** Final-month salary, prorated to the last working day. */
+  last_salary: number;
+  /** Unused annual-leave days carried from the Leave module. */
+  unused_leave_days: number;
+  /** Daily wage = comprehensive monthly wage / 30. */
+  daily_rate: number;
+  /** unused_leave_days × daily_rate. */
+  leave_encashment: number;
+  /** Other dues (e.g. end-of-assignment bonus). */
+  other_dues: number;
+  /** Outstanding advances / loans / custody recovered (from advances_loans). */
+  deductions: number;
+  deduction_note_ar: string;
+  deduction_note_en: string;
+  /** last_salary + leave_encashment + other_dues − deductions. */
+  net_settlement: number;
+  /** Finance gate — payout is blocked until true (Policy 13). */
+  finance_approved: boolean;
+}
+
+export interface OffboardingCase extends BaseRow {
+  case_code: string;
+  /** Core HR employee being offboarded (self-contained name fields too). */
+  employee_id: string;
+  employee_name_ar: string;
+  employee_name_en: string;
+  hr_code: string;
+  job_title_ar: string;
+  job_title_en: string;
+  project_id: string;
+  reason: OffboardingReason;
+  initiated_at: string;
+  last_working_day: string;
+  priority: SlaPriority;
+  status: OffboardingStatus;
+  current_stage: OffboardingStage;
+  /** Stage 2 — all access deactivated by the last working day. */
+  access_revoked: boolean;
+  /** Stage 3 — knowledge/task handover approved by the direct manager. */
+  handover_approved: boolean;
+  /** Stage 5 — exit interview captured. */
+  exit_interview_done: boolean;
+  /** Stage 5 — Social Insurance Form (6) filed. */
+  si_form6_filed: boolean;
+  /** Stage 6 — original documents returned with a signed receipt. */
+  originals_returned: boolean;
+  clearance: ClearanceItem[];
+  settlement: FinalSettlement;
+}

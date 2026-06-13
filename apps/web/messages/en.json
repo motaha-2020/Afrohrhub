@@ -983,5 +983,101 @@
       "partial": "Partial",
       "unpaid": "Unpaid"
     }
+  },
+  "offboarding": {
+    "title": "📦 Offboarding Tracker",
+    "subtitle": "Open exits across the manual's 6 stages — clearance, final settlement and archiving",
+    "egp": "EGP",
+    "workflow": "Offboarding Workflow",
+    "stageOf": "{done}/{total} stages",
+    "kpi": {
+      "open": "Open Cases",
+      "openSub": "{count} × P0 priority",
+      "inClearance": "In Clearance",
+      "inClearanceSub": "Departments still signing off",
+      "pendingSettlement": "Pending Settlement",
+      "pendingSettlementSub": "Awaiting Finance approval (Policy 13)",
+      "archived": "Archived",
+      "archivedSub": "Closed cases — file retained (Policy 14)"
+    },
+    "columns": {
+      "employee": "Employee",
+      "project": "Project",
+      "reason": "Reason",
+      "stage": "Stage Progress",
+      "lwd": "Last Working Day",
+      "sla": "SLA",
+      "status": "Status"
+    },
+    "reasons": {
+      "resignation": "Resignation",
+      "contract_end": "Contract End",
+      "termination": "Termination",
+      "project_end": "Project End"
+    },
+    "statuses": {
+      "in_progress": "In Progress",
+      "clearance": "In Clearance",
+      "settlement": "Settlement",
+      "archived": "Archived"
+    },
+    "stages": {
+      "1": "1. Offboarding Initiation",
+      "2": "2. System Access Deactivation",
+      "3": "3. Knowledge & Task Handover",
+      "4": "4. Clearance Process",
+      "5": "5. Legal & Financial Closure",
+      "6": "6. File Closure & Archiving"
+    },
+    "policyNote": "Final settlement is blocked until the clearance form is complete and Finance approves (Policy 13). Current case net payout: {settlement}.",
+    "clearance": {
+      "title": "Clearance Matrix",
+      "subtitle": "Each department signs off its items — the settlement is held until every line is cleared.",
+      "blocked": "Blocked",
+      "complete": "✓ Clearance complete — the final settlement can be approved for payout.",
+      "incomplete": "Clearance is still open — clear every department's items to release the settlement."
+    },
+    "settlement": {
+      "title": "Final Settlement",
+      "subtitle": "Last salary + unused annual-leave encashment (from Leave) + dues − deductions.",
+      "lastSalary": "Final salary (prorated to LWD)",
+      "leaveEncashment": "Leave encashment ({days} days × {rate}/day)",
+      "otherDues": "Other dues",
+      "deductions": "Deductions (advances / loans / custody)",
+      "net": "Net settlement",
+      "approveBtn": "✓ Finance approve payout",
+      "approved": "✓ Settlement approved by Finance — cleared for payout (Policy 13).",
+      "gateNote": "Clearance must be complete before Finance can approve the payout.",
+      "policyNote": "Policy 13 — Finance approval is required before any settlement is paid; recorded in the audit log (Policy 16)."
+    },
+    "access": {
+      "title": "Access & Handover",
+      "rule": "Mandatory rule: all system access must be deactivated by the last working day ({lwd}).",
+      "revoked": "System access deactivated",
+      "handover": "Knowledge & task handover approved"
+    },
+    "closure": {
+      "title": "Closure & Archiving",
+      "exitInterview": "Exit interview captured",
+      "siForm6": "Social Insurance Form (6) filed",
+      "originals": "Original documents returned (signed receipt)",
+      "archiveBtn": "🗄 Archive file (status → Archived)",
+      "archived": "✓ File archived — status is now Archived. The HR code is retained for rehire detection (Policy 14).",
+      "gateNote": "Archiving needs the approved settlement and the returned originals first.",
+      "policyNote": "Policy 14 — the file is archived, never deleted; the HR code is never reused."
+    },
+    "info": {
+      "title": "Case Details",
+      "hrCode": "HR code",
+      "reason": "Reason",
+      "initiated": "Initiated",
+      "lwd": "Last working day",
+      "project": "Project"
+    },
+    "notFound": {
+      "title": "Offboarding case not found",
+      "description": "Check the link or go back to the tracker.",
+      "back": "Back to offboarding tracker"
+    }
   }
 }

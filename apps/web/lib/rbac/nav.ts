@@ -121,7 +121,7 @@ export const NAV_SECTIONS: NavSection[] = [
           "operations_admin",
           "finance",
         ],
-        enabled: false,
+        enabled: true,
       },
     ],
   },
