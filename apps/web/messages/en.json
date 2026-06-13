@@ -275,6 +275,302 @@
       "description": "All requests have been processed."
     }
   },
+  "recruitment": {
+    "title": "🎯 Recruitment",
+    "subtitle": "Hiring requests, the 8-stage pipeline, and the talent pool",
+    "newRequest": "+ New Hiring Request",
+    "egp": "EGP",
+    "tabs": {
+      "requests": "Hiring Requests",
+      "pipeline": "Pipeline Board",
+      "talentPool": "Talent Pool"
+    },
+    "kpi": {
+      "openRequests": "Open Requests",
+      "openRequestsSub": "{count} × P0 critical",
+      "pendingApproval": "Pending Approval",
+      "pendingApprovalSub": "Same-day SLA",
+      "inPipeline": "Candidates in Pipeline",
+      "inPipelineSub": "{count} at final selection",
+      "openOffers": "Open Offers",
+      "openOffersSub": "{count} sent, awaiting reply"
+    },
+    "columns": {
+      "request": "Request",
+      "project": "Project",
+      "requestedBy": "Requested by",
+      "openings": "Openings",
+      "salaryRange": "Approved Range",
+      "priority": "Priority / SLA",
+      "status": "Status"
+    },
+    "requestTypes": {
+      "new_position": "New Position",
+      "replacement": "Replacement"
+    },
+    "statuses": {
+      "pending_approval": "Pending Approval",
+      "approved": "Approved",
+      "in_progress": "In Progress",
+      "filled": "Filled",
+      "cancelled": "Cancelled"
+    },
+    "stages": {
+      "hiring_request": "Hiring Request",
+      "sourcing_screening": "Sourcing & Screening",
+      "requester_review": "Requester Review",
+      "interviews": "Interviews",
+      "final_selection": "Final Selection",
+      "offer_issuance": "Offer Issuance",
+      "offer_acceptance": "Offer Acceptance",
+      "handover": "Handover"
+    },
+    "form": {
+      "title": "📝 New Hiring Request",
+      "subtitle": "Stage 1 — all fields are mandatory; the request enters the approval chain on submit",
+      "fields": {
+        "jobTitle": "Job title",
+        "openings": "Number of openings",
+        "project": "Project (code & name)",
+        "directManager": "Direct manager",
+        "workplace": "Workplace",
+        "salaryMin": "Approved salary — min",
+        "salaryMax": "Approved salary — max",
+        "qualifications": "Qualifications, skills & required experience",
+        "priority": "Priority",
+        "requestType": "Request type",
+        "replacedHrCode": "HR code of the departing employee"
+      },
+      "placeholders": {
+        "jobTitle": "e.g. Argon Welder",
+        "project": "Select a project…",
+        "directManager": "e.g. Eng. Mohamed Omar",
+        "qualifications": "3+ years experience, certified welder card, medically fit…"
+      },
+      "workplace": {
+        "site": "Site",
+        "office": "Office"
+      },
+      "priorities": {
+        "P0": "P0 — Critical / Immediate",
+        "P1": "P1 — Standard"
+      },
+      "requestTypes": {
+        "new_position": "New Position",
+        "replacement": "Replacement"
+      },
+      "replacementFound": "✓ Verified from Core HR: {name} — in offboarding",
+      "errors": {
+        "missingFields": "All fields are mandatory — the request cannot be submitted incomplete",
+        "salaryRange": "Maximum salary must be greater than or equal to the minimum",
+        "replacementNotFound": "No employee with this HR code was found in Core HR",
+        "replacementNotLeaving": "This employee is not in offboarding or archived — a replacement request requires a departing employee"
+      },
+      "approvalNote": "On submit the request enters the approval chain (same-day SLA) and appears in the Approvals inbox.",
+      "cancel": "Cancel",
+      "submit": "Submit for approval",
+      "success": {
+        "title": "Hiring request submitted",
+        "body": "The request entered the approval chain with a same-day SLA. You can track it from the hiring requests list or the approvals inbox.",
+        "backToList": "Back to requests",
+        "viewApprovals": "Approvals inbox"
+      }
+    },
+    "pipeline": {
+      "title": "🧭 Pipeline Board",
+      "subtitle": "{count} active candidates across the 8 stages of the manual",
+      "allRequests": "All hiring requests",
+      "handoverDone": "🤝 {name} handed over to Personnel — onboarding starts (Session 5)",
+      "emptyStage": "No candidates",
+      "openingsShort": "{count} openings",
+      "awaitingApproval": "Awaiting approval chain",
+      "match": "Match {pct}%",
+      "aboveRange": "⚠ Above range",
+      "handedOverBadge": "✓ Handed over",
+      "evalTech": "Tech",
+      "evalHse": "HSE",
+      "evalHr": "HR",
+      "offerSentNote": "Offer sent — {days} days left of the 30-day window",
+      "actions": {
+        "advance": "Advance →",
+        "sendOffer": "Generate offer",
+        "handover": "Handover 🤝"
+      },
+      "slaFootnote": "SLA per stage from the manual (P0/P1) — green > 24h · yellow < 24h · red < 4h or overdue. Breaches auto-escalate per the SLA engine."
+    },
+    "offerModal": {
+      "kicker": "Stage 6 — Job Offer Issuance",
+      "salaryLabel": "Offered salary (EGP)",
+      "startDateLabel": "Proposed start date",
+      "approvedRange": "Approved range: {min}–{max} EGP",
+      "aboveRange": "⚠ The offered salary is above the approved range — it will require an extra approval",
+      "includesTitle": "The generated offer email automatically includes:",
+      "includes": {
+        "letter": "Offer letter from the approved template (Arabic / English)",
+        "documents": "The 13 required documents checklist",
+        "training": "Required training & certificates for the role",
+        "deadline": "Acceptance link valid for 30 calendar days with automatic reminders"
+      },
+      "required": "Salary and start date are required",
+      "cancel": "Cancel",
+      "send": "Send offer 📨"
+    },
+    "rejectModal": {
+      "title": "Reject {name}",
+      "reasonLabel": "Rejection reason",
+      "reasonPlaceholder": "A reason is mandatory and is recorded on the candidate file…",
+      "required": "A rejection reason is required",
+      "poolNote": "The candidate is kept in the talent pool and a polite rejection email is sent automatically.",
+      "cancel": "Cancel",
+      "confirm": "Confirm rejection"
+    },
+    "talentPool": {
+      "title": "🗃 Talent Pool",
+      "subtitle": "{count} CVs in the searchable bank",
+      "searchPlaceholder": "🔍 Search by name, title, or skill…",
+      "allSources": "All sources",
+      "semanticNote": "Semantic search (pgvector) lands with the AI layer — Session 11",
+      "sources": {
+        "talent_pool": "Talent Pool",
+        "referral": "Referral",
+        "job_board": "Job Board",
+        "agency": "Agency",
+        "walk_in": "Walk-in"
+      },
+      "columns": {
+        "name": "Candidate",
+        "skills": "Skills",
+        "experience": "Experience",
+        "expectedSalary": "Expected Salary",
+        "lastContact": "Last Contact",
+        "source": "Source"
+      },
+      "years": "{count} yrs",
+      "egp": "EGP",
+      "neverContacted": "Never contacted",
+      "addToPipeline": "+ Add to pipeline",
+      "addedToPipeline": "✓ Added",
+      "empty": {
+        "title": "No matching CVs",
+        "description": "Try a different search term or source filter."
+      }
+    }
+  },
+  "offerPage": {
+    "invalid": {
+      "title": "Invalid or expired link",
+      "body": "This offer link is not valid. Contact the talent acquisition team for a new link."
+    },
+    "kicker": "Official Job Offer — Afro Egypt Contracting",
+    "greeting": "Dear {name}, we are pleased to offer you the following position",
+    "fields": {
+      "salary": "Monthly salary",
+      "project": "Project",
+      "startDate": "Proposed start date",
+      "workplace": "Workplace"
+    },
+    "egpMonthly": "EGP / month",
+    "workplace": {
+      "site": "Site",
+      "office": "Office"
+    },
+    "daysLeft": "⏳ {days} days left to respond",
+    "expired": "Offer expired",
+    "nextSteps": {
+      "title": "After acceptance",
+      "body": "You will receive the hiring email with the 13 required documents, the medical exam appointment (if applicable), and your first-day details."
+    },
+    "confirmDateLabel": "Confirm your start date",
+    "accept": "✓ Accept the offer",
+    "decline": "Decline",
+    "acceptedTitle": "Congratulations — offer accepted!",
+    "acceptedBody": "Your start date is confirmed for {date}. The talent acquisition team will contact you with the document checklist and first-day details.",
+    "declinedTitle": "Thank you for your time",
+    "declinedBody": "We have recorded your response. Your CV stays in our talent pool for future opportunities.",
+    "expiredTitle": "The 30-day window has passed",
+    "expiredBody": "This offer is no longer valid. Contact the talent acquisition team if you are still interested.",
+    "footer": "This page is secured with a personal token — no sign-in needed. Works in Arabic and English."
+  },
+  "onboarding": {
+    "title": "🚀 Onboarding Tracker",
+    "subtitle": "Open cases across the 9 stages of the manual, with the Stage-9 activation gate",
+    "egp": "EGP",
+    "stageOf": "{done}/{total} stages",
+    "kpi": {
+      "open": "Open Cases",
+      "openSub": "{count} × P0 priority",
+      "readyToActivate": "Ready to Activate",
+      "readyToActivateSub": "All six conditions met",
+      "joiningThisWeek": "Joining This Week",
+      "joiningThisWeekSub": "Within 7 days",
+      "activatedThisMonth": "Activated",
+      "activatedThisMonthSub": "Now in Payroll (Policy 1)"
+    },
+    "columns": {
+      "employee": "New Hire",
+      "project": "Project",
+      "stage": "Stage Progress",
+      "joining": "Joining Date",
+      "sla": "SLA",
+      "status": "Status"
+    },
+    "statuses": {
+      "in_progress": "In Progress",
+      "ready": "Ready to Activate",
+      "activated": "Activated"
+    },
+    "stages": {
+      "1": "1. Onboarding Initiation",
+      "2": "2. Hiring Notification & Personnel Initiation",
+      "3": "3. Document Collection & Verification",
+      "4": "4. Contracting & Compliance",
+      "5": "5. System Setup Registration",
+      "6": "6. Equipment & Operational Preparation",
+      "7": "7. HSE Requirements",
+      "8": "8. Orientation & Induction",
+      "9": "9. Employment Activation"
+    },
+    "gate": {
+      "title": "Activation Gate",
+      "subtitle": "The six conditions of the manual — checked automatically. Activation is the only way into Payroll (Policy 1).",
+      "conditions": {
+        "documents_complete": "Documents complete",
+        "contracts_signed": "Contracts signed",
+        "hse_requirements": "HSE requirements complete",
+        "medical_exam": "Medical exam (clearance)",
+        "systems_ready": "Systems ready (HR code + access)",
+        "certificates_valid": "Required certificates received"
+      },
+      "activateBtn": "✓ Activate employee",
+      "missingNote": "{count} condition(s) still pending — see the owner of each item.",
+      "activated": "✓ Employee activated — status is now Active and they have entered the Payroll cycle (Policy 1).",
+      "policyNote": "Activation sets employees.status = Active and is recorded in the audit log (Policy 16)."
+    },
+    "hiringEmail": {
+      "title": "Hiring Email",
+      "subtitle": "The 14 mandatory fields, auto-generated from the handover (Stage 1).",
+      "nameEn": "Name (EN)",
+      "nameAr": "Name (AR)",
+      "nationalId": "National ID",
+      "mobile": "Mobile",
+      "jobTitle": "Job title",
+      "projectCode": "Project code",
+      "projectName": "Project name",
+      "directManager": "Direct manager",
+      "workLocation": "Work location",
+      "netSalary": "Net salary",
+      "allowances": "Allowances & benefits",
+      "siNumber": "Social Insurance no.",
+      "contractDate": "Contract signing date",
+      "joiningDate": "Joining date",
+      "pending": "Pending"
+    },
+    "notFound": {
+      "title": "Onboarding case not found",
+      "description": "Check the link or go back to the tracker.",
+      "back": "Back to onboarding tracker"
+    }
+  },
   "sla": {
     "title": "⏱ SLA Dashboard",
     "subtitle": "Track response deadlines across all modules",
@@ -304,6 +600,111 @@
       "on_time": "On Time",
       "warning": "Warning",
       "breach": "SLA Breach"
+    }
+  },
+  "payroll": {
+    "title": "Payroll",
+    "subtitle": "Monthly payroll cycle — 9-stage mandatory calendar",
+    "currentCycle": "Current Cycle",
+    "history": "Cycle History",
+    "viewCycle": "View Cycle",
+    "view": "View",
+    "backToPayroll": "Back to Payroll",
+    "employees": "employees",
+    "deadline": "Deadline",
+    "egp": "EGP",
+    "advance": "Advance Stage",
+    "locked": "Locked",
+    "notFound": "Cycle not found",
+    "advancedTo": "Advanced to: {stage}",
+    "policyNote": "Policy 1: Only Active employees with a verified bank account are eligible for payroll.",
+    "kpi": {
+      "activeEmployees": "Active Employees",
+      "totalGross": "Total Gross",
+      "totalNet": "Total Net",
+      "nextDeadline": "Next Deadline",
+      "adjustments": "Adjustments"
+    },
+    "stages": {
+      "new_hires": "New Hire Submission",
+      "validation": "Data Validation",
+      "register_updated": "Register Update",
+      "allocations_review": "Allocations Review",
+      "adjustments": "Adjustments & Deductions",
+      "processing": "Payroll Processing",
+      "submitted_to_finance": "Submitted to Finance",
+      "paid": "Salary Payment",
+      "cost_reported": "Cost Reporting"
+    },
+    "stageDays": {
+      "new_hires": "Day 18",
+      "validation": "Days 18–19",
+      "register_updated": "Days 18–19",
+      "allocations_review": "Days 20–23",
+      "adjustments": "Days 20–23",
+      "processing": "Days 20–23",
+      "submitted_to_finance": "By Day 25",
+      "paid": "Days 28–EOM",
+      "cost_reported": "By Day 10"
+    },
+    "cycleStatus": {
+      "new_hires": "New Hires",
+      "validation": "Validation",
+      "register_updated": "Register Updated",
+      "allocations_review": "Allocations Review",
+      "adjustments": "Adjustments",
+      "processing": "Processing",
+      "submitted_to_finance": "At Finance",
+      "paid": "Paid",
+      "cost_reported": "Cost Reported"
+    },
+    "itemStatus": {
+      "draft": "Draft",
+      "validated": "Validated",
+      "processed": "Processed",
+      "paid": "Paid"
+    },
+    "register": {
+      "title": "Payroll Register",
+      "employee": "Employee",
+      "grade": "Grade",
+      "project": "Project",
+      "gross": "Gross",
+      "taxes": "Tax",
+      "si": "SI",
+      "net": "Net",
+      "status": "Status",
+      "selectEmployee": "Click a row to view the payslip"
+    },
+    "payslip": {
+      "title": "Payslip",
+      "earnings": "Earnings",
+      "basicSalary": "Basic Salary",
+      "allowances": "Allowances",
+      "gross": "Gross Pay",
+      "deductions": "Deductions",
+      "incomeTax": "Income Tax",
+      "socialInsurance": "Social Insurance",
+      "totalDeductions": "Total Deductions",
+      "netPay": "Net Pay",
+      "taxNote": "Tax per Egyptian Law 91/2005 brackets. SI: 11% of insurable salary ≤ EGP 11,800."
+    },
+    "allowanceTypes": {
+      "site": "Site Allowance",
+      "transport": "Transport Allowance",
+      "meal": "Meal Allowance"
+    },
+    "adjustments": {
+      "title": "Adjustments & Deductions",
+      "policyNote": "Policies 4 & 7: each adjustment is backed by an approved document.",
+      "types": {
+        "medical_deduction": "Medical Deduction",
+        "insurance_update": "Insurance Update",
+        "advance": "Advance",
+        "loan_deduction": "Loan Installment",
+        "reimbursement": "Reimbursement",
+        "correction": "Correction"
+      }
     }
   },
   "login": {

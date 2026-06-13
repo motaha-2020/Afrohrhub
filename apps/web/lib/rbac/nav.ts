@@ -91,7 +91,7 @@ export const NAV_SECTIONS: NavSection[] = [
           "direct_manager",
           "pmo",
         ],
-        enabled: false,
+        enabled: true,
       },
       {
         key: "onboarding",
@@ -106,7 +106,7 @@ export const NAV_SECTIONS: NavSection[] = [
           "hse",
           "operations_admin",
         ],
-        enabled: false,
+        enabled: true,
       },
       {
         key: "offboarding",
@@ -142,7 +142,7 @@ export const NAV_SECTIONS: NavSection[] = [
           "pmo",
           "direct_manager",
         ],
-        enabled: false,
+        enabled: true,
       },
       {
         key: "attendance",

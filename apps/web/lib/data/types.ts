@@ -234,6 +234,231 @@ export interface ApprovalTask extends BaseRow {
 }
 
 export type SlaPriority = "P0" | "P1";
+
+/* --------------------------- Onboarding ---------------------------- */
+
+export type OnboardingStatus =
+  | "open"
+  | "in_progress"
+  | "activated"
+  | "cancelled";
+
+export type TaskStatus =
+  | "pending"
+  | "in_progress"
+  | "done"
+  | "blocked"
+  | "skipped";
+
+/** The 9 onboarding stages from the manual (docs/modules/03-onboarding.md). */
+export type OnboardingStage = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export type OnboardingOwnerRole =
+  | "talent_acquisition"
+  | "personnel"
+  | "it"
+  | "hse"
+  | "operations_admin"
+  | "hr_manager";
+
+export interface OnboardingTask extends BaseRow {
+  case_id: string;
+  stage: OnboardingStage;
+  task_key: string;
+  title_ar: string;
+  title_en: string;
+  owner_role: OnboardingOwnerRole;
+  due_date: string | null;
+  status: TaskStatus;
+  completed_at: string | null;
+}
+
+/** The 14 mandatory fields of the manual's Hiring Email (Stage 1). */
+export interface HiringEmail {
+  name_en: string;
+  name_ar: string;
+  national_id: string;
+  mobile: string;
+  job_title: string;
+  project_code: string;
+  project_name: string;
+  direct_manager: string;
+  work_location: string;
+  net_salary: number;
+  allowances: string;
+  social_insurance_number: string;
+  contract_signing_date: string | null;
+  joining_date: string;
+}
+
+export interface OnboardingCase extends BaseRow {
+  case_code: string;
+  job_offer_id: string | null;
+  candidate_name_ar: string;
+  candidate_name_en: string;
+  job_title_ar: string;
+  job_title_en: string;
+  project_id: string;
+  joining_date: string;
+  priority: SlaPriority;
+  status: OnboardingStatus;
+  /** Furthest stage that has at least one task in progress / done. */
+  current_stage: OnboardingStage;
+  safety_sensitive_role: boolean;
+  requires_medical_exam: boolean;
+  hiring_email: HiringEmail;
+  activated_at: string | null;
+}
+
+/** The six activation-gate conditions of Stage 9 (app.fn_can_activate). */
+export type ActivationConditionKey =
+  | "documents_complete"
+  | "contracts_signed"
+  | "hse_requirements"
+  | "medical_exam"
+  | "systems_ready"
+  | "certificates_valid";
+
+export interface ActivationCondition {
+  key: ActivationConditionKey;
+  met: boolean;
+  /** Owner role responsible for clearing it (for the missing-items list). */
+  owner_role: OnboardingOwnerRole;
+}
+
+/* --------------------------- Recruitment --------------------------- */
+
+/** The 8 pipeline stages from the manual (docs/modules/02-recruitment.md). */
+export type RecruitmentStage =
+  | "hiring_request"
+  | "sourcing_screening"
+  | "requester_review"
+  | "interviews"
+  | "final_selection"
+  | "offer_issuance"
+  | "offer_acceptance"
+  | "handover";
+
+export const RECRUITMENT_STAGES: RecruitmentStage[] = [
+  "hiring_request",
+  "sourcing_screening",
+  "requester_review",
+  "interviews",
+  "final_selection",
+  "offer_issuance",
+  "offer_acceptance",
+  "handover",
+];
+
+export type HiringRequestStatus =
+  | "pending_approval"
+  | "approved"
+  | "in_progress"
+  | "filled"
+  | "cancelled";
+
+export type HiringRequestType = "new_position" | "replacement";
+
+export type WorkplaceType = "office" | "site";
+
+export interface HiringRequest extends BaseRow {
+  request_code: string;
+  job_title_ar: string;
+  job_title_en: string;
+  openings: number;
+  filled: number;
+  project_id: string;
+  direct_manager_name_ar: string;
+  direct_manager_name_en: string;
+  workplace: WorkplaceType;
+  salary_min: number;
+  salary_max: number;
+  qualifications_ar: string;
+  qualifications_en: string;
+  priority: SlaPriority;
+  request_type: HiringRequestType;
+  /** Replacement only — validated against Core HR. */
+  replaced_hr_code: string | null;
+  replaced_employee_name_ar: string | null;
+  replaced_employee_name_en: string | null;
+  status: HiringRequestStatus;
+  requested_by_name_ar: string;
+  requested_by_name_en: string;
+  requested_at: string;
+}
+
+export type CandidateSource =
+  | "talent_pool"
+  | "referral"
+  | "job_board"
+  | "agency"
+  | "walk_in";
+
+export type CandidateStatus = "active" | "rejected" | "handed_over";
+
+/** Digital evaluation forms — Stage 4 (technical / HSE / HR). */
+export interface CandidateEvaluation {
+  /** 1–5 per the manual's scoring forms. */
+  technical: number | null;
+  /** Safety-sensitive roles only. */
+  hse: number | null;
+  hr: number | null;
+  recommendation_ar: string | null;
+  recommendation_en: string | null;
+}
+
+export interface Candidate extends BaseRow {
+  hiring_request_id: string;
+  name_ar: string;
+  name_en: string;
+  mobile: string;
+  email: string | null;
+  source: CandidateSource;
+  years_experience: number;
+  /** Phone-screen salary expectation — auto-compared to the approved range. */
+  expected_salary: number;
+  /** Notice period / availability in days. */
+  readiness_days: number;
+  /** AI matching score (Session 11 fills this for real). */
+  match_pct: number;
+  stage: RecruitmentStage;
+  stage_entered_at: string;
+  sla_hours_remaining: number;
+  status: CandidateStatus;
+  rejection_reason_ar: string | null;
+  rejection_reason_en: string | null;
+  evaluation: CandidateEvaluation;
+}
+
+export type OfferStatus = "draft" | "sent" | "accepted" | "declined" | "expired";
+
+export interface JobOffer extends BaseRow {
+  candidate_id: string;
+  status: OfferStatus;
+  offered_salary: number;
+  proposed_start_date: string;
+  sent_at: string | null;
+  /** 30 calendar days from sending (manual hard limit). */
+  expires_at: string | null;
+  responded_at: string | null;
+  /** Public acceptance-page token (no-login link sent to the candidate). */
+  token: string;
+}
+
+/** Searchable CV bank — Stage 2 sourcing (semantic search in Session 11). */
+export interface TalentPoolEntry extends BaseRow {
+  name_ar: string;
+  name_en: string;
+  title_ar: string;
+  title_en: string;
+  years_experience: number;
+  skills: string[];
+  expected_salary: number | null;
+  mobile: string;
+  source: CandidateSource;
+  last_contacted_at: string | null;
+  cv_path: string | null;
+}
 export type SlaStatus = "on_time" | "warning" | "breach";
 export type SlaModule =
   | "recruitment"
@@ -253,4 +478,64 @@ export interface SlaItem extends BaseRow {
   owner_name_ar: string;
   owner_name_en: string;
   hours_remaining: number;
+}
+
+/* ----------------------------- Payroll ----------------------------- */
+
+export type PayrollCycleStatus =
+  | "new_hires"
+  | "validation"
+  | "register_updated"
+  | "allocations_review"
+  | "adjustments"
+  | "processing"
+  | "submitted_to_finance"
+  | "paid"
+  | "cost_reported";
+
+export type PayrollItemStatus = "draft" | "validated" | "processed" | "paid";
+
+export type AdjustmentType =
+  | "medical_deduction"
+  | "insurance_update"
+  | "advance"
+  | "loan_deduction"
+  | "reimbursement"
+  | "correction";
+
+export interface PayrollComponents {
+  basic_salary: number;
+  allowances: Record<string, number>;
+}
+
+export interface PayrollCycle extends BaseRow {
+  month: string;
+  status: PayrollCycleStatus;
+  deadline_at: string | null;
+  locked: boolean;
+  employee_count: number;
+  total_gross: number;
+  total_net: number;
+}
+
+export interface PayrollItem extends BaseRow {
+  cycle_id: string;
+  employee_id: string;
+  gross: number;
+  net: number;
+  taxes: number;
+  social_insurance: number;
+  components: PayrollComponents;
+  status: PayrollItemStatus;
+}
+
+export interface PayrollAdjustment extends BaseRow {
+  cycle_id: string;
+  employee_id: string;
+  type: AdjustmentType;
+  amount: number;
+  label_ar: string;
+  label_en: string;
+  supporting_doc_path: string;
+  approval_request_id: string;
 }

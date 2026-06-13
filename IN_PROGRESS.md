@@ -68,26 +68,37 @@
 - [x] Supabase Auth scaffold — `lib/supabase/client.ts` + `server.ts`, login page (email + OTP UI), Supabase packages installed
 - [ ] Wire real Supabase Auth (replace mock session) — needs `.env.local` with Supabase project URL + anon key
 
-### Session 4 — Recruitment Module
-- [ ] Jobs listing & creation
-- [ ] Candidate pipeline (8 stages: Sourcing → Screening → Interview 1 → Interview 2 → Offer → Background Check → Accepted → Handover)
-- [ ] Talent pool management
-- [ ] Offer letter generation & candidate acceptance page
-- [ ] Handover-to-Onboarding flow
+### Session 4 — Recruitment Module ✅ DONE (2026-06-12)
+- [x] Hiring requests listing + KPI cards (`/recruitment`) — request code, project, openings filled/total, approved salary range, priority/SLA, status
+- [x] New Hiring Request form (`/recruitment/new`) — all Stage-1 mandatory fields from the manual; Replacement type validates the departing employee's HR code against Core HR (must exist + be offboarding/archived); P0/P1 priority picker; dashboard button wired
+- [x] Candidate pipeline board (`/recruitment/pipeline`) — 8-stage Kanban per the manual (Hiring Request → Sourcing & Screening → Requester Review → Interviews → Final Selection → Offer Issuance → Offer Acceptance → Handover), per-stage SLA countdowns (P0/P1 matrix), match %, above-salary-range flag, evaluation stars (Tech/HSE/HR), advance/reject (mandatory reason) actions, filter by request
+- [x] Offer generation modal — salary vs approved range warning, proposed start date, auto-included items (template letter, 13-document checklist, training requirements, 30-day acceptance link)
+- [x] Public candidate acceptance page (`/offer/[token]`) — tokenized, no sign-in, mobile-first, AR/EN, 30-day countdown, accept (confirm start date) / decline / expired states
+- [x] Talent pool (`/recruitment/talent-pool`) — search by name/title/skill, source filter, add-to-pipeline; semantic search marked for Session 11
+- [x] Handover-to-Onboarding flow — handover action on stage 8 marks the candidate handed over (Onboarding module consumes this in Session 5)
+- [x] Recruitment nav item enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 5 — Onboarding Module
-- [ ] 9-stage onboarding task board (per the manual)
-- [ ] Task assignment & completion tracking
-- [ ] Activation portal (6 manual conditions check + `fn_can_activate()`)
-- [ ] Hiring email & contract generation (Claude API)
-- [ ] Candidate-to-Active-Employee promotion flow
+### Session 5 — Onboarding Module ✅ DONE (2026-06-12)
+- [x] Onboarding Tracker (`/onboarding`) — open cases × 9-stage progress bar, joining-date SLA chip, KPI cards (open, ready-to-activate, joining this week, activated), ready/in-progress/activated status
+- [x] Onboarding case board (`/onboarding/[id]`) — 9-stage checklist generated from the template, per-task owner-role badges, click-to-complete task tracking; conditional tasks (medical exam / safety courses) only emitted for safety-sensitive / medical-required roles
+- [x] Activation portal — the six conditions of `fn_can_activate()` computed live from task state (documents complete · contracts signed · HSE requirements · medical exam · systems ready · certificates valid); Activate button gated until all six met, missing-items list shows the owner of each, Policy 1 enforced (activation = only entry into Payroll)
+- [x] Hiring Email card — the 14 mandatory fields auto-rendered from the case (Stage 1 artifact)
+- [x] Candidate-to-Active promotion flow — activation sets status Active (mock); demo case `onb-001` is one click from activation, `onb-004` already activated
+- [x] Onboarding nav item enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
+- [ ] Contract / hiring-email *generation* via Claude API — deferred to Session 11 (AI layer); fields are assembled deterministically for now
 
-### Session 6 — Payroll Module
-- [ ] Monthly payroll cycle UI (9 steps per the manual calendar)
-- [ ] Payslip builder — base salary, allowances, deductions, advances
-- [ ] Egyptian tax brackets & social insurance calculation (configurable tables)
-- [ ] Finance approval step
-- [ ] Payroll run history & audit trail
+### Session 6 — Payroll Module ✅ DONE (2026-06-13)
+- [x] Monthly payroll cycle UI — 9-step stepper with mandatory calendar (days 18/19/23/25/28/10), current-stage highlighting, deadline display
+- [x] KPI cards — active employees, total gross, total net, next deadline
+- [x] Payroll register table — per-employee gross / income-tax / social-insurance / net columns, click row to open payslip side panel
+- [x] Egyptian tax engine (`lib/utils/payroll.ts`) — Law 91/2005 marginal brackets (0–25%), EGP 15k personal exemption, SI at 11% capped at EGP 11,800/month
+- [x] Payslip breakdown — basic salary + itemised allowances = gross, then income tax + SI + adjustments = deductions, net pay highlighted
+- [x] Adjustments & Deductions section — loan installment (emp-002, −1,000) + medical deduction (emp-006, −450), each with doc-path + approval ref
+- [x] Stage advancement button — advances cycle to next stage (local state), banner confirmation
+- [x] Payroll run history — past cycles with status badges + view links
+- [x] Policy 1 enforced — only `active` + `bank_verified` employees in register (emp-004 pending, emp-005 offboarding excluded)
+- [x] Added comp-007 (Walid El-Gendy, gross 52,000, NBE •••• 2210, bank_verified)
+- [x] Payroll nav item enabled; full `ar` + `en` catalogs; typecheck passes
 
 ### Session 7 — Allowances + KPI + Cost Reports
 - [ ] Allowance definitions & monthly allocation cycle
@@ -147,11 +158,14 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 4: Recruitment Module**
+**Next up → Session 7: Allowances + KPI + Cost Reports**
 
-Session 3 is complete. The approval/SLA UI and notification drawer are live. The Supabase Auth scaffold is in place — needs `.env.local` with a real Supabase project to activate.
+Session 6 is complete. The payroll lifecycle is now fully connected: an activated employee enters the monthly payroll cycle, goes through 9 mandatory stages (calendar 18/19/23/25/28/10), and receives a computed payslip with Egyptian tax + social insurance applied, adjustments deducted, and net pay shown.
 
-Session 4 builds the Recruitment pipeline (8 stages) on top of the engines built in Session 3. Each pipeline stage transition will use the Approval Engine and SLA countdown components already built.
+Session 7 builds the three remaining financial cycles from Part IV of the manual:
+1. **Monthly Allowance Cycle** (6 stages, calendar 10–15/15–17/≤17/20–25/≤10) — project managers submit site/transport/meal allowances per project; Payroll validates, Finance approves and pays
+2. **Quarterly KPI Bonus Cycle** (6 stages) — PMO submits evaluation scores, Payroll computes bonus, Finance approves and pays
+3. **Project Cost Reports** — payroll + allowances + KPI distributed by project per `employee_project_allocations` (Policy 12), due day 10 of next month
 
 ---
 
@@ -163,9 +177,9 @@ Session 4 builds the Recruitment pipeline (8 stages) on top of the engines built
 | DB Schema | 2026-06-12 | 10 migrations, 52 tables, RLS, seeds (PostgreSQL 16 verified) | Done |
 | Frontend Foundation | 2026-06-12 | App shell, i18n, RBAC, 3 screens, mock data layer (build passes) | Done |
 | Engines & Notifications | 2026-06-12 | Approval Engine UI, SLA Dashboard, Notifications Drawer, Supabase Auth scaffold | Done |
-| Recruitment | — | 8-stage pipeline, offers, talent pool | Pending |
-| Onboarding | — | 9 stages, activation, contracts | Pending |
-| Payroll | — | Monthly cycle, payslips, tax/insurance | Pending |
+| Recruitment | 2026-06-12 | 8-stage pipeline, offers + public acceptance page, talent pool, handover | Done |
+| Onboarding | 2026-06-12 | 9-stage tracker, activation gate (6 conditions), hiring email | Done |
+| Payroll | 2026-06-13 | 9-stage cycle, Egyptian tax engine, payslip breakdown, Policy 1 gate | Done |
 | Allowances + KPI | — | Allowance cycles, KPI scoring, cost reports | Pending |
 | Attendance + Leave | — | GPS attendance, leave requests & balances | Pending |
 | Offboarding | — | 6 stages, clearance, final settlement | Pending |

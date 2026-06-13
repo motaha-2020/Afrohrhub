@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 import { Card } from "@/components/ui/Card";
 import { KpiCard } from "@/components/ui/KpiCard";
 import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { getServerSession } from "@/lib/auth/session.server";
 import { projectRepository } from "@/lib/data";
@@ -57,7 +56,12 @@ export default async function DashboardPage({
             })}
           </p>
         </div>
-        <Button>{t("newHiringRequest")}</Button>
+        <Link
+          href="/recruitment/new"
+          className="rounded-[9px] bg-primary px-[18px] py-[9px] text-[13px] font-bold text-white transition-colors hover:bg-primary-dark"
+        >
+          {t("newHiringRequest")}
+        </Link>
       </div>
 
       <div className="mb-5 grid gap-4 max-lg:grid-cols-2 lg:grid-cols-4">
