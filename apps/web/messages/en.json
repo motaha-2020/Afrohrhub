@@ -875,5 +875,113 @@
       "final": "Final"
     },
     "policy12Note": "Policy 12: costs are distributed per the approved project allocations in `employee_project_allocations`."
+  },
+  "attendance": {
+    "title": "📍 Attendance",
+    "subtitle": "GPS check-in, site-supervisor sheets, and the monthly summary that feeds Payroll",
+    "today": "Today",
+    "egp": "EGP",
+    "min": "min",
+    "approve": "Approve",
+    "reject": "Reject",
+    "statusApproved": "Approved",
+    "statusRejected": "Rejected",
+    "exceptionApproved": "{name}'s exception approved — flows to Payroll Stage 5",
+    "exceptionRejected": "{name}'s exception rejected",
+    "dailyNote": "Approved overtime and unjustified-absence deductions flow to Payroll Stage 5 as documented adjustments (Policies 4 & 7).",
+    "monthNote": "The monthly roll-up feeds the Payroll register; the month locks when the Payroll cycle locks.",
+    "kpi": {
+      "present": "Present Today",
+      "onLeave": "On Leave",
+      "absent": "Absent",
+      "onAssignment": "On Assignment",
+      "pendingExceptions": "Pending Exceptions"
+    },
+    "statuses": {
+      "present": "Present",
+      "absent": "Absent",
+      "leave": "On Leave",
+      "assignment": "Assignment",
+      "weekend": "Weekend",
+      "holiday": "Holiday"
+    },
+    "methods": {
+      "gps": "GPS",
+      "site_supervisor": "Site Supervisor",
+      "manual": "Manual"
+    },
+    "dailySheet": {
+      "title": "Today's Attendance Sheet",
+      "employee": "Employee",
+      "project": "Project",
+      "status": "Status",
+      "checkInOut": "Check-in / out",
+      "method": "Method / Location",
+      "late": "Late",
+      "overtime": "Overtime",
+      "exception": "Exception",
+      "unverified": "Unverified"
+    },
+    "monthSummary": {
+      "title": "Monthly Summary → Payroll Feed",
+      "employee": "Employee",
+      "worked": "Worked",
+      "absent": "Absent",
+      "leave": "Leave",
+      "assignment": "Assignment",
+      "overtimeAmount": "Overtime (+)",
+      "deduction": "Deduction (−)",
+      "payrollFeed": "To Payroll Stage 5"
+    }
+  },
+  "leave": {
+    "title": "🏖 Leave Management",
+    "subtitle": "Egyptian Labor Law leave types, balances, and the request → approval flow",
+    "approve": "Approve",
+    "reject": "Reject",
+    "daysShort": "days/yr",
+    "requestApproved": "{name}'s leave approved — balance deducted, attendance flagged",
+    "requestRejected": "{name}'s leave rejected",
+    "requestsNote": "Requests route to the direct manager (plus HR for special types). Approval deducts the balance and auto-flags Attendance; unpaid days deduct in Payroll.",
+    "balancesNote": "Annual entitlement is computed from hire date, service length and age; unused annual balance is cashed out in the final settlement (Offboarding Stage 5).",
+    "kpi": {
+      "pending": "Pending Requests",
+      "approvedDays": "Approved Days",
+      "types": "Leave Types",
+      "tracked": "Tracked Employees"
+    },
+    "requests": {
+      "title": "Leave Requests",
+      "employee": "Employee",
+      "type": "Type",
+      "period": "Period",
+      "days": "Days",
+      "reason": "Reason",
+      "status": "Status"
+    },
+    "requestStatus": {
+      "pending": "Pending Manager",
+      "manager_approved": "Pending HR",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "cancelled": "Cancelled"
+    },
+    "balances": {
+      "title": "Leave Balances (2026)",
+      "employee": "Employee",
+      "type": "Type",
+      "entitled": "Entitled",
+      "used": "Used",
+      "pending": "Pending",
+      "remaining": "Remaining"
+    },
+    "types": {
+      "title": "Leave Types (Egyptian Law)"
+    },
+    "payRule": {
+      "paid": "Paid",
+      "partial": "Partial",
+      "unpaid": "Unpaid"
+    }
   }
 }

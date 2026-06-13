@@ -199,8 +199,9 @@ export const NAV_SECTIONS: NavSection[] = [
           "hr_manager",
           "operations_admin",
           "direct_manager",
+          "payroll",
         ],
-        enabled: false,
+        enabled: true,
       },
       {
         key: "leave",
@@ -210,10 +211,11 @@ export const NAV_SECTIONS: NavSection[] = [
         allowedRoles: [
           "company_admin",
           "hr_manager",
+          "personnel",
           "operations_admin",
           "direct_manager",
         ],
-        enabled: false,
+        enabled: true,
       },
     ],
   },

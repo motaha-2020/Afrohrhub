@@ -875,5 +875,113 @@
       "final": "نهائي"
     },
     "policy12Note": "السياسة 12: التكلفة توزَّع وفق نسب تخصيص المشاريع المعتمدة من `employee_project_allocations`."
+  },
+  "attendance": {
+    "title": "📍 الحضور",
+    "subtitle": "تسجيل GPS، كشوف مشرفي المواقع، وملخص شهري يغذّي الـ Payroll",
+    "today": "اليوم",
+    "egp": "ج.م",
+    "min": "د",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "statusApproved": "معتمد",
+    "statusRejected": "مرفوض",
+    "exceptionApproved": "تم اعتماد استثناء {name} — يتدفق إلى Payroll المرحلة 5",
+    "exceptionRejected": "تم رفض استثناء {name}",
+    "dailyNote": "الأوفرتايم المعتمد وخصومات الغياب غير المبرر تتدفق إلى Payroll المرحلة 5 كتسويات موثقة (السياستان 4 و7).",
+    "monthNote": "الملخص الشهري يغذّي سجل الـ Payroll، ويُقفل الشهر عند قفل دورة الـ Payroll.",
+    "kpi": {
+      "present": "حاضرون اليوم",
+      "onLeave": "في إجازة",
+      "absent": "غائبون",
+      "onAssignment": "في مأمورية",
+      "pendingExceptions": "استثناءات معلّقة"
+    },
+    "statuses": {
+      "present": "حاضر",
+      "absent": "غائب",
+      "leave": "إجازة",
+      "assignment": "مأمورية",
+      "weekend": "عطلة أسبوعية",
+      "holiday": "عطلة رسمية"
+    },
+    "methods": {
+      "gps": "GPS",
+      "site_supervisor": "مشرف الموقع",
+      "manual": "يدوي"
+    },
+    "dailySheet": {
+      "title": "كشف حضور اليوم",
+      "employee": "الموظف",
+      "project": "المشروع",
+      "status": "الحالة",
+      "checkInOut": "الدخول / الخروج",
+      "method": "الطريقة / الموقع",
+      "late": "تأخير",
+      "overtime": "أوفرتايم",
+      "exception": "الاستثناء",
+      "unverified": "غير متحقق"
+    },
+    "monthSummary": {
+      "title": "الملخص الشهري ← تغذية الـ Payroll",
+      "employee": "الموظف",
+      "worked": "أيام عمل",
+      "absent": "غياب",
+      "leave": "إجازة",
+      "assignment": "مأمورية",
+      "overtimeAmount": "أوفرتايم (+)",
+      "deduction": "خصم (−)",
+      "payrollFeed": "إلى Payroll المرحلة 5"
+    }
+  },
+  "leave": {
+    "title": "🏖 إدارة الإجازات",
+    "subtitle": "أنواع الإجازات وفق قانون العمل المصري، الأرصدة، ودورة الطلب ← الاعتماد",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "daysShort": "يوم/سنة",
+    "requestApproved": "تم اعتماد إجازة {name} — خُصم الرصيد وعُلّم الحضور",
+    "requestRejected": "تم رفض إجازة {name}",
+    "requestsNote": "تُوجَّه الطلبات إلى المدير المباشر (وHR للأنواع الخاصة). الاعتماد يخصم الرصيد ويعلّم الحضور تلقائياً؛ وتُخصم الأيام بدون أجر في الـ Payroll.",
+    "balancesNote": "يُحتسب الاستحقاق السنوي من تاريخ التعيين ومدة الخدمة والسن؛ ويُصرف رصيد السنوية غير المستخدم في التسوية النهائية (Offboarding المرحلة 5).",
+    "kpi": {
+      "pending": "طلبات معلّقة",
+      "approvedDays": "أيام معتمدة",
+      "types": "أنواع الإجازات",
+      "tracked": "موظفون متتبَّعون"
+    },
+    "requests": {
+      "title": "طلبات الإجازات",
+      "employee": "الموظف",
+      "type": "النوع",
+      "period": "الفترة",
+      "days": "الأيام",
+      "reason": "السبب",
+      "status": "الحالة"
+    },
+    "requestStatus": {
+      "pending": "بانتظار المدير",
+      "manager_approved": "بانتظار HR",
+      "approved": "معتمدة",
+      "rejected": "مرفوضة",
+      "cancelled": "ملغاة"
+    },
+    "balances": {
+      "title": "أرصدة الإجازات (2026)",
+      "employee": "الموظف",
+      "type": "النوع",
+      "entitled": "المستحَق",
+      "used": "المستخدَم",
+      "pending": "معلّق",
+      "remaining": "المتبقي"
+    },
+    "types": {
+      "title": "أنواع الإجازات (قانون العمل المصري)"
+    },
+    "payRule": {
+      "paid": "مدفوعة",
+      "partial": "جزئية",
+      "unpaid": "بدون أجر"
+    }
   }
 }

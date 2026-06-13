@@ -631,3 +631,116 @@ export interface CostReport extends BaseRow {
   lines: ProjectCostLine[];
   status: "draft" | "final";
 }
+
+/* --------------------------- Attendance ---------------------------- */
+/* Out of manual scope — designed for construction sites (docs/modules/06). */
+
+/** How a day's attendance was captured. */
+export type AttendanceMethod = "gps" | "site_supervisor" | "manual";
+
+export type AttendanceStatus =
+  | "present"
+  | "absent"
+  | "leave"
+  | "assignment"
+  | "weekend"
+  | "holiday";
+
+/**
+ * Lifecycle of an attendance exception (unjustified absence / overtime).
+ * `none` — nothing to review. `pending` — awaiting the direct manager.
+ * `approved` deductions/overtime flow to Payroll Stage 5 (Policies 4 & 7).
+ */
+export type ExceptionStatus = "none" | "pending" | "approved" | "rejected";
+
+export interface AttendanceRecord extends BaseRow {
+  employee_id: string;
+  /** ISO date (YYYY-MM-DD). */
+  date: string;
+  /** Local HH:mm or null when no check-in (absent / leave / weekend). */
+  check_in: string | null;
+  check_out: string | null;
+  method: AttendanceMethod;
+  /** Geofence-verified location, or null for manual / unverified entries. */
+  verified_location_id: string | null;
+  project_id: string | null;
+  late_minutes: number;
+  overtime_minutes: number;
+  status: AttendanceStatus;
+  exception_status: ExceptionStatus;
+  exception_reason_ar: string | null;
+  exception_reason_en: string | null;
+}
+
+/** Per-employee monthly roll-up that feeds the Payroll register. */
+export interface AttendanceMonthSummary {
+  employee_id: string;
+  worked_days: number;
+  absent_days: number;
+  leave_days: number;
+  assignment_days: number;
+  late_minutes: number;
+  overtime_minutes: number;
+  /** Approved overtime value (EGP) added to gross at Payroll Stage 5. */
+  overtime_amount: number;
+  /** Approved unjustified-absence deduction (EGP), negative. */
+  deduction_amount: number;
+}
+
+/* ----------------------------- Leave ------------------------------- */
+/* Out of manual scope — built from Egyptian Labor Law (docs/modules/07). */
+
+export type LeaveTypeCode =
+  | "annual"
+  | "casual"
+  | "sick"
+  | "maternity"
+  | "hajj"
+  | "unpaid";
+
+/** How the leave affects pay: full, partial (sick), or none (unpaid). */
+export type LeavePayRule = "paid" | "partial" | "unpaid";
+
+export type LeaveRequestStatus =
+  | "pending"
+  | "manager_approved"
+  | "approved"
+  | "rejected"
+  | "cancelled";
+
+export interface LeaveType extends BaseRow {
+  code: LeaveTypeCode;
+  name_ar: string;
+  name_en: string;
+  /** Default yearly entitlement in days; 0 when computed per service/age. */
+  annual_entitlement: number;
+  pay_rule: LeavePayRule;
+  /** Percentage of daily wage paid (100 / 75 / 0). */
+  pay_pct: number;
+  /** Special types (sick, maternity, hajj, unpaid) also need HR approval. */
+  requires_hr_approval: boolean;
+  note_ar: string;
+  note_en: string;
+}
+
+/** A single employee's balance for one leave type (this entitlement year). */
+export interface LeaveBalance {
+  employee_id: string;
+  type_code: LeaveTypeCode;
+  entitled: number;
+  used: number;
+  pending: number;
+  remaining: number;
+}
+
+export interface LeaveRequest extends BaseRow {
+  employee_id: string;
+  type_code: LeaveTypeCode;
+  start_date: string;
+  end_date: string;
+  days: number;
+  reason_ar: string;
+  reason_en: string;
+  status: LeaveRequestStatus;
+  requested_at: string;
+}
