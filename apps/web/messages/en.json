@@ -27,6 +27,9 @@
       "onboarding": "Onboarding",
       "offboarding": "Offboarding",
       "payroll": "Payroll & Allowances",
+      "allowances": "Monthly Allowances",
+      "kpi": "KPI Bonuses",
+      "costReports": "Cost Reports",
       "attendance": "Attendance",
       "leave": "Leave",
       "ess": "ESS App (Mobile)",
@@ -720,5 +723,157 @@
     "back": "Change email / mobile",
     "loading": "Sending…",
     "envNote": "Requires Supabase config (.env.local) to enable real authentication"
+  },
+  "allowances": {
+    "title": "🏗 Monthly Allowances",
+    "subtitle": "Project allowance cycle — 6 stages from the manual (calendar 10–17 / 20–25 / day 10)",
+    "egp": "EGP",
+    "currentCycle": "Current Cycle",
+    "history": "Cycle History",
+    "viewCycle": "View Cycle",
+    "view": "View",
+    "backToAllowances": "Back to Allowances",
+    "cycleTitle": "Allowance Cycle",
+    "projects": "projects",
+    "employees": "employees",
+    "advance": "Advance Stage",
+    "locked": "Locked",
+    "notFound": "Cycle not found",
+    "advancedTo": "Advanced to: {stage}",
+    "policyNote": "Policy 6: Bank account verification is required before any payment is released.",
+    "kpi": {
+      "projects": "Projects",
+      "employees": "Employees",
+      "totalAmount": "Total Allowances",
+      "deadline": "Deadline"
+    },
+    "stages": {
+      "request_collection": "Allowance Data Collection from Projects",
+      "preparation": "Allowance Sheet Preparation & Adjustments",
+      "validation": "Bank Account & Eligibility Verification",
+      "finance_submission": "Finance Funding Request",
+      "payment": "Payment Execution",
+      "cost_reporting": "Project Cost Reporting"
+    },
+    "stageDays": {
+      "request_collection": "Days 10–15",
+      "preparation": "Days 10–15",
+      "validation": "Days 15–17",
+      "finance_submission": "By Day 17",
+      "payment": "Days 20–25",
+      "cost_reporting": "By Day 10"
+    },
+    "cycleStatus": {
+      "request_collection": "Data Collection",
+      "preparation": "Preparation",
+      "validation": "Validation",
+      "finance_submission": "At Finance",
+      "payment": "Payment",
+      "cost_reporting": "Cost Reported"
+    },
+    "entryStatus": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "validated": "Validated",
+      "paid": "Paid"
+    },
+    "register": {
+      "employee": "Employee",
+      "site": "Site",
+      "transport": "Transport",
+      "meal": "Meal",
+      "total": "Total",
+      "status": "Status"
+    },
+    "summary": {
+      "title": "Cycle Summary",
+      "projects": "Projects",
+      "employees": "Employees",
+      "total": "Total Allowances"
+    }
+  },
+  "kpi": {
+    "title": "📈 Quarterly KPI Bonuses",
+    "subtitle": "KPI bonus cycle — 6 stages — PMO submits evaluations, Payroll computes bonuses",
+    "egp": "EGP",
+    "currentCycle": "Current Cycle",
+    "history": "Cycle History",
+    "viewCycle": "View Cycle",
+    "view": "View",
+    "backToKpi": "Back to KPI",
+    "cycleTitle": "KPI Cycle",
+    "employees": "employees",
+    "advance": "Advance Stage",
+    "locked": "Locked",
+    "notFound": "Cycle not found",
+    "advancedTo": "Advanced to: {stage}",
+    "policyNote": "Policies 4 & 13: every bonus requires an approved document and Finance review before payment.",
+    "kpi": {
+      "quarter": "Quarter",
+      "employees": "Employees",
+      "totalBonus": "Total Bonuses",
+      "avgScore": "Avg. Score",
+      "deadline": "Deadline"
+    },
+    "stages": {
+      "evaluation_receipt": "KPI Evaluation Receipt from PMO",
+      "bonus_calculation": "Bonus Calculation & Sheet Preparation",
+      "validation": "Employee Data & Bank Account Validation",
+      "finance_submission": "Finance Payment Request",
+      "payment": "Bonus Payment Execution",
+      "cost_reporting": "Project Cost Distribution Report"
+    },
+    "cycleStatus": {
+      "evaluation_receipt": "Evaluation Receipt",
+      "bonus_calculation": "Bonus Calculation",
+      "validation": "Validation",
+      "finance_submission": "At Finance",
+      "payment": "Payment",
+      "cost_reporting": "Cost Reported"
+    },
+    "scoreStatus": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "paid": "Paid"
+    },
+    "scoresTable": {
+      "title": "Evaluation Scores & Bonuses",
+      "employee": "Employee",
+      "project": "Project",
+      "score": "Score",
+      "bonus": "Bonus",
+      "evaluatedBy": "Evaluated By",
+      "status": "Status",
+      "total": "Total"
+    }
+  },
+  "costReports": {
+    "title": "📋 Project Cost Reports",
+    "subtitle": "Distribution of payroll + allowances + KPI costs by project per approved allocations (Policy 12) — due day 10",
+    "egp": "EGP",
+    "projects": "projects",
+    "reportTitle": "Cost Report",
+    "pastReports": "Past Reports",
+    "kpi": {
+      "payroll": "Payroll Cost",
+      "allowances": "Allowances Cost",
+      "kpi": "KPI Bonus Cost",
+      "total": "Total Cost"
+    },
+    "table": {
+      "project": "Project",
+      "employees": "Employees",
+      "payroll": "Payroll",
+      "allowances": "Allowances",
+      "kpi": "KPI",
+      "total": "Total",
+      "sharePct": "Share"
+    },
+    "reportStatus": {
+      "draft": "Draft",
+      "final": "Final"
+    },
+    "policy12Note": "Policy 12: costs are distributed per the approved project allocations in `employee_project_allocations`."
   }
 }
