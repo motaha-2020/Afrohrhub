@@ -100,11 +100,16 @@
 - [x] Added comp-007 (Walid El-Gendy, gross 52,000, NBE •••• 2210, bank_verified)
 - [x] Payroll nav item enabled; full `ar` + `en` catalogs; typecheck passes
 
-### Session 7 — Allowances + KPI + Cost Reports
-- [ ] Allowance definitions & monthly allocation cycle
-- [ ] KPI targets, scoring & cycle management
-- [ ] Project cost report — allowances & salaries distributed by project
-- [ ] Integration with Payroll cycle
+### Session 7 — Allowances + KPI + Cost Reports ✅ DONE (2026-06-13)
+- [x] Monthly Allowance Cycle (`/allowances`) — 6-stage stepper with calendar (10–15/15–17/≤17/20–25/≤10), KPI cards, stage advancement, cycle history
+- [x] Allowance cycle detail (`/allowances/[cycleId]`) — entries grouped by project, per-employee site/transport/meal breakdown, validated/draft status, Policy 6 bank-verified gate
+- [x] Quarterly KPI Bonus Cycle (`/kpi`) — 6-stage stepper, quarter KPI cards, history
+- [x] KPI cycle detail (`/kpi/[cycleId]`) — evaluation scores table, color-coded score (≥90 green / ≥75 blue / ≥60 yellow / red), bonus amounts, evaluated-by, stage advancement
+- [x] Project Cost Reports (`/cost-reports`) — payroll + allowances + KPI distributed by project per `employee_project_allocations` (Policy 12), share %, totals row, past reports list
+- [x] New types: `AllowanceCycle`, `AllowanceEntry`, `KpiCycle`, `KpiScore`, `ProjectCostLine`, `CostReport`
+- [x] Mock data: `allowances.ts`, `kpi.ts`, `cost-reports.ts`
+- [x] Nav items enabled: allowances 🏗, kpi 📈, costReports 📋
+- [x] Full `ar` + `en` catalogs; build/lint/typecheck pass
 
 ### Session 8 — Attendance & Leave
 - [ ] Attendance module — GPS check-in/out + supervisor manual sheet
@@ -158,14 +163,16 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 7: Allowances + KPI + Cost Reports**
+**Next up → Session 8: Attendance & Leave**
 
-Session 6 is complete. The payroll lifecycle is now fully connected: an activated employee enters the monthly payroll cycle, goes through 9 mandatory stages (calendar 18/19/23/25/28/10), and receives a computed payslip with Egyptian tax + social insurance applied, adjustments deducted, and net pay shown.
+Session 7 is complete. The three financial cycles from Part IV of the manual are now live:
+- **Monthly Allowance Cycle** — 6 stages (calendar 10–15/15–17/≤17/20–25/≤10), per-project per-employee breakdown, Policy 6 bank-verified gate
+- **Quarterly KPI Bonus Cycle** — 6 stages, PMO evaluations → bonus computation → Finance payment
+- **Project Cost Reports** — payroll + allowances + KPI totals distributed by project (Policy 12)
 
-Session 7 builds the three remaining financial cycles from Part IV of the manual:
-1. **Monthly Allowance Cycle** (6 stages, calendar 10–15/15–17/≤17/20–25/≤10) — project managers submit site/transport/meal allowances per project; Payroll validates, Finance approves and pays
-2. **Quarterly KPI Bonus Cycle** (6 stages) — PMO submits evaluation scores, Payroll computes bonus, Finance approves and pays
-3. **Project Cost Reports** — payroll + allowances + KPI distributed by project per `employee_project_allocations` (Policy 12), due day 10 of next month
+Session 8 builds the Attendance & Leave module:
+1. **Attendance** — GPS check-in/out, supervisor manual sheet, monthly summary → Payroll feed
+2. **Leave types** (Egyptian Labor Law: annual, sick, Hajj, unpaid, etc.) — leave request + approval flow, balance tracking & carry-over, deduction wired to Payroll
 
 ---
 
@@ -180,7 +187,8 @@ Session 7 builds the three remaining financial cycles from Part IV of the manual
 | Recruitment | 2026-06-12 | 8-stage pipeline, offers + public acceptance page, talent pool, handover | Done |
 | Onboarding | 2026-06-12 | 9-stage tracker, activation gate (6 conditions), hiring email | Done |
 | Payroll | 2026-06-13 | 9-stage cycle, Egyptian tax engine, payslip breakdown, Policy 1 gate | Done |
-| Allowances + KPI | — | Allowance cycles, KPI scoring, cost reports | Pending |
+| Allowances + KPI | 2026-06-13 | 6-stage allowance cycle, 6-stage KPI cycle, project cost reports (Policy 12) | Done |
+| Attendance + Leave | — | GPS attendance, leave requests & balances | Pending |
 | Attendance + Leave | — | GPS attendance, leave requests & balances | Pending |
 | Offboarding | — | 6 stages, clearance, final settlement | Pending |
 | ESS + Messaging | — | PWA, WhatsApp, SMS | Pending |

@@ -27,6 +27,9 @@
       "onboarding": "تعيين الموظفين (Onboarding)",
       "offboarding": "إنهاء الخدمة (Offboarding)",
       "payroll": "الرواتب والبدلات",
+      "allowances": "البدلات الشهرية",
+      "kpi": "الحوافز (KPI)",
+      "costReports": "تقارير التكلفة",
       "attendance": "الحضور",
       "leave": "الإجازات",
       "ess": "تطبيق الموظف (ESS)",
@@ -720,5 +723,157 @@
     "back": "تغيير البريد / الجوال",
     "loading": "جاري الإرسال…",
     "envNote": "يتطلب تكوين Supabase (.env.local) لتفعيل المصادقة الحقيقية"
+  },
+  "allowances": {
+    "title": "🏗 البدلات الشهرية",
+    "subtitle": "دورة بدلات المشاريع — 6 مراحل من الدليل (تقويم 10–17 / 20–25 / يوم 10)",
+    "egp": "ج.م",
+    "currentCycle": "الدورة الحالية",
+    "history": "الدورات السابقة",
+    "viewCycle": "عرض الدورة",
+    "view": "عرض",
+    "backToAllowances": "العودة للبدلات",
+    "cycleTitle": "دورة البدلات",
+    "projects": "مشروع",
+    "employees": "موظف",
+    "advance": "الانتقال للمرحلة التالية",
+    "locked": "مقفل",
+    "notFound": "الدورة غير موجودة",
+    "advancedTo": "تم الانتقال إلى: {stage}",
+    "policyNote": "السياسة 6: التحقق من الحساب البنكي شرط في كل مرحلة دفع.",
+    "kpi": {
+      "projects": "مشاريع",
+      "employees": "موظفون",
+      "totalAmount": "إجمالي البدلات",
+      "deadline": "الموعد النهائي"
+    },
+    "stages": {
+      "request_collection": "جمع بيانات البدلات من المشاريع",
+      "preparation": "إعداد الكشف وتطبيق التعديلات",
+      "validation": "التحقق من الحسابات البنكية والأهلية",
+      "finance_submission": "طلب التمويل من المالية",
+      "payment": "تنفيذ التحويلات",
+      "cost_reporting": "تقارير التكلفة بالمشروع"
+    },
+    "stageDays": {
+      "request_collection": "10–15",
+      "preparation": "10–15",
+      "validation": "15–17",
+      "finance_submission": "بحد أقصى 17",
+      "payment": "20–25",
+      "cost_reporting": "بحد أقصى 10"
+    },
+    "cycleStatus": {
+      "request_collection": "جمع البيانات",
+      "preparation": "الإعداد",
+      "validation": "التحقق",
+      "finance_submission": "عند المالية",
+      "payment": "الصرف",
+      "cost_reporting": "تم التقرير"
+    },
+    "entryStatus": {
+      "draft": "مسودة",
+      "submitted": "مقدَّم",
+      "validated": "متحقق",
+      "paid": "مصروف"
+    },
+    "register": {
+      "employee": "الموظف",
+      "site": "بدل موقع",
+      "transport": "بدل انتقال",
+      "meal": "بدل وجبة",
+      "total": "الإجمالي",
+      "status": "الحالة"
+    },
+    "summary": {
+      "title": "ملخص الدورة",
+      "projects": "المشاريع",
+      "employees": "الموظفون",
+      "total": "إجمالي البدلات"
+    }
+  },
+  "kpi": {
+    "title": "📈 الحوافز ربع السنوية (KPI)",
+    "subtitle": "دورة مكافآت الـ KPI — 6 مراحل — PMO يُدخل التقييمات، الرواتب تحسب المكافآت",
+    "egp": "ج.م",
+    "currentCycle": "الدورة الحالية",
+    "history": "الدورات السابقة",
+    "viewCycle": "عرض الدورة",
+    "view": "عرض",
+    "backToKpi": "العودة للـ KPI",
+    "cycleTitle": "دورة KPI",
+    "employees": "موظف",
+    "advance": "الانتقال للمرحلة التالية",
+    "locked": "مقفل",
+    "notFound": "الدورة غير موجودة",
+    "advancedTo": "تم الانتقال إلى: {stage}",
+    "policyNote": "السياستان 4 و13: كل مكافأة تتطلب مستندًا معتمدًا ومراجعة المالية قبل الصرف.",
+    "kpi": {
+      "quarter": "الربع",
+      "employees": "الموظفون",
+      "totalBonus": "إجمالي المكافآت",
+      "avgScore": "متوسط الأداء",
+      "deadline": "الموعد النهائي"
+    },
+    "stages": {
+      "evaluation_receipt": "استلام نتائج التقييم من PMO",
+      "bonus_calculation": "حساب المكافآت وإعداد الكشف",
+      "validation": "التحقق من بيانات الموظفين والحسابات",
+      "finance_submission": "طلب الدفع من المالية",
+      "payment": "تنفيذ تحويل المكافآت",
+      "cost_reporting": "تقارير توزيع التكلفة بالمشروع"
+    },
+    "cycleStatus": {
+      "evaluation_receipt": "استلام التقييمات",
+      "bonus_calculation": "حساب المكافآت",
+      "validation": "التحقق",
+      "finance_submission": "عند المالية",
+      "payment": "الصرف",
+      "cost_reporting": "تم التقرير"
+    },
+    "scoreStatus": {
+      "draft": "مسودة",
+      "submitted": "مقدَّم",
+      "approved": "معتمد",
+      "paid": "مصروف"
+    },
+    "scoresTable": {
+      "title": "جدول نتائج التقييم والمكافآت",
+      "employee": "الموظف",
+      "project": "المشروع",
+      "score": "الأداء",
+      "bonus": "المكافأة",
+      "evaluatedBy": "المُقيِّم",
+      "status": "الحالة",
+      "total": "الإجمالي"
+    }
+  },
+  "costReports": {
+    "title": "📋 تقارير تكلفة المشاريع",
+    "subtitle": "توزيع تكلفة الرواتب والبدلات والـ KPI على المشاريع وفق نسب التخصيص (السياسة 12) — بحد أقصى يوم 10",
+    "egp": "ج.م",
+    "projects": "مشاريع",
+    "reportTitle": "تقرير التكلفة",
+    "pastReports": "التقارير السابقة",
+    "kpi": {
+      "payroll": "تكلفة الرواتب",
+      "allowances": "تكلفة البدلات",
+      "kpi": "تكلفة مكافآت KPI",
+      "total": "إجمالي التكلفة"
+    },
+    "table": {
+      "project": "المشروع",
+      "employees": "موظفون",
+      "payroll": "رواتب",
+      "allowances": "بدلات",
+      "kpi": "KPI",
+      "total": "الإجمالي",
+      "sharePct": "النسبة"
+    },
+    "reportStatus": {
+      "draft": "مسودة",
+      "final": "نهائي"
+    },
+    "policy12Note": "السياسة 12: التكلفة توزَّع وفق نسب تخصيص المشاريع المعتمدة من `employee_project_allocations`."
   }
 }

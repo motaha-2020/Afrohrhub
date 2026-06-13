@@ -539,3 +539,95 @@ export interface PayrollAdjustment extends BaseRow {
   supporting_doc_path: string;
   approval_request_id: string;
 }
+
+/* --------------------------- Allowances ---------------------------- */
+
+export type AllowanceCycleStatus =
+  | "request_collection"
+  | "preparation"
+  | "validation"
+  | "finance_submission"
+  | "payment"
+  | "cost_reporting";
+
+export type AllowanceItemStatus = "draft" | "submitted" | "validated" | "paid";
+
+export interface AllowanceCycle extends BaseRow {
+  month: string;
+  status: AllowanceCycleStatus;
+  deadline_at: string | null;
+  locked: boolean;
+  total_amount: number;
+  project_count: number;
+  employee_count: number;
+}
+
+export interface AllowanceEntry extends BaseRow {
+  cycle_id: string;
+  project_id: string;
+  employee_id: string;
+  site_allowance: number;
+  transport_allowance: number;
+  meal_allowance: number;
+  total: number;
+  submitted_by_ar: string;
+  submitted_by_en: string;
+  bank_verified: boolean;
+  status: AllowanceItemStatus;
+}
+
+/* ------------------------------ KPI -------------------------------- */
+
+export type KpiCycleStatus =
+  | "evaluation_receipt"
+  | "bonus_calculation"
+  | "validation"
+  | "finance_submission"
+  | "payment"
+  | "cost_reporting";
+
+export type KpiScoreStatus = "draft" | "submitted" | "approved" | "paid";
+
+export interface KpiCycle extends BaseRow {
+  quarter: string;
+  quarter_start: string;
+  status: KpiCycleStatus;
+  deadline_at: string | null;
+  locked: boolean;
+  total_bonus: number;
+  employee_count: number;
+}
+
+export interface KpiScore extends BaseRow {
+  cycle_id: string;
+  employee_id: string;
+  project_id: string;
+  score: number;
+  bonus_amount: number;
+  evaluated_by_ar: string;
+  evaluated_by_en: string;
+  evaluation_date: string;
+  status: KpiScoreStatus;
+}
+
+/* -------------------------- Cost Reports --------------------------- */
+
+export interface ProjectCostLine {
+  project_id: string;
+  payroll_cost: number;
+  allowance_cost: number;
+  kpi_cost: number;
+  total_cost: number;
+  employee_count: number;
+  allocation_pct_sum: number;
+}
+
+export interface CostReport extends BaseRow {
+  month: string;
+  total_payroll: number;
+  total_allowances: number;
+  total_kpi: number;
+  total_cost: number;
+  lines: ProjectCostLine[];
+  status: "draft" | "final";
+}
