@@ -1,6 +1,6 @@
 # AfroHR Hub — In-Progress Task Tracker
 
-**Last updated:** 2026-06-12  
+**Last updated:** 2026-06-13  
 **Project:** Multi-Tenant HR SaaS for construction & engineering companies (Egypt)  
 **Stack:** Next.js 15 · TypeScript · Tailwind CSS · shadcn/ui · Supabase · Claude API · Vercel
 
@@ -111,13 +111,17 @@
 - [x] Nav items enabled: allowances 🏗, kpi 📈, costReports 📋
 - [x] Full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 8 — Attendance & Leave
-- [ ] Attendance module — GPS check-in/out + supervisor manual sheet
-- [ ] Monthly attendance summary → Payroll feed
-- [ ] Leave types management (Egyptian law: annual, sick, Hajj, unpaid, etc.)
-- [ ] Leave request + approval flow
-- [ ] Leave balance tracking & carry-over rules
-- [ ] Leave-days deduction wired to Payroll
+### Session 8 — Attendance & Leave ✅ DONE (2026-06-13)
+- [x] Attendance dashboard (`/attendance`) — today's sheet per employee, status badges (present/absent/leave/assignment), check-in/out, capture method (GPS 📍 / site supervisor 👷 / manual ✍️) + verified location, late & overtime minutes; KPI cards (present, on-leave, absent, on-assignment, pending exceptions)
+- [x] Exception review — pending overtime / unjustified-absence exceptions approved or rejected inline by the direct manager; approved items flow to Payroll Stage 5 as documented adjustments (Policies 4 & 7)
+- [x] Monthly attendance summary → Payroll feed — per-employee worked / absent / leave / assignment days, approved overtime (+) and deduction (−) columns, totals row labelled "To Payroll Stage 5"
+- [x] Leave types management (`/leave`) — Egyptian Labor Law catalog (annual, casual, sick 75%, maternity 4mo, hajj, unpaid) with entitlement, pay rule and notes
+- [x] Leave request + approval flow — request table with manager→HR routing, approve/reject inline, status badges (pending/manager_approved/approved/rejected/cancelled)
+- [x] Leave balance tracking — per-employee per-type entitled / used / pending / remaining; annual band (15/21/30) reflected per service length; unused balance noted as flowing to Offboarding final settlement
+- [x] New types: `AttendanceRecord`, `AttendanceMonthSummary` (+ `AttendanceMethod` / `AttendanceStatus` / `ExceptionStatus` enums), `LeaveType`, `LeaveBalance`, `LeaveRequest`
+- [x] Mock data: `attendance.ts`, `leave.ts`
+- [x] Nav items enabled: attendance 📍, leave 🏖
+- [x] Full `ar` + `en` catalogs; build/lint/typecheck pass
 
 ### Session 9 — Offboarding Module
 - [ ] 6-stage offboarding workflow (per the manual)
@@ -163,16 +167,15 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 8: Attendance & Leave**
+**Next up → Session 9: Offboarding Module**
 
-Session 7 is complete. The three financial cycles from Part IV of the manual are now live:
-- **Monthly Allowance Cycle** — 6 stages (calendar 10–15/15–17/≤17/20–25/≤10), per-project per-employee breakdown, Policy 6 bank-verified gate
-- **Quarterly KPI Bonus Cycle** — 6 stages, PMO evaluations → bonus computation → Finance payment
-- **Project Cost Reports** — payroll + allowances + KPI totals distributed by project (Policy 12)
+Session 8 is complete. Attendance & Leave are now live:
+- **Attendance** (`/attendance`) — today's site sheet with GPS / site-supervisor / manual capture, status badges, late & overtime tracking, inline exception approval, and a monthly summary that feeds Payroll Stage 5 (overtime + / deductions −)
+- **Leave** (`/leave`) — Egyptian Labor Law leave-type catalog, per-employee balances (entitled / used / pending / remaining), and the request → manager → HR approval flow
 
-Session 8 builds the Attendance & Leave module:
-1. **Attendance** — GPS check-in/out, supervisor manual sheet, monthly summary → Payroll feed
-2. **Leave types** (Egyptian Labor Law: annual, sick, Hajj, unpaid, etc.) — leave request + approval flow, balance tracking & carry-over, deduction wired to Payroll
+Session 9 builds the Offboarding module:
+1. **6-stage offboarding workflow** (per the manual) with clearance checklist per department
+2. **Final settlement** — unused annual-leave encashment (fed from the Leave module) + deductions, document archiving, and employee status → Archived
 
 ---
 
@@ -188,8 +191,7 @@ Session 8 builds the Attendance & Leave module:
 | Onboarding | 2026-06-12 | 9-stage tracker, activation gate (6 conditions), hiring email | Done |
 | Payroll | 2026-06-13 | 9-stage cycle, Egyptian tax engine, payslip breakdown, Policy 1 gate | Done |
 | Allowances + KPI | 2026-06-13 | 6-stage allowance cycle, 6-stage KPI cycle, project cost reports (Policy 12) | Done |
-| Attendance + Leave | — | GPS attendance, leave requests & balances | Pending |
-| Attendance + Leave | — | GPS attendance, leave requests & balances | Pending |
+| Attendance + Leave | 2026-06-13 | Daily attendance sheet, exception approval → Payroll feed, leave types/balances/requests | Done |
 | Offboarding | — | 6 stages, clearance, final settlement | Pending |
 | ESS + Messaging | — | PWA, WhatsApp, SMS | Pending |
 | AI Layer | — | OCR, CV parsing, matching, semantic search | Pending |
