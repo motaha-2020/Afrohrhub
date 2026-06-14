@@ -33,6 +33,7 @@
       "attendance": "الحضور",
       "leave": "الإجازات",
       "ess": "تطبيق الموظف (ESS)",
+      "notificationTemplates": "قوالب الإشعارات",
       "settings": "الإعدادات",
       "audit": "التدقيق"
     }
@@ -1078,6 +1079,145 @@
       "title": "حالة إنهاء الخدمة غير موجودة",
       "description": "تحقق من الرابط أو عُد إلى المتابعة.",
       "back": "العودة إلى متابعة إنهاء الخدمة"
+    }
+  },
+  "ess": {
+    "title": "📱 الخدمة الذاتية للموظف",
+    "subtitle": "بوابة موبايل أولاً يستخدمها الموظف من هاتفه — بلا حاجة لإيميل شركة",
+    "appName": "أفروHR · بوابتي",
+    "egp": "ج.م",
+    "days": "يوم",
+    "scopeNote": "نطاق ذاتي صارم — كل موظف يرى سجله فقط (RLS: employee_id = jwt.employee_id).",
+    "notLinked": {
+      "title": "لا يوجد موظف مرتبط",
+      "body": "بدّل إلى شخصية الموظف (عرض كـ) لمعاينة البوابة."
+    },
+    "tabs": {
+      "home": "الرئيسية",
+      "attendance": "الحضور",
+      "leave": "الإجازات",
+      "payslip": "الراتب",
+      "documents": "المستندات"
+    },
+    "home": {
+      "greeting": "أهلاً 👋",
+      "attendanceToday": "حضور اليوم",
+      "notCheckedIn": "لم تُسجّل حضورك بعد",
+      "checkedInAt": "سجّلت الحضور {time}",
+      "checkedOut": "سجّلت الانصراف — نراك غداً",
+      "checkIn": "تسجيل حضور",
+      "checkOut": "تسجيل انصراف",
+      "done": "انتهى يومك",
+      "gpsNote": "يُلتقط الموقع عبر GPS · يعمل بلا شبكة ويتزامن لاحقاً",
+      "leaveBalance": "رصيد الإجازات",
+      "annualLeave": "سنوية",
+      "thisMonth": "هذا الشهر",
+      "workedDays": "أيام عمل"
+    },
+    "attendance": {
+      "title": "حضوري",
+      "worked": "أيام عمل",
+      "leave": "إجازة",
+      "absent": "غياب",
+      "late": "تأخير",
+      "min": "دقيقة",
+      "today": "اليوم",
+      "checkIn": "الحضور",
+      "checkOut": "الانصراف"
+    },
+    "leave": {
+      "title": "إجازاتي",
+      "ofEntitled": "من {entitled} مستحَق",
+      "requestTitle": "طلب إجازة",
+      "type": "نوع الإجازة",
+      "days": "الأيام",
+      "submit": "إرسال الطلب",
+      "submitted": "✓ تم إرسال الطلب — موجَّه لمديرك للاعتماد.",
+      "overBalance": "يتجاوز رصيدك المتبقي ({remaining} يوم).",
+      "myRequests": "طلباتي",
+      "noRequests": "لا توجد طلبات إجازة بعد.",
+      "types": {
+        "annual": "سنوية",
+        "casual": "عارضة",
+        "sick": "مرضية",
+        "maternity": "وضع",
+        "hajj": "حج",
+        "unpaid": "بدون أجر"
+      },
+      "status": {
+        "pending": "بانتظار المدير",
+        "manager_approved": "بانتظار HR",
+        "approved": "معتمدة",
+        "rejected": "مرفوضة",
+        "cancelled": "ملغاة"
+      }
+    },
+    "payslip": {
+      "title": "قسيمة راتبي",
+      "none": "لا توجد قسيمة راتب للدورة الحالية بعد.",
+      "locked": "قسيمة الراتب محمية",
+      "pinNote": "يلزم رقم سري إضافي لعرض تفاصيل الراتب (سياسة 9).",
+      "unlock": "فتح برقم سري",
+      "netPay": "صافي الراتب",
+      "basic": "الراتب الأساسي",
+      "gross": "الإجمالي",
+      "tax": "ضريبة الدخل",
+      "si": "التأمينات الاجتماعية",
+      "allowance": {
+        "site": "بدل موقع",
+        "transport": "بدل انتقال",
+        "meal": "بدل وجبة"
+      },
+      "policyNote": "تفاصيل الراتب لا تظهر في أي رسالة خارجية — فقط داخل التطبيق (سياسة 9)."
+    },
+    "documents": {
+      "title": "مستنداتي",
+      "upload": "رفع بالكاميرا",
+      "expires": "ينتهي {date}",
+      "status": {
+        "verified": "مُتحقَّق",
+        "received": "مُستلَم",
+        "expired": "منتهٍ",
+        "required": "مطلوب",
+        "expiring": "يوشك على الانتهاء"
+      }
+    }
+  },
+  "notificationTemplates": {
+    "title": "📨 قوالب الإشعارات",
+    "subtitle": "محرك واحد متعدد القنوات لكل الموديولات — WhatsApp/SMS قناة أساسية للعمالة الزرقاء",
+    "catalog": "كتالوج القوالب",
+    "phase2Note": "تُربط WhatsApp Business API ومزود الـ SMS المصري في المرحلة الثانية (سقالة الجلسة 10). القوالب وتفضيلات القنوات ولوحة مراقبة الإرسال تعمل هنا؛ وقوالب WhatsApp مُسجَّلة مسبقاً لدى Meta.",
+    "delivered": "وصلت",
+    "failed": "فشلت",
+    "metaRegistration": "تسجيل Meta",
+    "variables": "المتغيرات",
+    "body": "نص الرسالة",
+    "preview": "معاينة (ببيانات تجريبية)",
+    "save": "حفظ القالب",
+    "savedNote": "حُفظ (تجريبي) — سيُنشئ نسخة من القالب ويعيد تقديم قوالب WhatsApp لـ Meta.",
+    "critical": "حرج (بلا تجميع)",
+    "active": "مفعّل",
+    "inactive": "معطّل",
+    "channels": {
+      "in_app": "داخل التطبيق",
+      "email": "البريد",
+      "whatsapp": "واتساب",
+      "sms": "رسائل SMS"
+    },
+    "registration": {
+      "approved": "معتمد",
+      "pending": "بانتظار مراجعة Meta",
+      "not_required": "غير مطلوب"
+    },
+    "modules": {
+      "recruitment": "التوظيف",
+      "onboarding": "الإلحاق",
+      "offboarding": "إنهاء الخدمة",
+      "payroll": "الرواتب",
+      "documents": "المستندات والشهادات",
+      "approvals": "الاعتمادات",
+      "attendance": "الحضور والإجازات"
     }
   }
 }

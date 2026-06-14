@@ -836,3 +836,61 @@ export interface OffboardingCase extends BaseRow {
   clearance: ClearanceItem[];
   settlement: FinalSettlement;
 }
+
+/* ----------------------- Notification channels --------------------- */
+/* The multi-channel messaging engine (docs/modules/09-notifications). */
+
+/** Delivery channels — WhatsApp/SMS are first-class (blue-collar reach). */
+export type NotificationChannel = "in_app" | "email" | "whatsapp" | "sms";
+
+/** WhatsApp templates must be pre-registered & approved with Meta. */
+export type TemplateRegistrationStatus =
+  | "approved"
+  | "pending"
+  | "not_required";
+
+export type NotificationDeliveryStatus =
+  | "queued"
+  | "sent"
+  | "delivered"
+  | "failed";
+
+/** The source module an event belongs to (for grouping templates). */
+export type NotificationModule =
+  | "recruitment"
+  | "onboarding"
+  | "offboarding"
+  | "payroll"
+  | "documents"
+  | "approvals"
+  | "attendance";
+
+/**
+ * A bilingual message template for one event on one channel. Variables
+ * such as {{employee_name}} are interpolated at send time; HR Managers
+ * edit these and WhatsApp variants are registered with Meta beforehand.
+ */
+export interface NotificationTemplate extends BaseRow {
+  event_key: string;
+  module: NotificationModule;
+  channel: NotificationChannel;
+  name_ar: string;
+  name_en: string;
+  /** Template body with {{variable}} placeholders. */
+  body_ar: string;
+  body_en: string;
+  /** Placeholder names available to this template (without braces). */
+  variables: string[];
+  registration_status: TemplateRegistrationStatus;
+  /** Critical events bypass the daily digest and send immediately. */
+  critical: boolean;
+  active: boolean;
+}
+
+/** Per-channel delivery counters for the send-monitor dashboard. */
+export interface ChannelDeliveryStat {
+  channel: NotificationChannel;
+  sent: number;
+  delivered: number;
+  failed: number;
+}

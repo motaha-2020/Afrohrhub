@@ -1,6 +1,6 @@
 # AfroHR Hub — In-Progress Task Tracker
 
-**Last updated:** 2026-06-13  
+**Last updated:** 2026-06-14  
 **Project:** Multi-Tenant HR SaaS for construction & engineering companies (Egypt)  
 **Stack:** Next.js 15 · TypeScript · Tailwind CSS · shadcn/ui · Supabase · Claude API · Vercel
 
@@ -134,12 +134,17 @@
 - [x] Mock data: `offboarding.ts` (3 cases — resignation/settlement, contract-end/clearance, project-end/archived); emp-005 annual balance added to Leave as the encashment source
 - [x] Nav item enabled: offboarding 📦; full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 10 — ESS Portal & Messaging Channels
-- [ ] Employee Self-Service PWA (mobile-first, Blue Collar optimized)
-- [ ] ESS screens: attendance log, payslip viewer, leave request, document download
-- [ ] WhatsApp Business API integration (Meta Business account + approved templates)
-- [ ] SMS channel (Egyptian provider TBD — to be contracted early)
-- [ ] Notification template builder
+### Session 10 — ESS Portal & Messaging Channels ✅ DONE (2026-06-14)
+- [x] Employee Self-Service PWA (`/ess`) — mobile-first phone-frame, bottom-tab nav, scoped to the persona's linked employee (RLS `employee_id = jwt.employee_id`); blue-collar friendly (big buttons, simple Arabic)
+- [x] ESS screens — **Home** (one-tap GPS check-in/out, leave-balance + worked-days tiles, shortcuts), **Attendance** (monthly summary + today's in/out), **Leave** (balances + request form with over-balance guard + my-requests status), **Payslip** (PIN gate per Policy 9, full breakdown basic+allowances−tax−SI−adjustments), **Documents** (checklist with expiry alerts + camera-upload affordance)
+- [x] Notification template builder (`/settings/notifications`) — bilingual templates per event × channel, editable body with `{{variable}}` chips + live sample preview, WhatsApp Meta-registration status, critical/active flags, grouped by module
+- [x] Channel delivery monitor — per-channel delivery-rate cards (in-app / WhatsApp / SMS / email) with failed counts
+- [x] New types: `NotificationTemplate`, `ChannelDeliveryStat` (+ `NotificationChannel` / `TemplateRegistrationStatus` / `NotificationDeliveryStatus` / `NotificationModule` enums)
+- [x] Mock data: `notification-templates.ts` (8 templates across 7 modules, channel stats)
+- [x] Nav items enabled: ess 📱, notificationTemplates 📨; full `ar` + `en` catalogs; build/lint/typecheck pass
+- [ ] **WhatsApp Business API** live wiring (Meta Business account + approved templates) — Phase 2 (scaffolded: templates + registration status modelled)
+- [ ] **SMS channel** live wiring (Egyptian provider TBD — contract early) — Phase 2 (scaffolded: SMS templates + fallback modelled)
+- [ ] Supabase Phone Auth (OTP via SMS/WhatsApp) for ESS login — Phase 2 (login UI scaffolded in Session 3)
 
 ### Session 11 — AI Layer (Claude API)
 - [ ] Document OCR — upload national ID / passport → auto-fill fields
@@ -172,16 +177,17 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 10: ESS Portal & Messaging Channels**
+**Next up → Session 11: AI Layer (Claude API)**
 
-Session 9 is complete. Offboarding is now live:
-- **Offboarding tracker** (`/offboarding`) — open exits across the 6 stages with a progress bar, last-working-day SLA chip, reason badges and KPI cards
-- **Case board** (`/offboarding/[id]`) — the 6-stage workflow, the department clearance matrix (IT / Ops & Admin / Finance / Manager), the final-settlement calculation with the Finance approval gate (Policy 13), and the closure/archiving step (status → Archived, Policy 14)
-- The final settlement encashes the unused annual-leave balance fed from the **Leave** module, nets off outstanding advances, and stays blocked until clearance is complete and Finance approves
+Session 10 is complete. The ESS Portal & messaging engine are now live:
+- **ESS Portal** (`/ess`) — a mobile-first phone-frame PWA scoped to the employee: one-tap GPS attendance, leave balances + request flow, a PIN-gated payslip (Policy 9), and a documents checklist with expiry alerts and camera upload
+- **Notification templates** (`/settings/notifications`) — the multi-channel engine: bilingual templates per event × channel with `{{variable}}` interpolation + live preview, WhatsApp Meta-registration status, and a per-channel delivery monitor
+- The live WhatsApp Business API / Egyptian SMS provider wiring and Supabase Phone Auth are **Phase 2** — the templates, registration status, channel preferences and delivery monitor are modelled and scaffolded now
 
-Session 10 builds the ESS Portal & Messaging Channels:
-1. **Employee Self-Service PWA** (mobile-first, Blue Collar optimized) — attendance log, payslip viewer, leave request, document download
-2. **Messaging channels** — WhatsApp Business API + Egyptian SMS provider, notification template builder
+Session 11 builds the AI Layer (Claude API):
+1. **Document intelligence** — national-ID / passport OCR → field auto-fill, document classifier on upload
+2. **Recruitment AI** — CV parsing → structured candidate profile, candidate–job matching score
+3. **Semantic search** across employee records & documents
 
 ---
 
@@ -199,6 +205,6 @@ Session 10 builds the ESS Portal & Messaging Channels:
 | Allowances + KPI | 2026-06-13 | 6-stage allowance cycle, 6-stage KPI cycle, project cost reports (Policy 12) | Done |
 | Attendance + Leave | 2026-06-13 | Daily attendance sheet, exception approval → Payroll feed, leave types/balances/requests | Done |
 | Offboarding | 2026-06-13 | 6-stage exit workflow, department clearance matrix, final settlement + Finance gate (Policy 13), archiving (Policy 14) | Done |
-| ESS + Messaging | — | PWA, WhatsApp, SMS | Pending |
+| ESS + Messaging | 2026-06-14 | Mobile-first ESS PWA (attendance/leave/payslip/docs), notification template builder + delivery monitor (WhatsApp/SMS scaffold) | Done |
 | AI Layer | — | OCR, CV parsing, matching, semantic search | Pending |
 | Pilot Launch | — | Import, security audit, Vercel deploy | Pending |

@@ -33,6 +33,7 @@
       "attendance": "Attendance",
       "leave": "Leave",
       "ess": "ESS App (Mobile)",
+      "notificationTemplates": "Notification Templates",
       "settings": "Settings",
       "audit": "Audit"
     }
@@ -1078,6 +1079,145 @@
       "title": "Offboarding case not found",
       "description": "Check the link or go back to the tracker.",
       "back": "Back to offboarding tracker"
+    }
+  },
+  "ess": {
+    "title": "📱 Employee Self-Service",
+    "subtitle": "The mobile-first portal employees use from their phone — no corporate email needed",
+    "appName": "AfroHR · My Portal",
+    "egp": "EGP",
+    "days": "days",
+    "scopeNote": "Strict self-scope — each employee sees only their own record (RLS: employee_id = jwt.employee_id).",
+    "notLinked": {
+      "title": "No linked employee",
+      "body": "Switch to the ESS persona (View as) to preview the portal."
+    },
+    "tabs": {
+      "home": "Home",
+      "attendance": "Attendance",
+      "leave": "Leave",
+      "payslip": "Payslip",
+      "documents": "Docs"
+    },
+    "home": {
+      "greeting": "Hello 👋",
+      "attendanceToday": "Today's attendance",
+      "notCheckedIn": "You haven't checked in yet",
+      "checkedInAt": "Checked in at {time}",
+      "checkedOut": "Checked out — see you tomorrow",
+      "checkIn": "Check in",
+      "checkOut": "Check out",
+      "done": "Done for today",
+      "gpsNote": "Location captured via GPS · works offline, syncs later",
+      "leaveBalance": "Leave balance",
+      "annualLeave": "Annual",
+      "thisMonth": "This month",
+      "workedDays": "Worked days"
+    },
+    "attendance": {
+      "title": "My Attendance",
+      "worked": "Worked",
+      "leave": "On leave",
+      "absent": "Absent",
+      "late": "Late",
+      "min": "min",
+      "today": "Today",
+      "checkIn": "Check-in",
+      "checkOut": "Check-out"
+    },
+    "leave": {
+      "title": "My Leave",
+      "ofEntitled": "of {entitled} entitled",
+      "requestTitle": "Request leave",
+      "type": "Leave type",
+      "days": "Days",
+      "submit": "Submit request",
+      "submitted": "✓ Request submitted — routed to your manager for approval.",
+      "overBalance": "Exceeds your remaining balance ({remaining} days).",
+      "myRequests": "My requests",
+      "noRequests": "No leave requests yet.",
+      "types": {
+        "annual": "Annual",
+        "casual": "Casual",
+        "sick": "Sick",
+        "maternity": "Maternity",
+        "hajj": "Hajj",
+        "unpaid": "Unpaid"
+      },
+      "status": {
+        "pending": "Pending manager",
+        "manager_approved": "Pending HR",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "cancelled": "Cancelled"
+      }
+    },
+    "payslip": {
+      "title": "My Payslip",
+      "none": "No payslip available for the current cycle yet.",
+      "locked": "Payslip is protected",
+      "pinNote": "An extra PIN is required to view salary details (Policy 9).",
+      "unlock": "Unlock with PIN",
+      "netPay": "Net pay",
+      "basic": "Basic salary",
+      "gross": "Gross",
+      "tax": "Income tax",
+      "si": "Social insurance",
+      "allowance": {
+        "site": "Site allowance",
+        "transport": "Transport allowance",
+        "meal": "Meal allowance"
+      },
+      "policyNote": "Salary details never appear in external messages — only inside the app (Policy 9)."
+    },
+    "documents": {
+      "title": "My Documents",
+      "upload": "Upload with camera",
+      "expires": "Expires {date}",
+      "status": {
+        "verified": "Verified",
+        "received": "Received",
+        "expired": "Expired",
+        "required": "Required",
+        "expiring": "Expiring soon"
+      }
+    }
+  },
+  "notificationTemplates": {
+    "title": "📨 Notification Templates",
+    "subtitle": "One multi-channel engine for every module — WhatsApp/SMS are first-class for the blue-collar workforce",
+    "catalog": "Template Catalog",
+    "phase2Note": "WhatsApp Business API and the Egyptian SMS provider are wired in Phase 2 (Session 10 scaffold). Templates, channel preferences and the delivery monitor are live here; WhatsApp variants are pre-registered with Meta.",
+    "delivered": "Delivered",
+    "failed": "Failed",
+    "metaRegistration": "Meta registration",
+    "variables": "Variables",
+    "body": "Message body",
+    "preview": "Preview (sample data)",
+    "save": "Save template",
+    "savedNote": "Saved (mock) — would version the template and re-submit WhatsApp variants to Meta.",
+    "critical": "Critical (no digest)",
+    "active": "Active",
+    "inactive": "Inactive",
+    "channels": {
+      "in_app": "In-App",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "registration": {
+      "approved": "Approved",
+      "pending": "Pending Meta review",
+      "not_required": "Not required"
+    },
+    "modules": {
+      "recruitment": "Recruitment",
+      "onboarding": "Onboarding",
+      "offboarding": "Offboarding",
+      "payroll": "Payroll",
+      "documents": "Documents & Certificates",
+      "approvals": "Approvals",
+      "attendance": "Attendance & Leave"
     }
   }
 }

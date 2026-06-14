@@ -229,7 +229,7 @@ export const NAV_SECTIONS: NavSection[] = [
         href: "/ess",
         icon: "📱",
         allowedRoles: ["employee", "direct_manager"],
-        enabled: false,
+        enabled: true,
       },
     ],
   },
@@ -237,6 +237,14 @@ export const NAV_SECTIONS: NavSection[] = [
     key: "system",
     labelKey: "system",
     items: [
+      {
+        key: "notificationTemplates",
+        labelKey: "notificationTemplates",
+        href: "/settings/notifications",
+        icon: "📨",
+        allowedRoles: ["company_admin", "hr_manager"],
+        enabled: true,
+      },
       {
         key: "settings",
         labelKey: "settings",
