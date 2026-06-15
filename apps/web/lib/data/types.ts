@@ -894,3 +894,68 @@ export interface ChannelDeliveryStat {
   delivered: number;
   failed: number;
 }
+
+/* ----------------------------- AI Layer ---------------------------- */
+/* Claude API features (Session 11) — docs/07-roadmap.md. */
+
+/** Document types the classifier can auto-tag on upload. */
+export type DocClass =
+  | "national_id"
+  | "passport"
+  | "qualification"
+  | "contract"
+  | "criminal_record"
+  | "medical_report"
+  | "syndicate_card"
+  | "driving_license"
+  | "other";
+
+/** OCR extraction from a national ID / passport (auto-fills Core HR). */
+export interface IdExtraction {
+  name_ar: string;
+  name_en: string;
+  national_id: string;
+  birth_date: string;
+  gender: "male" | "female" | "";
+  address: string;
+  issue_date: string | null;
+  expiry_date: string | null;
+  /** 0–100 — surfaced so reviewers know when to double-check. */
+  confidence: number;
+}
+
+export interface DocClassification {
+  doc_class: DocClass;
+  confidence: number;
+  rationale_ar: string;
+  rationale_en: string;
+}
+
+/** Structured candidate profile parsed from a raw CV. */
+export interface ParsedCv {
+  name_en: string;
+  name_ar: string;
+  title_en: string;
+  years_experience: number;
+  skills: string[];
+  certifications: string[];
+  education: string;
+  summary_en: string;
+}
+
+/** Candidate ↔ job match score with explainable strengths / gaps. */
+export interface MatchResult {
+  match_pct: number;
+  strengths: string[];
+  gaps: string[];
+  rationale_en: string;
+  rationale_ar: string;
+}
+
+/** One ranked hit from semantic search across records / documents. */
+export interface SearchHit {
+  id: string;
+  label: string;
+  score: number;
+  reason: string;
+}

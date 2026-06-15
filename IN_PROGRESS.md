@@ -1,6 +1,6 @@
 # AfroHR Hub — In-Progress Task Tracker
 
-**Last updated:** 2026-06-14  
+**Last updated:** 2026-06-15  
 **Project:** Multi-Tenant HR SaaS for construction & engineering companies (Egypt)  
 **Stack:** Next.js 15 · TypeScript · Tailwind CSS · shadcn/ui · Supabase · Claude API · Vercel
 
@@ -146,12 +146,16 @@
 - [ ] **SMS channel** live wiring (Egyptian provider TBD — contract early) — Phase 2 (scaffolded: SMS templates + fallback modelled)
 - [ ] Supabase Phone Auth (OTP via SMS/WhatsApp) for ESS login — Phase 2 (login UI scaffolded in Session 3)
 
-### Session 11 — AI Layer (Claude API)
-- [ ] Document OCR — upload national ID / passport → auto-fill fields
-- [ ] CV parsing — upload CV → structured candidate profile
-- [ ] Document classifier (auto-tag document type on upload)
-- [ ] Candidate–Job matching score
-- [ ] Semantic search across employee records & documents
+### Session 11 — AI Layer (Claude API) ✅ DONE (2026-06-15)
+- [x] AI layer (`lib/ai/`) on **Claude Opus 4.8** (`claude-opus-4-8`) via `@anthropic-ai/sdk`, structured outputs (`output_config.format`) for typed results; key-gated mock fallback so the demo runs without `ANTHROPIC_API_KEY` (real call path is identical, like the Supabase Auth scaffold)
+- [x] **Document OCR** (`extractIdFields`) — Claude vision reads a national ID / passport and extracts holder fields, deriving birth date + gender from the 14-digit national number → auto-fills the Core HR record
+- [x] **Document classifier** (`classifyDocument`) — auto-tags an uploaded document against the 13-document checklist (vision or extracted text)
+- [x] **CV parsing** (`parseCv`) — Arabic/English CV → structured talent-pool profile (title, years, skills, certifications, education)
+- [x] **Candidate–job matching** (`matchCandidateToJob`) — explainable match % with strengths + gaps (fills `Candidate.match_pct` for real)
+- [x] **Semantic search** (`semanticSearch`) — natural-language ranking across employee records + talent pool, matching on meaning
+- [x] AI Studio screen (`/ai`) — 5-tool tabbed playground with live/demo badge, server actions (`actions.ts`) calling the AI layer
+- [x] New types: `IdExtraction`, `DocClassification`, `ParsedCv`, `MatchResult`, `SearchHit` (+ `DocClass`)
+- [x] `@anthropic-ai/sdk` installed; nav item ✦ AI Studio enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
 
 ### Session 12 — Pilot Launch & Hardening
 - [ ] Excel import / data migration tooling (bulk employee upload from existing sheets)
@@ -177,17 +181,17 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 11: AI Layer (Claude API)**
+**Next up → Session 12: Pilot Launch & Hardening**
 
-Session 10 is complete. The ESS Portal & messaging engine are now live:
-- **ESS Portal** (`/ess`) — a mobile-first phone-frame PWA scoped to the employee: one-tap GPS attendance, leave balances + request flow, a PIN-gated payslip (Policy 9), and a documents checklist with expiry alerts and camera upload
-- **Notification templates** (`/settings/notifications`) — the multi-channel engine: bilingual templates per event × channel with `{{variable}}` interpolation + live preview, WhatsApp Meta-registration status, and a per-channel delivery monitor
-- The live WhatsApp Business API / Egyptian SMS provider wiring and Supabase Phone Auth are **Phase 2** — the templates, registration status, channel preferences and delivery monitor are modelled and scaffolded now
+Session 11 is complete. The Claude-powered AI layer is now live:
+- **AI Studio** (`/ai`) — a 5-tool playground: national-ID/passport OCR, document classifier, CV parsing, candidate–job matching, and semantic search
+- All five run on **Claude Opus 4.8** with structured outputs (`lib/ai/`), behind a key-gated mock fallback — set `ANTHROPIC_API_KEY` to flip every tool from demo to live Claude calls with no code change
+- OCR/classification use Claude vision; CV/match/search use text + JSON-schema structured outputs
 
-Session 11 builds the AI Layer (Claude API):
-1. **Document intelligence** — national-ID / passport OCR → field auto-fill, document classifier on upload
-2. **Recruitment AI** — CV parsing → structured candidate profile, candidate–job matching score
-3. **Semantic search** across employee records & documents
+Session 12 is the pilot launch & hardening:
+1. **Data migration tooling** — bulk employee import from existing Excel sheets
+2. **SLA Dashboard drill-down**, security audit (RLS per role & tenant), performance tuning
+3. **Vercel production deployment** + a one-month parallel pilot alongside Excel
 
 ---
 
@@ -206,5 +210,5 @@ Session 11 builds the AI Layer (Claude API):
 | Attendance + Leave | 2026-06-13 | Daily attendance sheet, exception approval → Payroll feed, leave types/balances/requests | Done |
 | Offboarding | 2026-06-13 | 6-stage exit workflow, department clearance matrix, final settlement + Finance gate (Policy 13), archiving (Policy 14) | Done |
 | ESS + Messaging | 2026-06-14 | Mobile-first ESS PWA (attendance/leave/payslip/docs), notification template builder + delivery monitor (WhatsApp/SMS scaffold) | Done |
-| AI Layer | — | OCR, CV parsing, matching, semantic search | Pending |
+| AI Layer | 2026-06-15 | Claude Opus 4.8 — ID OCR, doc classifier, CV parsing, job matching, semantic search (key-gated mock fallback) | Done |
 | Pilot Launch | — | Import, security audit, Vercel deploy | Pending |

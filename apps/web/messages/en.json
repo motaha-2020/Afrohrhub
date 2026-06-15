@@ -33,6 +33,7 @@
       "attendance": "Attendance",
       "leave": "Leave",
       "ess": "ESS App (Mobile)",
+      "ai": "AI Studio",
       "notificationTemplates": "Notification Templates",
       "settings": "Settings",
       "audit": "Audit"
@@ -1218,6 +1219,88 @@
       "documents": "Documents & Certificates",
       "approvals": "Approvals",
       "attendance": "Attendance & Leave"
+    }
+  },
+  "ai": {
+    "title": "✦ AI Studio",
+    "subtitle": "The Claude-powered AI layer — document OCR, CV parsing, candidate matching and semantic search (Claude Opus 4.8)",
+    "statusLive": "Claude API live",
+    "statusDemo": "Demo (mock inference)",
+    "demoNote": "Running on deterministic mock inference. Set ANTHROPIC_API_KEY to switch every tool to live Claude Opus 4.8 calls — the request path is identical.",
+    "resultTitle": "Result",
+    "noResult": "Run the tool to see the structured output.",
+    "confidence": "Confidence",
+    "gender": { "male": "Male", "female": "Female" },
+    "docClass": {
+      "national_id": "National ID",
+      "passport": "Passport",
+      "qualification": "Qualification",
+      "contract": "Contract",
+      "criminal_record": "Criminal record",
+      "medical_report": "Medical report",
+      "syndicate_card": "Syndicate card",
+      "driving_license": "Driving license",
+      "other": "Other"
+    },
+    "tools": {
+      "ocr": {
+        "tab": "ID OCR",
+        "inputTitle": "National ID / Passport",
+        "desc": "Claude vision reads the card and extracts the holder's fields, deriving birth date and gender from the 14-digit national number.",
+        "sample": "🪪 Sample Egyptian National ID",
+        "run": "Extract fields",
+        "autofill": "✓ Fields ready to auto-fill the Core HR record (reviewer confirms).",
+        "f": {
+          "name": "Name",
+          "nid": "National ID",
+          "birth": "Birth date",
+          "gender": "Gender",
+          "address": "Address",
+          "expiry": "Expiry"
+        }
+      },
+      "classifier": {
+        "tab": "Classifier",
+        "inputTitle": "Document text",
+        "desc": "Auto-tags an uploaded document against the 13-document checklist so it files itself.",
+        "run": "Classify",
+        "filed": "✓ Filed against the employee's document checklist."
+      },
+      "cv": {
+        "tab": "CV Parsing",
+        "inputTitle": "Raw CV",
+        "desc": "Parses an Arabic or English CV into a structured talent-pool profile.",
+        "run": "Parse CV",
+        "f": {
+          "name": "Name",
+          "title": "Title",
+          "years": "Experience (years)",
+          "education": "Education",
+          "skills": "Skills",
+          "certs": "Certifications"
+        }
+      },
+      "match": {
+        "tab": "Job Match",
+        "inputTitle": "Role × Candidate",
+        "desc": "Scores a candidate against an open role with explainable strengths and gaps.",
+        "role": "Role",
+        "reqs": "Requirements",
+        "range": "Salary range",
+        "candidate": "Candidate",
+        "run": "Score match",
+        "fit": "overall fit",
+        "strengths": "Strengths",
+        "gaps": "Gaps"
+      },
+      "search": {
+        "tab": "Semantic Search",
+        "inputTitle": "Search employees & talent pool",
+        "desc": "Natural-language search across employee records and the talent pool — matches on meaning, not just keywords.",
+        "placeholder": "e.g. welder with heights safety clearance",
+        "run": "Search",
+        "none": "No relevant matches."
+      }
     }
   }
 }

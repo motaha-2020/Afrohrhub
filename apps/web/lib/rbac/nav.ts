@@ -238,6 +238,19 @@ export const NAV_SECTIONS: NavSection[] = [
     labelKey: "system",
     items: [
       {
+        key: "ai",
+        labelKey: "ai",
+        href: "/ai",
+        icon: "✦",
+        allowedRoles: [
+          "company_admin",
+          "hr_manager",
+          "talent_acquisition",
+          "personnel",
+        ],
+        enabled: true,
+      },
+      {
         key: "notificationTemplates",
         labelKey: "notificationTemplates",
         href: "/settings/notifications",
