@@ -744,3 +744,218 @@ export interface LeaveRequest extends BaseRow {
   status: LeaveRequestStatus;
   requested_at: string;
 }
+
+/* --------------------------- Offboarding --------------------------- */
+/* The manual's Part III — 6-stage exit workflow (docs/modules/04). */
+
+/** The four exit triggers from the manual. */
+export type OffboardingReason =
+  | "resignation"
+  | "contract_end"
+  | "termination"
+  | "project_end";
+
+export type OffboardingStatus =
+  | "in_progress"
+  | "clearance"
+  | "settlement"
+  | "archived";
+
+/** The 6 offboarding stages from the manual. */
+export type OffboardingStage = 1 | 2 | 3 | 4 | 5 | 6;
+
+/** Departments that sign off the Stage-4 clearance matrix. */
+export type ClearanceDept =
+  | "it"
+  | "operations_admin"
+  | "finance"
+  | "direct_manager";
+
+export type ClearanceStatus = "pending" | "cleared" | "blocked";
+
+/** One line of the digital clearance form, owned by a department. */
+export interface ClearanceItem {
+  id: string;
+  dept: ClearanceDept;
+  label_ar: string;
+  label_en: string;
+  status: ClearanceStatus;
+}
+
+/**
+ * Stage-5 final settlement (Policy 13 — Finance approval before payout).
+ * Leave encashment is fed from the Leave module's unused annual balance.
+ */
+export interface FinalSettlement {
+  /** Final-month salary, prorated to the last working day. */
+  last_salary: number;
+  /** Unused annual-leave days carried from the Leave module. */
+  unused_leave_days: number;
+  /** Daily wage = comprehensive monthly wage / 30. */
+  daily_rate: number;
+  /** unused_leave_days × daily_rate. */
+  leave_encashment: number;
+  /** Other dues (e.g. end-of-assignment bonus). */
+  other_dues: number;
+  /** Outstanding advances / loans / custody recovered (from advances_loans). */
+  deductions: number;
+  deduction_note_ar: string;
+  deduction_note_en: string;
+  /** last_salary + leave_encashment + other_dues − deductions. */
+  net_settlement: number;
+  /** Finance gate — payout is blocked until true (Policy 13). */
+  finance_approved: boolean;
+}
+
+export interface OffboardingCase extends BaseRow {
+  case_code: string;
+  /** Core HR employee being offboarded (self-contained name fields too). */
+  employee_id: string;
+  employee_name_ar: string;
+  employee_name_en: string;
+  hr_code: string;
+  job_title_ar: string;
+  job_title_en: string;
+  project_id: string;
+  reason: OffboardingReason;
+  initiated_at: string;
+  last_working_day: string;
+  priority: SlaPriority;
+  status: OffboardingStatus;
+  current_stage: OffboardingStage;
+  /** Stage 2 — all access deactivated by the last working day. */
+  access_revoked: boolean;
+  /** Stage 3 — knowledge/task handover approved by the direct manager. */
+  handover_approved: boolean;
+  /** Stage 5 — exit interview captured. */
+  exit_interview_done: boolean;
+  /** Stage 5 — Social Insurance Form (6) filed. */
+  si_form6_filed: boolean;
+  /** Stage 6 — original documents returned with a signed receipt. */
+  originals_returned: boolean;
+  clearance: ClearanceItem[];
+  settlement: FinalSettlement;
+}
+
+/* ----------------------- Notification channels --------------------- */
+/* The multi-channel messaging engine (docs/modules/09-notifications). */
+
+/** Delivery channels — WhatsApp/SMS are first-class (blue-collar reach). */
+export type NotificationChannel = "in_app" | "email" | "whatsapp" | "sms";
+
+/** WhatsApp templates must be pre-registered & approved with Meta. */
+export type TemplateRegistrationStatus =
+  | "approved"
+  | "pending"
+  | "not_required";
+
+export type NotificationDeliveryStatus =
+  | "queued"
+  | "sent"
+  | "delivered"
+  | "failed";
+
+/** The source module an event belongs to (for grouping templates). */
+export type NotificationModule =
+  | "recruitment"
+  | "onboarding"
+  | "offboarding"
+  | "payroll"
+  | "documents"
+  | "approvals"
+  | "attendance";
+
+/**
+ * A bilingual message template for one event on one channel. Variables
+ * such as {{employee_name}} are interpolated at send time; HR Managers
+ * edit these and WhatsApp variants are registered with Meta beforehand.
+ */
+export interface NotificationTemplate extends BaseRow {
+  event_key: string;
+  module: NotificationModule;
+  channel: NotificationChannel;
+  name_ar: string;
+  name_en: string;
+  /** Template body with {{variable}} placeholders. */
+  body_ar: string;
+  body_en: string;
+  /** Placeholder names available to this template (without braces). */
+  variables: string[];
+  registration_status: TemplateRegistrationStatus;
+  /** Critical events bypass the daily digest and send immediately. */
+  critical: boolean;
+  active: boolean;
+}
+
+/** Per-channel delivery counters for the send-monitor dashboard. */
+export interface ChannelDeliveryStat {
+  channel: NotificationChannel;
+  sent: number;
+  delivered: number;
+  failed: number;
+}
+
+/* ----------------------------- AI Layer ---------------------------- */
+/* Claude API features (Session 11) — docs/07-roadmap.md. */
+
+/** Document types the classifier can auto-tag on upload. */
+export type DocClass =
+  | "national_id"
+  | "passport"
+  | "qualification"
+  | "contract"
+  | "criminal_record"
+  | "medical_report"
+  | "syndicate_card"
+  | "driving_license"
+  | "other";
+
+/** OCR extraction from a national ID / passport (auto-fills Core HR). */
+export interface IdExtraction {
+  name_ar: string;
+  name_en: string;
+  national_id: string;
+  birth_date: string;
+  gender: "male" | "female" | "";
+  address: string;
+  issue_date: string | null;
+  expiry_date: string | null;
+  /** 0–100 — surfaced so reviewers know when to double-check. */
+  confidence: number;
+}
+
+export interface DocClassification {
+  doc_class: DocClass;
+  confidence: number;
+  rationale_ar: string;
+  rationale_en: string;
+}
+
+/** Structured candidate profile parsed from a raw CV. */
+export interface ParsedCv {
+  name_en: string;
+  name_ar: string;
+  title_en: string;
+  years_experience: number;
+  skills: string[];
+  certifications: string[];
+  education: string;
+  summary_en: string;
+}
+
+/** Candidate ↔ job match score with explainable strengths / gaps. */
+export interface MatchResult {
+  match_pct: number;
+  strengths: string[];
+  gaps: string[];
+  rationale_en: string;
+  rationale_ar: string;
+}
+
+/** One ranked hit from semantic search across records / documents. */
+export interface SearchHit {
+  id: string;
+  label: string;
+  score: number;
+  reason: string;
+}

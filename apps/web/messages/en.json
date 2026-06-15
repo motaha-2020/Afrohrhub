@@ -33,6 +33,8 @@
       "attendance": "Attendance",
       "leave": "Leave",
       "ess": "ESS App (Mobile)",
+      "ai": "AI Studio",
+      "notificationTemplates": "Notification Templates",
       "settings": "Settings",
       "audit": "Audit"
     }
@@ -982,6 +984,323 @@
       "paid": "Paid",
       "partial": "Partial",
       "unpaid": "Unpaid"
+    }
+  },
+  "offboarding": {
+    "title": "📦 Offboarding Tracker",
+    "subtitle": "Open exits across the manual's 6 stages — clearance, final settlement and archiving",
+    "egp": "EGP",
+    "workflow": "Offboarding Workflow",
+    "stageOf": "{done}/{total} stages",
+    "kpi": {
+      "open": "Open Cases",
+      "openSub": "{count} × P0 priority",
+      "inClearance": "In Clearance",
+      "inClearanceSub": "Departments still signing off",
+      "pendingSettlement": "Pending Settlement",
+      "pendingSettlementSub": "Awaiting Finance approval (Policy 13)",
+      "archived": "Archived",
+      "archivedSub": "Closed cases — file retained (Policy 14)"
+    },
+    "columns": {
+      "employee": "Employee",
+      "project": "Project",
+      "reason": "Reason",
+      "stage": "Stage Progress",
+      "lwd": "Last Working Day",
+      "sla": "SLA",
+      "status": "Status"
+    },
+    "reasons": {
+      "resignation": "Resignation",
+      "contract_end": "Contract End",
+      "termination": "Termination",
+      "project_end": "Project End"
+    },
+    "statuses": {
+      "in_progress": "In Progress",
+      "clearance": "In Clearance",
+      "settlement": "Settlement",
+      "archived": "Archived"
+    },
+    "stages": {
+      "1": "1. Offboarding Initiation",
+      "2": "2. System Access Deactivation",
+      "3": "3. Knowledge & Task Handover",
+      "4": "4. Clearance Process",
+      "5": "5. Legal & Financial Closure",
+      "6": "6. File Closure & Archiving"
+    },
+    "policyNote": "Final settlement is blocked until the clearance form is complete and Finance approves (Policy 13). Current case net payout: {settlement}.",
+    "clearance": {
+      "title": "Clearance Matrix",
+      "subtitle": "Each department signs off its items — the settlement is held until every line is cleared.",
+      "blocked": "Blocked",
+      "complete": "✓ Clearance complete — the final settlement can be approved for payout.",
+      "incomplete": "Clearance is still open — clear every department's items to release the settlement."
+    },
+    "settlement": {
+      "title": "Final Settlement",
+      "subtitle": "Last salary + unused annual-leave encashment (from Leave) + dues − deductions.",
+      "lastSalary": "Final salary (prorated to LWD)",
+      "leaveEncashment": "Leave encashment ({days} days × {rate}/day)",
+      "otherDues": "Other dues",
+      "deductions": "Deductions (advances / loans / custody)",
+      "net": "Net settlement",
+      "approveBtn": "✓ Finance approve payout",
+      "approved": "✓ Settlement approved by Finance — cleared for payout (Policy 13).",
+      "gateNote": "Clearance must be complete before Finance can approve the payout.",
+      "policyNote": "Policy 13 — Finance approval is required before any settlement is paid; recorded in the audit log (Policy 16)."
+    },
+    "access": {
+      "title": "Access & Handover",
+      "rule": "Mandatory rule: all system access must be deactivated by the last working day ({lwd}).",
+      "revoked": "System access deactivated",
+      "handover": "Knowledge & task handover approved"
+    },
+    "closure": {
+      "title": "Closure & Archiving",
+      "exitInterview": "Exit interview captured",
+      "siForm6": "Social Insurance Form (6) filed",
+      "originals": "Original documents returned (signed receipt)",
+      "archiveBtn": "🗄 Archive file (status → Archived)",
+      "archived": "✓ File archived — status is now Archived. The HR code is retained for rehire detection (Policy 14).",
+      "gateNote": "Archiving needs the approved settlement and the returned originals first.",
+      "policyNote": "Policy 14 — the file is archived, never deleted; the HR code is never reused."
+    },
+    "info": {
+      "title": "Case Details",
+      "hrCode": "HR code",
+      "reason": "Reason",
+      "initiated": "Initiated",
+      "lwd": "Last working day",
+      "project": "Project"
+    },
+    "notFound": {
+      "title": "Offboarding case not found",
+      "description": "Check the link or go back to the tracker.",
+      "back": "Back to offboarding tracker"
+    }
+  },
+  "ess": {
+    "title": "📱 Employee Self-Service",
+    "subtitle": "The mobile-first portal employees use from their phone — no corporate email needed",
+    "appName": "AfroHR · My Portal",
+    "egp": "EGP",
+    "days": "days",
+    "scopeNote": "Strict self-scope — each employee sees only their own record (RLS: employee_id = jwt.employee_id).",
+    "notLinked": {
+      "title": "No linked employee",
+      "body": "Switch to the ESS persona (View as) to preview the portal."
+    },
+    "tabs": {
+      "home": "Home",
+      "attendance": "Attendance",
+      "leave": "Leave",
+      "payslip": "Payslip",
+      "documents": "Docs"
+    },
+    "home": {
+      "greeting": "Hello 👋",
+      "attendanceToday": "Today's attendance",
+      "notCheckedIn": "You haven't checked in yet",
+      "checkedInAt": "Checked in at {time}",
+      "checkedOut": "Checked out — see you tomorrow",
+      "checkIn": "Check in",
+      "checkOut": "Check out",
+      "done": "Done for today",
+      "gpsNote": "Location captured via GPS · works offline, syncs later",
+      "leaveBalance": "Leave balance",
+      "annualLeave": "Annual",
+      "thisMonth": "This month",
+      "workedDays": "Worked days"
+    },
+    "attendance": {
+      "title": "My Attendance",
+      "worked": "Worked",
+      "leave": "On leave",
+      "absent": "Absent",
+      "late": "Late",
+      "min": "min",
+      "today": "Today",
+      "checkIn": "Check-in",
+      "checkOut": "Check-out"
+    },
+    "leave": {
+      "title": "My Leave",
+      "ofEntitled": "of {entitled} entitled",
+      "requestTitle": "Request leave",
+      "type": "Leave type",
+      "days": "Days",
+      "submit": "Submit request",
+      "submitted": "✓ Request submitted — routed to your manager for approval.",
+      "overBalance": "Exceeds your remaining balance ({remaining} days).",
+      "myRequests": "My requests",
+      "noRequests": "No leave requests yet.",
+      "types": {
+        "annual": "Annual",
+        "casual": "Casual",
+        "sick": "Sick",
+        "maternity": "Maternity",
+        "hajj": "Hajj",
+        "unpaid": "Unpaid"
+      },
+      "status": {
+        "pending": "Pending manager",
+        "manager_approved": "Pending HR",
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "cancelled": "Cancelled"
+      }
+    },
+    "payslip": {
+      "title": "My Payslip",
+      "none": "No payslip available for the current cycle yet.",
+      "locked": "Payslip is protected",
+      "pinNote": "An extra PIN is required to view salary details (Policy 9).",
+      "unlock": "Unlock with PIN",
+      "netPay": "Net pay",
+      "basic": "Basic salary",
+      "gross": "Gross",
+      "tax": "Income tax",
+      "si": "Social insurance",
+      "allowance": {
+        "site": "Site allowance",
+        "transport": "Transport allowance",
+        "meal": "Meal allowance"
+      },
+      "policyNote": "Salary details never appear in external messages — only inside the app (Policy 9)."
+    },
+    "documents": {
+      "title": "My Documents",
+      "upload": "Upload with camera",
+      "expires": "Expires {date}",
+      "status": {
+        "verified": "Verified",
+        "received": "Received",
+        "expired": "Expired",
+        "required": "Required",
+        "expiring": "Expiring soon"
+      }
+    }
+  },
+  "notificationTemplates": {
+    "title": "📨 Notification Templates",
+    "subtitle": "One multi-channel engine for every module — WhatsApp/SMS are first-class for the blue-collar workforce",
+    "catalog": "Template Catalog",
+    "phase2Note": "WhatsApp Business API and the Egyptian SMS provider are wired in Phase 2 (Session 10 scaffold). Templates, channel preferences and the delivery monitor are live here; WhatsApp variants are pre-registered with Meta.",
+    "delivered": "Delivered",
+    "failed": "Failed",
+    "metaRegistration": "Meta registration",
+    "variables": "Variables",
+    "body": "Message body",
+    "preview": "Preview (sample data)",
+    "save": "Save template",
+    "savedNote": "Saved (mock) — would version the template and re-submit WhatsApp variants to Meta.",
+    "critical": "Critical (no digest)",
+    "active": "Active",
+    "inactive": "Inactive",
+    "channels": {
+      "in_app": "In-App",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "sms": "SMS"
+    },
+    "registration": {
+      "approved": "Approved",
+      "pending": "Pending Meta review",
+      "not_required": "Not required"
+    },
+    "modules": {
+      "recruitment": "Recruitment",
+      "onboarding": "Onboarding",
+      "offboarding": "Offboarding",
+      "payroll": "Payroll",
+      "documents": "Documents & Certificates",
+      "approvals": "Approvals",
+      "attendance": "Attendance & Leave"
+    }
+  },
+  "ai": {
+    "title": "✦ AI Studio",
+    "subtitle": "The Claude-powered AI layer — document OCR, CV parsing, candidate matching and semantic search (Claude Opus 4.8)",
+    "statusLive": "Claude API live",
+    "statusDemo": "Demo (mock inference)",
+    "demoNote": "Running on deterministic mock inference. Set ANTHROPIC_API_KEY to switch every tool to live Claude Opus 4.8 calls — the request path is identical.",
+    "resultTitle": "Result",
+    "noResult": "Run the tool to see the structured output.",
+    "confidence": "Confidence",
+    "gender": { "male": "Male", "female": "Female" },
+    "docClass": {
+      "national_id": "National ID",
+      "passport": "Passport",
+      "qualification": "Qualification",
+      "contract": "Contract",
+      "criminal_record": "Criminal record",
+      "medical_report": "Medical report",
+      "syndicate_card": "Syndicate card",
+      "driving_license": "Driving license",
+      "other": "Other"
+    },
+    "tools": {
+      "ocr": {
+        "tab": "ID OCR",
+        "inputTitle": "National ID / Passport",
+        "desc": "Claude vision reads the card and extracts the holder's fields, deriving birth date and gender from the 14-digit national number.",
+        "sample": "🪪 Sample Egyptian National ID",
+        "run": "Extract fields",
+        "autofill": "✓ Fields ready to auto-fill the Core HR record (reviewer confirms).",
+        "f": {
+          "name": "Name",
+          "nid": "National ID",
+          "birth": "Birth date",
+          "gender": "Gender",
+          "address": "Address",
+          "expiry": "Expiry"
+        }
+      },
+      "classifier": {
+        "tab": "Classifier",
+        "inputTitle": "Document text",
+        "desc": "Auto-tags an uploaded document against the 13-document checklist so it files itself.",
+        "run": "Classify",
+        "filed": "✓ Filed against the employee's document checklist."
+      },
+      "cv": {
+        "tab": "CV Parsing",
+        "inputTitle": "Raw CV",
+        "desc": "Parses an Arabic or English CV into a structured talent-pool profile.",
+        "run": "Parse CV",
+        "f": {
+          "name": "Name",
+          "title": "Title",
+          "years": "Experience (years)",
+          "education": "Education",
+          "skills": "Skills",
+          "certs": "Certifications"
+        }
+      },
+      "match": {
+        "tab": "Job Match",
+        "inputTitle": "Role × Candidate",
+        "desc": "Scores a candidate against an open role with explainable strengths and gaps.",
+        "role": "Role",
+        "reqs": "Requirements",
+        "range": "Salary range",
+        "candidate": "Candidate",
+        "run": "Score match",
+        "fit": "overall fit",
+        "strengths": "Strengths",
+        "gaps": "Gaps"
+      },
+      "search": {
+        "tab": "Semantic Search",
+        "inputTitle": "Search employees & talent pool",
+        "desc": "Natural-language search across employee records and the talent pool — matches on meaning, not just keywords.",
+        "placeholder": "e.g. welder with heights safety clearance",
+        "run": "Search",
+        "none": "No relevant matches."
+      }
     }
   }
 }

@@ -128,6 +128,9 @@ export const LEAVE_BALANCES: LeaveBalance[] = [
   // emp-003 — hired 2025, still in first 21-day band
   balance("emp-003", "annual", 21, 4, 2),
   balance("emp-003", "casual", 7, 1, 0),
+  // emp-005 — hired 2021, offboarding; 15 unused annual days feed the final settlement
+  balance("emp-005", "annual", 21, 6, 0),
+  balance("emp-005", "casual", 7, 4, 0),
   // emp-006 — hired 2022
   balance("emp-006", "annual", 21, 12, 0),
   balance("emp-006", "casual", 7, 5, 0),

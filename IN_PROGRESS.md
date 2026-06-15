@@ -1,6 +1,6 @@
 # AfroHR Hub — In-Progress Task Tracker
 
-**Last updated:** 2026-06-13  
+**Last updated:** 2026-06-15  
 **Project:** Multi-Tenant HR SaaS for construction & engineering companies (Egypt)  
 **Stack:** Next.js 15 · TypeScript · Tailwind CSS · shadcn/ui · Supabase · Claude API · Vercel
 
@@ -123,25 +123,39 @@
 - [x] Nav items enabled: attendance 📍, leave 🏖
 - [x] Full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 9 — Offboarding Module
-- [ ] 6-stage offboarding workflow (per the manual)
-- [ ] Clearance checklist per department
-- [ ] Final settlement calculation (leave balance encashment + deductions)
-- [ ] Document archiving & employee status → Archived
+### Session 9 — Offboarding Module ✅ DONE (2026-06-13)
+- [x] Offboarding tracker (`/offboarding`) — open exits with a 6-stage progress bar, last-working-day SLA chip, reason badges, KPI cards (open, in clearance, pending settlement, archived)
+- [x] 6-stage workflow (per the manual) — Initiation → Access Deactivation → Handover → Clearance → Legal & Financial Closure → File Closure & Archiving; live stepper derived from case flags + clearance state
+- [x] Clearance matrix (`/offboarding/[id]`) — department sign-off (IT / Operations & Admin / Finance / Direct Manager) generated from the manual's table, click-to-clear, blocked-item state (a held advance blocks payout)
+- [x] Final settlement — last salary (prorated to LWD) + unused annual-leave encashment (fed from the Leave module) + dues − deductions; Finance approval gate (Policy 13) blocked until clearance is complete
+- [x] Access & handover panel — mandatory access-deactivation-by-LWD rule, direct-manager handover approval
+- [x] Closure & archiving — exit interview, Social Insurance Form (6), original-document return; Archive action gated on approved settlement + returned originals, sets status → Archived (Policy 14, HR code retained for rehire detection)
+- [x] New types: `OffboardingCase`, `ClearanceItem`, `FinalSettlement` (+ `OffboardingReason` / `OffboardingStatus` / `OffboardingStage` / `ClearanceDept` / `ClearanceStatus` enums)
+- [x] Mock data: `offboarding.ts` (3 cases — resignation/settlement, contract-end/clearance, project-end/archived); emp-005 annual balance added to Leave as the encashment source
+- [x] Nav item enabled: offboarding 📦; full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 10 — ESS Portal & Messaging Channels
-- [ ] Employee Self-Service PWA (mobile-first, Blue Collar optimized)
-- [ ] ESS screens: attendance log, payslip viewer, leave request, document download
-- [ ] WhatsApp Business API integration (Meta Business account + approved templates)
-- [ ] SMS channel (Egyptian provider TBD — to be contracted early)
-- [ ] Notification template builder
+### Session 10 — ESS Portal & Messaging Channels ✅ DONE (2026-06-14)
+- [x] Employee Self-Service PWA (`/ess`) — mobile-first phone-frame, bottom-tab nav, scoped to the persona's linked employee (RLS `employee_id = jwt.employee_id`); blue-collar friendly (big buttons, simple Arabic)
+- [x] ESS screens — **Home** (one-tap GPS check-in/out, leave-balance + worked-days tiles, shortcuts), **Attendance** (monthly summary + today's in/out), **Leave** (balances + request form with over-balance guard + my-requests status), **Payslip** (PIN gate per Policy 9, full breakdown basic+allowances−tax−SI−adjustments), **Documents** (checklist with expiry alerts + camera-upload affordance)
+- [x] Notification template builder (`/settings/notifications`) — bilingual templates per event × channel, editable body with `{{variable}}` chips + live sample preview, WhatsApp Meta-registration status, critical/active flags, grouped by module
+- [x] Channel delivery monitor — per-channel delivery-rate cards (in-app / WhatsApp / SMS / email) with failed counts
+- [x] New types: `NotificationTemplate`, `ChannelDeliveryStat` (+ `NotificationChannel` / `TemplateRegistrationStatus` / `NotificationDeliveryStatus` / `NotificationModule` enums)
+- [x] Mock data: `notification-templates.ts` (8 templates across 7 modules, channel stats)
+- [x] Nav items enabled: ess 📱, notificationTemplates 📨; full `ar` + `en` catalogs; build/lint/typecheck pass
+- [ ] **WhatsApp Business API** live wiring (Meta Business account + approved templates) — Phase 2 (scaffolded: templates + registration status modelled)
+- [ ] **SMS channel** live wiring (Egyptian provider TBD — contract early) — Phase 2 (scaffolded: SMS templates + fallback modelled)
+- [ ] Supabase Phone Auth (OTP via SMS/WhatsApp) for ESS login — Phase 2 (login UI scaffolded in Session 3)
 
-### Session 11 — AI Layer (Claude API)
-- [ ] Document OCR — upload national ID / passport → auto-fill fields
-- [ ] CV parsing — upload CV → structured candidate profile
-- [ ] Document classifier (auto-tag document type on upload)
-- [ ] Candidate–Job matching score
-- [ ] Semantic search across employee records & documents
+### Session 11 — AI Layer (Claude API) ✅ DONE (2026-06-15)
+- [x] AI layer (`lib/ai/`) on **Claude Opus 4.8** (`claude-opus-4-8`) via `@anthropic-ai/sdk`, structured outputs (`output_config.format`) for typed results; key-gated mock fallback so the demo runs without `ANTHROPIC_API_KEY` (real call path is identical, like the Supabase Auth scaffold)
+- [x] **Document OCR** (`extractIdFields`) — Claude vision reads a national ID / passport and extracts holder fields, deriving birth date + gender from the 14-digit national number → auto-fills the Core HR record
+- [x] **Document classifier** (`classifyDocument`) — auto-tags an uploaded document against the 13-document checklist (vision or extracted text)
+- [x] **CV parsing** (`parseCv`) — Arabic/English CV → structured talent-pool profile (title, years, skills, certifications, education)
+- [x] **Candidate–job matching** (`matchCandidateToJob`) — explainable match % with strengths + gaps (fills `Candidate.match_pct` for real)
+- [x] **Semantic search** (`semanticSearch`) — natural-language ranking across employee records + talent pool, matching on meaning
+- [x] AI Studio screen (`/ai`) — 5-tool tabbed playground with live/demo badge, server actions (`actions.ts`) calling the AI layer
+- [x] New types: `IdExtraction`, `DocClassification`, `ParsedCv`, `MatchResult`, `SearchHit` (+ `DocClass`)
+- [x] `@anthropic-ai/sdk` installed; nav item ✦ AI Studio enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
 
 ### Session 12 — Pilot Launch & Hardening
 - [ ] Excel import / data migration tooling (bulk employee upload from existing sheets)
@@ -167,15 +181,17 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 9: Offboarding Module**
+**Next up → Session 12: Pilot Launch & Hardening**
 
-Session 8 is complete. Attendance & Leave are now live:
-- **Attendance** (`/attendance`) — today's site sheet with GPS / site-supervisor / manual capture, status badges, late & overtime tracking, inline exception approval, and a monthly summary that feeds Payroll Stage 5 (overtime + / deductions −)
-- **Leave** (`/leave`) — Egyptian Labor Law leave-type catalog, per-employee balances (entitled / used / pending / remaining), and the request → manager → HR approval flow
+Session 11 is complete. The Claude-powered AI layer is now live:
+- **AI Studio** (`/ai`) — a 5-tool playground: national-ID/passport OCR, document classifier, CV parsing, candidate–job matching, and semantic search
+- All five run on **Claude Opus 4.8** with structured outputs (`lib/ai/`), behind a key-gated mock fallback — set `ANTHROPIC_API_KEY` to flip every tool from demo to live Claude calls with no code change
+- OCR/classification use Claude vision; CV/match/search use text + JSON-schema structured outputs
 
-Session 9 builds the Offboarding module:
-1. **6-stage offboarding workflow** (per the manual) with clearance checklist per department
-2. **Final settlement** — unused annual-leave encashment (fed from the Leave module) + deductions, document archiving, and employee status → Archived
+Session 12 is the pilot launch & hardening:
+1. **Data migration tooling** — bulk employee import from existing Excel sheets
+2. **SLA Dashboard drill-down**, security audit (RLS per role & tenant), performance tuning
+3. **Vercel production deployment** + a one-month parallel pilot alongside Excel
 
 ---
 
@@ -192,7 +208,7 @@ Session 9 builds the Offboarding module:
 | Payroll | 2026-06-13 | 9-stage cycle, Egyptian tax engine, payslip breakdown, Policy 1 gate | Done |
 | Allowances + KPI | 2026-06-13 | 6-stage allowance cycle, 6-stage KPI cycle, project cost reports (Policy 12) | Done |
 | Attendance + Leave | 2026-06-13 | Daily attendance sheet, exception approval → Payroll feed, leave types/balances/requests | Done |
-| Offboarding | — | 6 stages, clearance, final settlement | Pending |
-| ESS + Messaging | — | PWA, WhatsApp, SMS | Pending |
-| AI Layer | — | OCR, CV parsing, matching, semantic search | Pending |
+| Offboarding | 2026-06-13 | 6-stage exit workflow, department clearance matrix, final settlement + Finance gate (Policy 13), archiving (Policy 14) | Done |
+| ESS + Messaging | 2026-06-14 | Mobile-first ESS PWA (attendance/leave/payslip/docs), notification template builder + delivery monitor (WhatsApp/SMS scaffold) | Done |
+| AI Layer | 2026-06-15 | Claude Opus 4.8 — ID OCR, doc classifier, CV parsing, job matching, semantic search (key-gated mock fallback) | Done |
 | Pilot Launch | — | Import, security audit, Vercel deploy | Pending |
