@@ -238,6 +238,14 @@ export const NAV_SECTIONS: NavSection[] = [
     labelKey: "system",
     items: [
       {
+        key: "import",
+        labelKey: "import",
+        href: "/import",
+        icon: "📥",
+        allowedRoles: ["company_admin", "hr_manager", "personnel"],
+        enabled: true,
+      },
+      {
         key: "ai",
         labelKey: "ai",
         href: "/ai",
@@ -264,7 +272,7 @@ export const NAV_SECTIONS: NavSection[] = [
         href: "/settings",
         icon: "⚙️",
         allowedRoles: ["company_admin", "hr_manager"],
-        enabled: false,
+        enabled: true,
       },
       {
         key: "audit",
@@ -272,7 +280,7 @@ export const NAV_SECTIONS: NavSection[] = [
         href: "/audit",
         icon: "🧾",
         allowedRoles: ["company_admin", "hr_manager"],
-        enabled: false,
+        enabled: true,
       },
     ],
   },
