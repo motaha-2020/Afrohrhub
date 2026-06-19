@@ -959,3 +959,110 @@ export interface SearchHit {
   score: number;
   reason: string;
 }
+
+/* ----------------------------- Import ----------------------------- */
+
+export type ImportRowStatus = "valid" | "error" | "duplicate" | "warning";
+
+export interface ImportFieldError {
+  field: string;
+  message_en: string;
+  message_ar: string;
+}
+
+export interface ImportRowPreview {
+  row_number: number;
+  hr_code: string;
+  name_ar: string;
+  name_en: string;
+  national_id: string;
+  mobile: string;
+  job_title: string;
+  grade: string;
+  project_code: string;
+  collar: string;
+  hire_date: string;
+  net_salary: string;
+  bank_name: string;
+  bank_account: string;
+  status: ImportRowStatus;
+  errors: ImportFieldError[];
+}
+
+export type ImportJobStatus = "idle" | "validating" | "validated" | "importing" | "done" | "failed";
+
+export interface ImportJob {
+  id: string;
+  file_name: string;
+  uploaded_at: string;
+  total_rows: number;
+  valid_rows: number;
+  error_rows: number;
+  duplicate_rows: number;
+  status: ImportJobStatus;
+  rows: ImportRowPreview[];
+  imported_at: string | null;
+  imported_by: string | null;
+}
+
+/* ----------------------------- Audit ------------------------------ */
+
+export type RlsStatus = "enabled" | "missing" | "partial";
+export type AuditCheckStatus = "pass" | "fail" | "partial" | "na";
+
+export interface RlsAuditTable {
+  table_name: string;
+  schema: string;
+  rls_enabled: boolean;
+  policies: string[];
+  status: RlsStatus;
+  note_en: string;
+  note_ar: string;
+}
+
+export interface PolicyComplianceItem {
+  policy_number: number;
+  title_en: string;
+  title_ar: string;
+  module: string;
+  implementation_status: "live" | "scaffolded" | "pending";
+  location_en: string;
+  location_ar: string;
+}
+
+export interface PenTestItem {
+  id: string;
+  category: string;
+  check_en: string;
+  check_ar: string;
+  status: AuditCheckStatus;
+  note_en?: string;
+  note_ar?: string;
+}
+
+/* -------------------------- Deployment ---------------------------- */
+
+export type EnvVarStatus = "set" | "missing" | "optional_missing";
+
+export interface DeploymentEnvVar {
+  key: string;
+  description_en: string;
+  description_ar: string;
+  status: EnvVarStatus;
+  required: boolean;
+  phase: 1 | 2;
+}
+
+export type PilotMilestoneStatus = "done" | "in_progress" | "pending" | "blocked";
+
+export interface PilotMilestone {
+  id: string;
+  title_en: string;
+  title_ar: string;
+  owner_en: string;
+  owner_ar: string;
+  due_date: string;
+  status: PilotMilestoneStatus;
+  note_en?: string;
+  note_ar?: string;
+}

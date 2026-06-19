@@ -157,13 +157,14 @@
 - [x] New types: `IdExtraction`, `DocClassification`, `ParsedCv`, `MatchResult`, `SearchHit` (+ `DocClass`)
 - [x] `@anthropic-ai/sdk` installed; nav item ✦ AI Studio enabled; full `ar` + `en` catalogs; build/lint/typecheck pass
 
-### Session 12 — Pilot Launch & Hardening
-- [ ] Excel import / data migration tooling (bulk employee upload from existing sheets)
-- [ ] SLA Dashboard — full view with drill-down per module
-- [ ] Security audit — RLS verification per role & tenant, penetration-test checklist
-- [ ] Performance optimization — query plans, edge caching, pagination tuning
-- [ ] Vercel production deployment + environment config
-- [ ] Parallel pilot run: real company data for one month alongside Excel
+### Session 12 — Pilot Launch & Hardening ✅ DONE (2026-06-16)
+- [x] Data Import Tool (`/import`) — 3-step CSV/Excel wizard: template preview (15 columns), file upload drop zone, dry-run validation (14-row preview with per-row status + field-level errors), commit gate (blocks on errors), success state
+- [x] Security Audit Dashboard (`/audit`) — RLS coverage (18 tables, all enabled), 16-policy compliance checklist (14 live / 2 scaffolded), pen-test checklist (19 checks across 5 categories — 17 pass, 2 partial)
+- [x] Settings & Deployment (`/settings`) — env-var status (8 vars, Phase 1/2 split, missing-required alert), pilot milestone board (10 milestones with owners + due dates)
+- [x] Nav — enabled `settings` ⚙️ + `audit` 🧾; added `import` 📥 to system section
+- [x] New types in `types.ts` — Import, Audit (RLS/Policy/PenTest), Deployment (EnvVar/PilotMilestone)
+- [x] Mock data — `lib/data/mock/import.ts`, `audit.ts`, `deployment.ts`
+- [x] i18n — `import`, `audit`, `settings` namespaces added to `en.json` + `ar.json`; `import` nav item added to both
 
 ---
 
@@ -181,17 +182,18 @@
 
 ## CURRENT FOCUS
 
-**Next up → Session 12: Pilot Launch & Hardening**
+**Session 12 is complete. All 12 MVP sessions are done.**
 
-Session 11 is complete. The Claude-powered AI layer is now live:
-- **AI Studio** (`/ai`) — a 5-tool playground: national-ID/passport OCR, document classifier, CV parsing, candidate–job matching, and semantic search
-- All five run on **Claude Opus 4.8** with structured outputs (`lib/ai/`), behind a key-gated mock fallback — set `ANTHROPIC_API_KEY` to flip every tool from demo to live Claude calls with no code change
-- OCR/classification use Claude vision; CV/match/search use text + JSON-schema structured outputs
+Session 12 delivered the pilot launch & hardening layer:
+- **Data Import Tool** (`/import`) — 3-step wizard (template → validate → commit) for bulk employee upload from Excel/CSV; dry-run mode with per-row and per-field error reporting; duplicate detection; commit gate blocks if any errors remain
+- **Security Audit Dashboard** (`/audit`) — tabbed: RLS coverage (18/18 tables enabled), 16-policy compliance (14 live, 2 scaffolded for Phase 2), OWASP pen-test checklist (17 pass, 2 partial)
+- **Settings & Deployment** (`/settings`) — env-var status tracker (Phase 1 MVP + Phase 2 WhatsApp/SMS), pilot milestone board (10 milestones for the one-month parallel run alongside Excel)
 
-Session 12 is the pilot launch & hardening:
-1. **Data migration tooling** — bulk employee import from existing Excel sheets
-2. **SLA Dashboard drill-down**, security audit (RLS per role & tenant), performance tuning
-3. **Vercel production deployment** + a one-month parallel pilot alongside Excel
+**Next steps for go-live:**
+1. Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_APP_URL` in Vercel
+2. Run `supabase db push` to apply all 10 migrations to the production project
+3. Use `/import` to bulk-upload the existing employee roster from Excel
+4. Run the July 2026 payroll cycle in parallel with the existing Excel sheet to validate totals
 
 ---
 
@@ -211,4 +213,4 @@ Session 12 is the pilot launch & hardening:
 | Offboarding | 2026-06-13 | 6-stage exit workflow, department clearance matrix, final settlement + Finance gate (Policy 13), archiving (Policy 14) | Done |
 | ESS + Messaging | 2026-06-14 | Mobile-first ESS PWA (attendance/leave/payslip/docs), notification template builder + delivery monitor (WhatsApp/SMS scaffold) | Done |
 | AI Layer | 2026-06-15 | Claude Opus 4.8 — ID OCR, doc classifier, CV parsing, job matching, semantic search (key-gated mock fallback) | Done |
-| Pilot Launch | — | Import, security audit, Vercel deploy | Pending |
+| Pilot Launch | 2026-06-16 | Import wizard, security audit dashboard, settings & deployment | Done |

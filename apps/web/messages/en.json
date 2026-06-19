@@ -36,7 +36,8 @@
       "ai": "AI Studio",
       "notificationTemplates": "Notification Templates",
       "settings": "Settings",
-      "audit": "Audit"
+      "audit": "Audit",
+      "import": "Data Import"
     }
   },
   "roles": {
@@ -1300,6 +1301,196 @@
         "placeholder": "e.g. welder with heights safety clearance",
         "run": "Search",
         "none": "No relevant matches."
+      }
+    }
+  },
+  "import": {
+    "title": "📥 Data Import",
+    "subtitle": "Bulk employee upload from Excel / CSV — validate, preview, then commit",
+    "steps": {
+      "step1": "Download Template & Upload",
+      "step2": "Validate & Review",
+      "step3": "Confirm & Commit"
+    },
+    "template": {
+      "title": "Excel Template — 15 mandatory columns",
+      "subtitle": "Download the template, fill it with your employees, then upload",
+      "column": "Column",
+      "example": "Example",
+      "required": "Required",
+      "req": "Required",
+      "opt": "Optional"
+    },
+    "upload": {
+      "title": "Upload File",
+      "hint": "Accepted formats: .xlsx, .xls, .csv — max 5 MB",
+      "downloadTemplate": "Download Template (.xlsx)",
+      "dropzone": "Drag & drop your file here",
+      "formats": ".xlsx · .xls · .csv",
+      "browse": "Browse file",
+      "demoNote": "Demo: load the sample validation result →",
+      "loadDemo": "Load demo file"
+    },
+    "validate": {
+      "dryRunNote": "Dry-run complete — review before committing any changes to Core HR",
+      "errorsFound": "{count} row(s) have errors — fix them in your file and re-upload before committing",
+      "preview": "Row-by-Row Validation Preview",
+      "back": "Back",
+      "next": "Proceed to Commit",
+      "fixFirst": "Fix errors first",
+      "kpi": {
+        "total": "Total Rows",
+        "valid": "Valid",
+        "validBadge": "Ready",
+        "errors": "Errors",
+        "errorBadge": "Fix required",
+        "duplicates": "Duplicates",
+        "dupBadge": "Will skip"
+      },
+      "col": {
+        "hrCode": "HR Code",
+        "name": "Name",
+        "nationalId": "National ID",
+        "project": "Project",
+        "hireDate": "Hire Date",
+        "status": "Status",
+        "errors": "Errors"
+      },
+      "statuses": {
+        "valid": "✓ Valid",
+        "error": "Error",
+        "duplicate": "Duplicate",
+        "warning": "Warning"
+      }
+    },
+    "commit": {
+      "title": "Ready to Commit",
+      "subtitle": "These records will be created in Core HR in Pending (pre-activation) status and enter the Onboarding queue",
+      "willCreate": "Employees to create",
+      "willSkip": "Duplicates skipped",
+      "inOnboarding": "Enter Onboarding queue",
+      "warning": "⚠ This action creates real records in Core HR. Each new employee enters Onboarding in Pending status — they are not Active until the 9-stage Onboarding checklist is complete and activated (Policy 1).",
+      "back": "Back",
+      "confirm": "✓ Commit import"
+    },
+    "done": {
+      "title": "Import Complete",
+      "body": "{count} employees created in Core HR (status: Pending — entering Onboarding)",
+      "next": "Go to Onboarding to start the 9-stage checklist for each new hire",
+      "importMore": "Import another file",
+      "viewEmployees": "View employees →"
+    }
+  },
+  "audit": {
+    "title": "🧾 Security Audit",
+    "subtitle": "RLS coverage across all tables, the 16-policy compliance checklist, and penetration-test results",
+    "kpi": {
+      "rlsTables": "Tables with RLS",
+      "enabled": "All enabled",
+      "policies": "Policies Live",
+      "live": "Implemented",
+      "penPass": "Checks Passing",
+      "pass": "Pass",
+      "penPartial": "Partial",
+      "partial": "Needs attention"
+    },
+    "tabs": {
+      "rls": "RLS Coverage",
+      "policies": "16-Policy Compliance",
+      "pentest": "Pen-Test Checklist"
+    },
+    "rls": {
+      "title": "Row Level Security — Table Coverage",
+      "subtitle": "Every table in the system has RLS enabled and a tenant_isolation policy at minimum",
+      "col": {
+        "table": "Table",
+        "policies": "Policies",
+        "status": "RLS Status",
+        "note": "Note"
+      },
+      "statuses": {
+        "enabled": "✓ Enabled",
+        "missing": "Missing",
+        "partial": "Partial"
+      }
+    },
+    "policies": {
+      "title": "People & Culture Operations Manual — 16 Policies",
+      "subtitle": "Each policy from the manual is enforced as a live code gate, scaffolded, or planned for Phase 2",
+      "col": {
+        "title": "Policy",
+        "module": "Module",
+        "status": "Status",
+        "location": "Implementation"
+      },
+      "statuses": {
+        "live": "✓ Live",
+        "scaffolded": "Scaffolded",
+        "pending": "Phase 2"
+      }
+    },
+    "pentest": {
+      "title": "Penetration Test Checklist",
+      "subtitle": "OWASP-aligned security checks verified before pilot launch",
+      "col": {
+        "status": "Result",
+        "check": "Check"
+      },
+      "statuses": {
+        "pass": "✓ Pass",
+        "fail": "Fail",
+        "partial": "⚠ Partial",
+        "na": "N/A"
+      }
+    }
+  },
+  "settings": {
+    "title": "⚙️ Settings & Deployment",
+    "subtitle": "Production environment variables and the pilot launch milestone board",
+    "kpi": {
+      "envVars": "Environment Variables",
+      "total": "Total",
+      "missing": "Missing Required",
+      "required": "Required",
+      "milestones": "Milestones Done",
+      "done": "Complete",
+      "inProgress": "In Progress",
+      "active": "Active"
+    },
+    "envWarning": "{count} required environment variable(s) are not set — the app will use mock data until these are configured",
+    "tabs": {
+      "env": "Environment Variables",
+      "pilot": "Pilot Launch Milestones"
+    },
+    "env": {
+      "phase1": "Phase 1 — MVP Launch",
+      "phase2": "Phase 2 — WhatsApp & SMS",
+      "col": {
+        "key": "Variable",
+        "description": "Description",
+        "status": "Status"
+      },
+      "statuses": {
+        "set": "✓ Set",
+        "missing": "Missing",
+        "optional_missing": "Optional"
+      },
+      "vercelNote": "Set these in Vercel Project Settings → Environment Variables, or in .env.local for local development. The app runs on mock data when Supabase and Anthropic keys are absent."
+    },
+    "pilot": {
+      "title": "Pilot Launch Milestones",
+      "subtitle": "Parallel pilot run — one company, one month, alongside existing Excel workflows",
+      "col": {
+        "milestone": "Milestone",
+        "owner": "Owner",
+        "due": "Due Date",
+        "status": "Status"
+      },
+      "statuses": {
+        "done": "✓ Done",
+        "in_progress": "In Progress",
+        "pending": "Pending",
+        "blocked": "Blocked"
       }
     }
   }
