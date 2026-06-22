@@ -16,6 +16,8 @@ export interface MockSession {
   user: { name_ar: string; name_en: string };
   roles: Role[];
   tenant: SessionTenant;
+  /** Linked employee (ESS self-scope), when the user is an employee. */
+  employee_id?: string | null;
 }
 
 export function sessionFromPersona(
@@ -26,5 +28,6 @@ export function sessionFromPersona(
     user: { name_ar: persona.name_ar, name_en: persona.name_en },
     roles: persona.roles,
     tenant,
+    employee_id: persona.employee_id ?? null,
   };
 }

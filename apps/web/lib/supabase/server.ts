@@ -1,41 +1,45 @@
 import "server-only";
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
+import { createServerClient } from "@supabase/ssr";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 /**
- * Server-side Supabase admin client (service role).
- *
- * INTERIM (docs/07 session 1 — "ربط الآن + Auth لاحقاً"): until Supabase
- * Auth lands, server components read the database with the service-role key,
- * which bypasses RLS. Tenant scoping is therefore enforced explicitly in the
- * repositories (`tenant_id = DEMO_TENANT_ID`) and field-level confidentiality
- * (Policy 9) stays gated in the UI via `canViewCompensation`.
- *
- * The service-role key is read on the server only and is never sent to the
- * browser. When real auth ships, screens switch to the anon client + a JWT
- * whose claims drive RLS in the database (see supabase/README.md), and this
- * file is reduced to admin-only tasks.
+ * Request-scoped Supabase client (anon key + the user's auth cookies). Every
+ * query runs as the signed-in user, so PostgreSQL RLS (tenant isolation +
+ * Policy 9 compensation confidentiality + ESS self-scope, see
+ * supabase/README.md) is the source of truth — the app holds no service-role
+ * key. Used by the server-component data layer and the auth actions.
  */
 
-/** Demo tenant "Afro Egypt Contracting" — supabase/migrations/0010_seed.sql. */
-export const DEMO_TENANT_ID = "00000000-0000-0000-0000-000000000001";
-
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-/** True when server-side Supabase access is configured (else: mock data). */
-export const isSupabaseConfigured = Boolean(url && serviceRoleKey);
+/** True when Supabase is wired (else the app runs on the in-repo mock + dev personas). */
+export const isSupabaseConfigured = Boolean(url && anonKey);
 
-let cached: SupabaseClient | null = null;
-
-/** Singleton admin client; throws if env is missing (guard with the flag). */
-export function getAdminClient(): SupabaseClient {
-  if (!url || !serviceRoleKey) {
+export async function createServerSupabase(): Promise<SupabaseClient> {
+  if (!url || !anonKey) {
     throw new Error(
-      "Supabase server env missing: set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY"
+      "Supabase env missing: set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY"
     );
   }
-  cached ??= createClient(url, serviceRoleKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
+  const cookieStore = await cookies();
+  return createServerClient(url, anonKey, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet) {
+        // Throws in Server Components (read-only cookies) — the middleware
+        // refreshes the session, so this is safe to swallow here.
+        try {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options)
+          );
+        } catch {
+          /* no-op outside actions/route handlers */
+        }
+      },
+    },
   });
-  return cached;
 }

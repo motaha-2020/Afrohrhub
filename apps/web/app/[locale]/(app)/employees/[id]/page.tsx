@@ -33,6 +33,7 @@ export default async function EmployeeProfilePage({
   const sp = await searchParams;
   const t = await getTranslations("profile");
   const { session } = await getServerSession();
+  if (!session) return null; // the (app) layout already redirects unauthenticated users
 
   const item = await employeeRepository.getListItem(id);
   if (!item) {

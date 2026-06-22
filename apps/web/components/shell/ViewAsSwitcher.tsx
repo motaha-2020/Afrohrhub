@@ -19,6 +19,8 @@ export function ViewAsSwitcher() {
   const locale = useLocale();
   const router = useRouter();
 
+  if (!persona) return null; // dev mode only
+
   return (
     <div
       className="flex items-center gap-2 rounded-full border-[1.5px] border-primary bg-primary-soft py-1 pe-1.5 ps-3.5"

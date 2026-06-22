@@ -33,6 +33,7 @@ export default async function DashboardPage({
   const { locale } = await params;
   const t = await getTranslations("dashboard");
   const { session } = await getServerSession();
+  if (!session) return null; // the (app) layout already redirects unauthenticated users
   const projects = await projectRepository.list();
   const firstName = localizedName(session.user, locale).split(/\s+/)[0];
 

@@ -11,6 +11,7 @@ import type {
 } from "../repository";
 import type {
   ApprovalRequest,
+  BaseRow,
   DocumentType,
   Employee,
   EmployeeCompensation,
@@ -24,17 +25,17 @@ import type {
 import { hasAnyRole } from "@/lib/rbac/roles";
 import { daysBetween } from "@/lib/utils/format";
 import { DEMO_TODAY } from "../mock/seed";
-import { DEMO_TENANT_ID, getAdminClient } from "@/lib/supabase/server";
+import { createServerSupabase } from "@/lib/supabase/server";
 
 /**
- * Supabase-backed data layer (Core HR). Mirrors the mock repositories'
- * behavior against the real `afrohr` database, scoped to the demo tenant
- * (service-role access — see lib/supabase/server.ts). Same EmployeeRepository
- * / ProjectRepository contracts, so screens are unchanged.
+ * Supabase-backed data layer (Core HR). Same EmployeeRepository /
+ * ProjectRepository / ApprovalRepository contracts as the mock, so screens
+ * are unchanged. All queries run through the request-scoped RLS client
+ * (lib/supabase/server.ts): tenant isolation and Policy 9 are enforced by
+ * the database, not here.
  */
 
 const EXPIRY_WARNING_DAYS = 30;
-const T = DEMO_TENANT_ID;
 
 /** Bilingual HSE record names (the DB stores `course_key`, not a name). */
 const HSE_NAMES: Record<string, { ar: string; en: string }> = {
@@ -74,26 +75,20 @@ function summarize(docs: EmployeeDocumentWithType[]): DocumentSummary {
 
 export class SupabaseEmployeeRepository implements EmployeeRepository {
   async list(filters: EmployeeFilters = {}): Promise<EmployeeListItem[]> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const [employees, jobTitles, grades, projects, allocations, documents] =
       await Promise.all([
-        db
-          .from("employees")
-          .select(EMP_COLS)
-          .eq("tenant_id", T)
-          .is("archived_at", null),
-        db.from("job_titles").select("*").eq("tenant_id", T),
-        db.from("grades").select("*").eq("tenant_id", T),
-        db.from("projects").select("*").eq("tenant_id", T),
+        db.from("employees").select(EMP_COLS).is("archived_at", null),
+        db.from("job_titles").select("*"),
+        db.from("grades").select("*"),
+        db.from("projects").select("*"),
         db
           .from("employee_project_allocations")
           .select("*")
-          .eq("tenant_id", T)
           .is("end_date", null),
         db
           .from("employee_documents")
-          .select("*, document_type:document_types(*)")
-          .eq("tenant_id", T),
+          .select("*, document_type:document_types(*)"),
       ]);
 
     for (const r of [employees, jobTitles, grades, projects, allocations, documents]) {
@@ -154,11 +149,10 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getById(id: string): Promise<Employee | null> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const { data, error } = await db
       .from("employees")
       .select(EMP_COLS)
-      .eq("tenant_id", T)
       .eq("id", id)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -168,7 +162,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   async getListItem(id: string): Promise<EmployeeListItem | null> {
     const employee = await this.getById(id);
     if (!employee) return null;
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const [jobTitle, grade, allocations, documents] = await Promise.all([
       db.from("job_titles").select("*").eq("id", employee.job_title_id).maybeSingle(),
       employee.grade_id
@@ -204,7 +198,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getDocuments(employeeId: string): Promise<EmployeeDocumentWithType[]> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const { data, error } = await db
       .from("employee_documents")
       .select("*, document_type:document_types(*)")
@@ -217,7 +211,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getEvents(employeeId: string): Promise<EmployeeEvent[]> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const { data, error } = await db
       .from("employee_events")
       .select("*")
@@ -228,7 +222,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getAllocations(employeeId: string): Promise<AllocationWithProject[]> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const { data, error } = await db
       .from("employee_project_allocations")
       .select("*, project:projects(*), work_location:work_locations(*)")
@@ -243,7 +237,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   async getCompensation(
     employeeId: string
   ): Promise<EmployeeCompensation | null> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const { data, error } = await db
       .from("employee_compensation")
       .select("*")
@@ -254,7 +248,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getHseRecords(employeeId: string): Promise<HseRecord[]> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const { data, error } = await db
       .from("hse_records")
       .select("*")
@@ -262,9 +256,10 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
     if (error) throw new Error(error.message);
     return ((data ?? []) as Omit<HseRecord, "name_ar" | "name_en">[]).map(
       (row) => {
-        const name =
-          HSE_NAMES[row.course_key ?? ""] ??
-          ({ ar: row.course_key ?? "", en: row.course_key ?? "" } as const);
+        const name = HSE_NAMES[row.course_key ?? ""] ?? {
+          ar: row.course_key ?? "",
+          en: row.course_key ?? "",
+        };
         return { ...row, name_ar: name.ar, name_en: name.en } as HseRecord;
       }
     );
@@ -284,21 +279,16 @@ interface ApprovalRow {
   archived_at: string | null;
   payload_snapshot: Omit<
     ApprovalRequest,
-    | keyof import("../types").BaseRow
-    | "entity_type"
-    | "entity_id"
-    | "current_step"
-    | "status"
+    keyof BaseRow | "entity_type" | "entity_id" | "current_step" | "status"
   >;
 }
 
 export class SupabaseApprovalRepository implements ApprovalRepository {
   async listPending(filters: ApprovalFilters = {}): Promise<ApprovalRequest[]> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     let query = db
       .from("approval_requests")
       .select("*")
-      .eq("tenant_id", T)
       .eq("status", "pending")
       .is("archived_at", null);
     if (filters.entity_type) query = query.eq("entity_type", filters.entity_type);
@@ -333,11 +323,10 @@ export class SupabaseApprovalRepository implements ApprovalRepository {
 
 export class SupabaseProjectRepository implements ProjectRepository {
   async list(): Promise<Project[]> {
-    const db = getAdminClient();
+    const db = await createServerSupabase();
     const { data, error } = await db
       .from("projects")
       .select("*")
-      .eq("tenant_id", T)
       .eq("status", "active");
     if (error) throw new Error(error.message);
     return (data ?? []) as Project[];
@@ -346,11 +335,10 @@ export class SupabaseProjectRepository implements ProjectRepository {
 
 /** Tenant document checklist from the DB (no sort column → ordered by name). */
 export async function listDocumentTypesFromDb(): Promise<DocumentType[]> {
-  const db = getAdminClient();
+  const db = await createServerSupabase();
   const { data, error } = await db
     .from("document_types")
     .select("*")
-    .eq("tenant_id", T)
     .order("name_en", { ascending: true });
   if (error) throw new Error(error.message);
   return ((data ?? []) as Omit<DocumentType, "sort_order">[]).map(

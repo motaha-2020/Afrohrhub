@@ -183,6 +183,7 @@ export default async function ApprovalsPage({
   const tCommon = await getTranslations("common");
   const egp = tCommon("egp");
   const { session } = await getServerSession();
+  if (!session) return null; // the (app) layout already redirects unauthenticated users
 
   const activeType = ENTITY_TYPES.find((e) => e === sp.type);
   const requests = await approvalRepository.listPending({
