@@ -204,7 +204,7 @@ export const NAV_SECTIONS: NavSection[] = [
         href: "/audit",
         icon: "🧾",
         allowedRoles: ["company_admin", "hr_manager"],
-        enabled: false,
+        enabled: true,
       },
     ],
   },
