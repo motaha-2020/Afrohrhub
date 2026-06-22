@@ -127,13 +127,11 @@ export default async function DashboardPage({
           <table className="w-full border-collapse text-[13px]">
             <tbody>
               {HEADCOUNT_BY_PROJECT.map((row, i) => {
-                const project = projects.find(
-                  (p) => p.id === row.project_id
-                );
+                const project = projects.find((p) => p.code === row.code);
                 if (!project) return null;
                 return (
                   <tr
-                    key={row.project_id}
+                    key={row.code}
                     className="border-b border-line last:border-b-0"
                   >
                     <td className="px-2.5 py-2.5 align-middle">

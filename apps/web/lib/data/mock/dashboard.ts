@@ -16,15 +16,16 @@ export const DIRECTORY_COUNTS = {
   offboarding: 12,
 } as const;
 
-/** Headcount per project (project_id → demo figures). */
+/** Headcount per project, keyed by project code so it resolves against both
+ * the mock seed and the real DB (whose ids are UUIDs). */
 export const HEADCOUNT_BY_PROJECT: {
-  project_id: string;
+  code: string;
   headcount: number;
   pct: number;
 }[] = [
-  { project_id: "prj-benban", headcount: 1120, pct: 84 },
-  { project_id: "prj-alamein", headcount: 846, pct: 62 },
-  { project_id: "prj-assiut", headcount: 633, pct: 47 },
-  { project_id: "prj-sokhna", headcount: 451, pct: 33 },
-  { project_id: "prj-hq", headcount: 197, pct: 15 },
+  { code: "PRJ-014", headcount: 1120, pct: 84 },
+  { code: "PRJ-009", headcount: 846, pct: 62 },
+  { code: "PRJ-021", headcount: 633, pct: 47 },
+  { code: "PRJ-017", headcount: 451, pct: 33 },
+  { code: "HQ-001", headcount: 197, pct: 15 },
 ];
