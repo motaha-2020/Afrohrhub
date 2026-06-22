@@ -1,5 +1,7 @@
 import type {
   AllocationWithProject,
+  ApprovalFilters,
+  ApprovalRepository,
   DocumentSummary,
   EmployeeDocumentWithType,
   EmployeeFilters,
@@ -8,12 +10,15 @@ import type {
   ProjectRepository,
 } from "../repository";
 import type {
+  ApprovalRequest,
   Employee,
   EmployeeCompensation,
   EmployeeEvent,
   HseRecord,
   Project,
 } from "../types";
+import { hasAnyRole } from "@/lib/rbac/roles";
+import { APPROVAL_REQUESTS } from "./approvals";
 import { daysBetween } from "@/lib/utils/format";
 import {
   ALLOCATIONS,
@@ -168,5 +173,23 @@ export class MockEmployeeRepository implements EmployeeRepository {
 export class MockProjectRepository implements ProjectRepository {
   async list(): Promise<Project[]> {
     return PROJECTS.filter((p) => p.status === "active");
+  }
+}
+
+export class MockApprovalRepository implements ApprovalRepository {
+  async listPending(filters: ApprovalFilters = {}): Promise<ApprovalRequest[]> {
+    return APPROVAL_REQUESTS.filter((req) => {
+      if (req.status !== "pending") return false;
+      if (filters.entity_type && req.entity_type !== filters.entity_type) {
+        return false;
+      }
+      if (
+        filters.awaiting_roles &&
+        !hasAnyRole(filters.awaiting_roles, req.awaiting_roles)
+      ) {
+        return false;
+      }
+      return true;
+    }).sort((a, b) => b.requested_at.localeCompare(a.requested_at));
   }
 }

@@ -55,7 +55,7 @@ export const NAV_SECTIONS: NavSection[] = [
         href: "/approvals",
         icon: "✅",
         allowedRoles: "all",
-        enabled: false,
+        enabled: true,
       },
       {
         key: "sla",

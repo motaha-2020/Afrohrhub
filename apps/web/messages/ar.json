@@ -223,5 +223,31 @@
         "description": "لم تُسجَّل فحوص طبية أو دورات سلامة لهذا الموظف بعد."
       }
     }
+  },
+  "approvals": {
+    "title": "صندوق الاعتمادات",
+    "subtitle": "{mine} بانتظار قرارك · {total} طلب قيد الاعتماد",
+    "tabAll": "الكل",
+    "mineSection": "بانتظار قرارك",
+    "othersSection": "قيد الاعتماد لدى آخرين",
+    "requestedBy": "تقدّم به {name}",
+    "amountLabel": "القيمة",
+    "chainTitle": "مسار الاعتماد",
+    "stepBy": "{name} · {date}",
+    "approve": "اعتماد",
+    "return": "إرجاع للتعديل",
+    "reject": "رفض",
+    "open": "فتح الطلب",
+    "types": {
+      "hiring_request": "طلبات التوظيف",
+      "job_offer": "عروض العمل",
+      "payroll_adjustment": "تعديلات الرواتب",
+      "final_settlement": "التسويات النهائية",
+      "leave_request": "الإجازات"
+    },
+    "empty": {
+      "title": "لا اعتمادات معلّقة",
+      "description": "لا توجد طلبات بانتظار قرارك ضمن هذا التصنيف حالياً."
+    }
   }
 }

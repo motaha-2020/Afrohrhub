@@ -3,6 +3,7 @@
  * docs/02-data-model.md so swapping the mock repositories for Supabase
  * queries is a type-compatible change.
  */
+import type { Role } from "@/lib/rbac/roles";
 
 /** Standard columns shared by every table (docs/02, header). */
 export interface BaseRow {
@@ -185,4 +186,71 @@ export interface HseRecord extends BaseRow {
   certificate_path: string | null;
   issued_at: string;
   expiry_date: string | null;
+}
+
+/* -------------------------- Approval Engine -------------------------- */
+
+/** Entity types routed through the single Approval Engine (docs/05). */
+export type ApprovalEntityType =
+  | "hiring_request"
+  | "job_offer"
+  | "payroll_adjustment"
+  | "final_settlement"
+  | "leave_request";
+
+export type ApprovalDecision = "approve" | "reject" | "return_for_edit";
+
+export type ApprovalStatus = "pending" | "approved" | "rejected" | "cancelled";
+
+/** Per-step SLA derived state used for the inbox badge (docs/04). */
+export type ApprovalSlaState = "on_time" | "due_soon" | "overdue";
+
+/** A bilingual key/value line from the frozen `payload_snapshot` (docs/05). */
+export interface ApprovalSummaryLine {
+  label_ar: string;
+  label_en: string;
+  value_ar: string;
+  value_en: string;
+}
+
+/**
+ * One row of the approval chain — a configured `approval_step` joined with
+ * its `approval_action` once decided (`decision === null` ⇒ not yet reached).
+ */
+export interface ApprovalStepResult {
+  step_order: number;
+  approver_label_ar: string;
+  approver_label_en: string;
+  decision: ApprovalDecision | null;
+  actor_name_ar?: string;
+  actor_name_en?: string;
+  comment_ar?: string;
+  comment_en?: string;
+  at?: string;
+}
+
+/** Operational `approval_requests` row, denormalized for the inbox (docs/05). */
+export interface ApprovalRequest extends BaseRow {
+  entity_type: ApprovalEntityType;
+  entity_id: string;
+  title_ar: string;
+  title_en: string;
+  /** Snapshot lines describing what is being approved (immutable after send). */
+  summary: ApprovalSummaryLine[];
+  /** Monetary value in EGP for adjustments/settlements, when relevant. */
+  amount: number | null;
+  requested_by_name_ar: string;
+  requested_by_name_en: string;
+  requested_at: string;
+  current_step: number;
+  status: ApprovalStatus;
+  sla_state: ApprovalSlaState;
+  sla_label_ar: string;
+  sla_label_en: string;
+  steps: ApprovalStepResult[];
+  /**
+   * Roles whose decision the current step is waiting on (mock convenience;
+   * resolved from `approver_type` at runtime later). Empty once resolved.
+   */
+  awaiting_roles: Role[];
 }

@@ -1,6 +1,11 @@
 import type { DocumentType } from "./types";
-import type { EmployeeRepository, ProjectRepository } from "./repository";
+import type {
+  ApprovalRepository,
+  EmployeeRepository,
+  ProjectRepository,
+} from "./repository";
 import {
+  MockApprovalRepository,
   MockEmployeeRepository,
   MockProjectRepository,
 } from "./mock/repositories";
@@ -14,6 +19,9 @@ export const employeeRepository: EmployeeRepository =
   new MockEmployeeRepository();
 
 export const projectRepository: ProjectRepository = new MockProjectRepository();
+
+export const approvalRepository: ApprovalRepository =
+  new MockApprovalRepository();
 
 /** Tenant document checklist (seeded — docs/02 §document_types). */
 export async function listDocumentTypes(): Promise<DocumentType[]> {

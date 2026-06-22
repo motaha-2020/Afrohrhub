@@ -223,5 +223,31 @@
         "description": "No medical exams or safety courses recorded for this employee yet."
       }
     }
+  },
+  "approvals": {
+    "title": "My Approvals",
+    "subtitle": "{mine} awaiting your decision · {total} in progress",
+    "tabAll": "All",
+    "mineSection": "Awaiting your decision",
+    "othersSection": "In progress with others",
+    "requestedBy": "Requested by {name}",
+    "amountLabel": "Amount",
+    "chainTitle": "Approval chain",
+    "stepBy": "{name} · {date}",
+    "approve": "Approve",
+    "return": "Return for edit",
+    "reject": "Reject",
+    "open": "Open request",
+    "types": {
+      "hiring_request": "Hiring",
+      "job_offer": "Offers",
+      "payroll_adjustment": "Payroll",
+      "final_settlement": "Settlements",
+      "leave_request": "Leave"
+    },
+    "empty": {
+      "title": "No pending approvals",
+      "description": "There are no requests awaiting your decision in this category right now."
+    }
   }
 }
