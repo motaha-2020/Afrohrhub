@@ -10,6 +10,7 @@ import {
   MockProjectRepository,
 } from "./mock/repositories";
 import {
+  SupabaseApprovalRepository,
   SupabaseEmployeeRepository,
   SupabaseProjectRepository,
   listDocumentTypesFromDb,
@@ -21,8 +22,9 @@ import { isSupabaseConfigured } from "@/lib/supabase/server";
  * Data-layer entry point. When Supabase server access is configured
  * (NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY) the Core-HR screens
  * read the real `afrohr` database; otherwise they fall back to the mock seed
- * so the app still runs with no secrets. Approvals stay on the mock until the
- * Approval Engine write path is wired.
+ * so the app still runs with no secrets. Reads (employees, projects, document
+ * types, approvals inbox) come from the DB; approval decisions are not yet
+ * written back (Approval Engine write path is a later step).
  */
 export const employeeRepository: EmployeeRepository = isSupabaseConfigured
   ? new SupabaseEmployeeRepository()
@@ -32,8 +34,9 @@ export const projectRepository: ProjectRepository = isSupabaseConfigured
   ? new SupabaseProjectRepository()
   : new MockProjectRepository();
 
-export const approvalRepository: ApprovalRepository =
-  new MockApprovalRepository();
+export const approvalRepository: ApprovalRepository = isSupabaseConfigured
+  ? new SupabaseApprovalRepository()
+  : new MockApprovalRepository();
 
 /** Tenant document checklist (DB when configured, else seed). */
 export async function listDocumentTypes(): Promise<DocumentType[]> {

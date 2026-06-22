@@ -1,5 +1,7 @@
 import type {
   AllocationWithProject,
+  ApprovalFilters,
+  ApprovalRepository,
   DocumentSummary,
   EmployeeDocumentWithType,
   EmployeeFilters,
@@ -8,6 +10,7 @@ import type {
   ProjectRepository,
 } from "../repository";
 import type {
+  ApprovalRequest,
   DocumentType,
   Employee,
   EmployeeCompensation,
@@ -18,6 +21,7 @@ import type {
   Project,
   ProjectAllocation,
 } from "../types";
+import { hasAnyRole } from "@/lib/rbac/roles";
 import { daysBetween } from "@/lib/utils/format";
 import { DEMO_TODAY } from "../mock/seed";
 import { DEMO_TENANT_ID, getAdminClient } from "@/lib/supabase/server";
@@ -31,6 +35,15 @@ import { DEMO_TENANT_ID, getAdminClient } from "@/lib/supabase/server";
 
 const EXPIRY_WARNING_DAYS = 30;
 const T = DEMO_TENANT_ID;
+
+/** Bilingual HSE record names (the DB stores `course_key`, not a name). */
+const HSE_NAMES: Record<string, { ar: string; en: string }> = {
+  medical_exam: { ar: "الفحص الطبي (نموذج 111)", en: "Medical exam (Form 111)" },
+  fire_fighting: { ar: "مكافحة الحريق", en: "Fire Fighting" },
+  first_aid: { ar: "الإسعافات الأولية", en: "First Aid" },
+  risk_assessment: { ar: "تقييم المخاطر", en: "Risk Assessment" },
+  working_at_heights: { ar: "العمل على الارتفاعات", en: "Working at Heights" },
+};
 
 const EMP_COLS =
   "id,tenant_id,created_at,updated_at,archived_at,hr_code,name_ar,name_en,national_id,mobile,personal_email,work_email,photo_path,job_title_id,grade_id,department_id,direct_manager_id,employment_type,collar,hire_date,contract_signing_date,status,social_insurance_number,insurance_office,is_rehire,requires_medical_exam,safety_sensitive_role";
@@ -247,7 +260,74 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
       .select("*")
       .eq("employee_id", employeeId);
     if (error) throw new Error(error.message);
-    return (data ?? []) as HseRecord[];
+    return ((data ?? []) as Omit<HseRecord, "name_ar" | "name_en">[]).map(
+      (row) => {
+        const name =
+          HSE_NAMES[row.course_key ?? ""] ??
+          ({ ar: row.course_key ?? "", en: row.course_key ?? "" } as const);
+        return { ...row, name_ar: name.ar, name_en: name.en } as HseRecord;
+      }
+    );
+  }
+}
+
+/** Columns of approval_requests + the denormalized presentation snapshot. */
+interface ApprovalRow {
+  id: string;
+  tenant_id: string;
+  entity_type: ApprovalRequest["entity_type"];
+  entity_id: string;
+  current_step: number;
+  status: ApprovalRequest["status"];
+  created_at: string;
+  updated_at: string;
+  archived_at: string | null;
+  payload_snapshot: Omit<
+    ApprovalRequest,
+    | keyof import("../types").BaseRow
+    | "entity_type"
+    | "entity_id"
+    | "current_step"
+    | "status"
+  >;
+}
+
+export class SupabaseApprovalRepository implements ApprovalRepository {
+  async listPending(filters: ApprovalFilters = {}): Promise<ApprovalRequest[]> {
+    const db = getAdminClient();
+    let query = db
+      .from("approval_requests")
+      .select("*")
+      .eq("tenant_id", T)
+      .eq("status", "pending")
+      .is("archived_at", null);
+    if (filters.entity_type) query = query.eq("entity_type", filters.entity_type);
+
+    const { data, error } = await query;
+    if (error) throw new Error(error.message);
+
+    return ((data ?? []) as ApprovalRow[])
+      .map((row) => {
+        const { payload_snapshot: p } = row;
+        return {
+          id: row.id,
+          tenant_id: row.tenant_id,
+          created_at: row.created_at,
+          updated_at: row.updated_at,
+          archived_at: row.archived_at,
+          entity_type: row.entity_type,
+          entity_id: row.entity_id,
+          current_step: row.current_step,
+          status: row.status,
+          ...p,
+        } satisfies ApprovalRequest;
+      })
+      .filter(
+        (req) =>
+          !filters.awaiting_roles ||
+          hasAnyRole(filters.awaiting_roles, req.awaiting_roles)
+      )
+      .sort((a, b) => b.requested_at.localeCompare(a.requested_at));
   }
 }
 
