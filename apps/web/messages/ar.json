@@ -223,5 +223,43 @@
         "description": "لم تُسجَّل فحوص طبية أو دورات سلامة لهذا الموظف بعد."
       }
     }
+  },
+  "approvals": {
+    "title": "صندوق الاعتمادات",
+    "subtitle": "{mine} بانتظار قرارك · {total} طلب قيد الاعتماد",
+    "tabAll": "الكل",
+    "mineSection": "بانتظار قرارك",
+    "othersSection": "قيد الاعتماد لدى آخرين",
+    "requestedBy": "تقدّم به {name}",
+    "amountLabel": "القيمة",
+    "chainTitle": "مسار الاعتماد",
+    "stepBy": "{name} · {date}",
+    "approve": "اعتماد",
+    "return": "إرجاع للتعديل",
+    "reject": "رفض",
+    "open": "فتح الطلب",
+    "types": {
+      "hiring_request": "طلبات التوظيف",
+      "job_offer": "عروض العمل",
+      "payroll_adjustment": "تعديلات الرواتب",
+      "final_settlement": "التسويات النهائية",
+      "leave_request": "الإجازات"
+    },
+    "empty": {
+      "title": "لا اعتمادات معلّقة",
+      "description": "لا توجد طلبات بانتظار قرارك ضمن هذا التصنيف حالياً."
+    }
+  },
+  "auth": {
+    "title": "تسجيل الدخول",
+    "subtitle": "AfroHR Hub — منصّة الموارد البشرية",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "signIn": "دخول",
+    "signingIn": "جارٍ الدخول…",
+    "signOut": "تسجيل الخروج",
+    "error": "بيانات الدخول غير صحيحة",
+    "demoTitle": "دخول سريع تجريبي",
+    "demoHint": "اضغط أي دور للدخول مباشرةً · كلمة المرور للجميع: {password}"
   }
 }

@@ -47,6 +47,11 @@ export function localizedName(
   return locale === "ar" ? entity.name_ar : entity.name_en;
 }
 
+/** Inline bilingual literal — for demo screens whose copy lives in the page. */
+export function tr(locale: string, ar: string, en: string): string {
+  return locale === "ar" ? ar : en;
+}
+
 /** Localized initials for avatar chips (first letters of first two name parts). */
 export function initials(name: string): string {
   return name

@@ -1,13 +1,10 @@
 "use client";
 
 /**
- * ============================== DEV ONLY ==============================
- * Mock session: React context + cookie persistence around the "View as"
- * personas. Server components read the same cookie via
- * `lib/auth/session.server.ts`. Replaced by Supabase Auth later — the
- * `MockSession` shape intentionally mirrors what the JWT will carry
- * (roles + tenant in app_metadata).
- * ======================================================================
+ * Client session context. In Supabase auth mode it simply holds the
+ * server-resolved session (from the JWT). In dev mode (no Supabase) it wraps
+ * the "View as" personas with cookie persistence so server components re-read
+ * the same cookie via lib/auth/session.server.ts.
  */
 import {
   createContext,
@@ -24,26 +21,35 @@ import {
 } from "./types";
 
 export type { MockSession, SessionTenant } from "./types";
+export type SessionMode = "auth" | "dev";
 
 interface SessionContextValue {
   session: MockSession;
-  persona: Persona;
+  mode: SessionMode;
+  /** Dev mode only. */
+  persona: Persona | null;
   setPersonaId: (id: string) => void;
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null);
 
 export function SessionProvider({
-  initialPersonaId,
+  mode,
+  session,
   tenant,
+  initialPersonaId,
   children,
 }: {
-  initialPersonaId: string;
+  mode: SessionMode;
+  /** Server-resolved session (used as-is in auth mode). */
+  session: MockSession;
+  /** Used to rebuild the session from the active persona in dev mode. */
   tenant: SessionTenant;
+  initialPersonaId?: string;
   children: ReactNode;
 }) {
-  const [persona, setPersona] = useState<Persona>(() =>
-    getPersona(initialPersonaId)
+  const [persona, setPersona] = useState<Persona | null>(() =>
+    mode === "dev" && initialPersonaId ? getPersona(initialPersonaId) : null
   );
 
   const setPersonaId = useCallback((id: string) => {
@@ -53,13 +59,12 @@ export function SessionProvider({
     document.cookie = `${PERSONA_COOKIE}=${next.id}; path=/; max-age=31536000; samesite=lax`;
   }, []);
 
+  const effectiveSession =
+    mode === "dev" && persona ? sessionFromPersona(persona, tenant) : session;
+
   return (
     <SessionContext.Provider
-      value={{
-        session: sessionFromPersona(persona, tenant),
-        persona,
-        setPersonaId,
-      }}
+      value={{ session: effectiveSession, mode, persona, setPersonaId }}
     >
       {children}
     </SessionContext.Provider>

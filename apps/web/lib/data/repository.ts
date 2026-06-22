@@ -1,4 +1,6 @@
 import type {
+  ApprovalEntityType,
+  ApprovalRequest,
   Collar,
   Employee,
   EmployeeCompensation,
@@ -13,6 +15,7 @@ import type {
   ProjectAllocation,
   WorkLocation,
 } from "./types";
+import type { Role } from "@/lib/rbac/roles";
 
 /**
  * Repository interfaces — the only seam the UI talks to. The mock
@@ -73,4 +76,15 @@ export interface EmployeeRepository {
 
 export interface ProjectRepository {
   list(): Promise<Project[]>;
+}
+
+export interface ApprovalFilters {
+  entity_type?: ApprovalEntityType;
+  /** Only requests whose current step awaits one of these roles. */
+  awaiting_roles?: readonly Role[];
+}
+
+export interface ApprovalRepository {
+  /** Pending requests, newest first; optionally scoped to the actor's roles. */
+  listPending(filters?: ApprovalFilters): Promise<ApprovalRequest[]>;
 }

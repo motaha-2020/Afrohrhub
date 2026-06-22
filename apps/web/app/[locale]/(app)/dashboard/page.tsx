@@ -33,6 +33,7 @@ export default async function DashboardPage({
   const { locale } = await params;
   const t = await getTranslations("dashboard");
   const { session } = await getServerSession();
+  if (!session) return null; // the (app) layout already redirects unauthenticated users
   const projects = await projectRepository.list();
   const firstName = localizedName(session.user, locale).split(/\s+/)[0];
 
@@ -98,7 +99,7 @@ export default async function DashboardPage({
           title={t("approvals.title")}
           action={
             <Link
-              href="/dashboard"
+              href="/approvals"
               className="text-[11.5px] font-semibold text-primary"
             >
               {t("approvals.viewAll")}
@@ -127,13 +128,11 @@ export default async function DashboardPage({
           <table className="w-full border-collapse text-[13px]">
             <tbody>
               {HEADCOUNT_BY_PROJECT.map((row, i) => {
-                const project = projects.find(
-                  (p) => p.id === row.project_id
-                );
+                const project = projects.find((p) => p.code === row.code);
                 if (!project) return null;
                 return (
                   <tr
-                    key={row.project_id}
+                    key={row.code}
                     className="border-b border-line last:border-b-0"
                   >
                     <td className="px-2.5 py-2.5 align-middle">

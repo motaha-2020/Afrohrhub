@@ -223,5 +223,43 @@
         "description": "No medical exams or safety courses recorded for this employee yet."
       }
     }
+  },
+  "approvals": {
+    "title": "My Approvals",
+    "subtitle": "{mine} awaiting your decision · {total} in progress",
+    "tabAll": "All",
+    "mineSection": "Awaiting your decision",
+    "othersSection": "In progress with others",
+    "requestedBy": "Requested by {name}",
+    "amountLabel": "Amount",
+    "chainTitle": "Approval chain",
+    "stepBy": "{name} · {date}",
+    "approve": "Approve",
+    "return": "Return for edit",
+    "reject": "Reject",
+    "open": "Open request",
+    "types": {
+      "hiring_request": "Hiring",
+      "job_offer": "Offers",
+      "payroll_adjustment": "Payroll",
+      "final_settlement": "Settlements",
+      "leave_request": "Leave"
+    },
+    "empty": {
+      "title": "No pending approvals",
+      "description": "There are no requests awaiting your decision in this category right now."
+    }
+  },
+  "auth": {
+    "title": "Sign in",
+    "subtitle": "AfroHR Hub — HR platform",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signingIn": "Signing in…",
+    "signOut": "Sign out",
+    "error": "Invalid credentials",
+    "demoTitle": "Demo quick login",
+    "demoHint": "Tap a role to sign in instantly · password for all: {password}"
   }
 }
