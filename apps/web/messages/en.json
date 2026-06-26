@@ -448,5 +448,53 @@
       "approved": "Approved",
       "rejected": "Rejected"
     }
+  },
+  "ess": {
+    "greeting": "Welcome, {name}",
+    "subtitle": "Your self-service portal — mobile-first, Arabic-friendly (docs/modules/08).",
+    "todayCheckIn": "Today's check-in",
+    "leaveBalance": "{type} leave balance",
+    "lastPayslip": "Last payslip ({period})",
+    "unreadNotifs": "Unread notifications",
+    "quickActions": "Quick actions",
+    "notifications": "Notifications",
+    "markAllRead": "Mark all read",
+    "mobileNote": "This is a desktop preview. The ESS portal is designed as a mobile-first PWA for blue-collar workers — phone-number OTP login, large buttons, and offline GPS check-in."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Tenant configuration — HR code format, payroll calendar, working days and notification channels.",
+    "save": "Save changes",
+    "edit": "Edit",
+    "locked": "Locked",
+    "note": "Changes to payroll calendar and HR code format take effect from the next cycle. WhatsApp and SMS channels require external API setup."
+  },
+  "audit": {
+    "title": "Audit Log",
+    "subtitle": "Policy 16 — append-only, immutable audit trail of all sensitive operations.",
+    "logTitle": "Recent activity",
+    "note": "Audit entries are append-only (no hard deletes — Policy 14). Time-travel queries and data export are available for compliance reporting.",
+    "kpi": {
+      "entriesToday": "Entries today",
+      "uniqueUsers": "Unique users",
+      "sensitive": "Sensitive actions",
+      "exports": "Data exports"
+    },
+    "columns": {
+      "timestamp": "Time",
+      "user": "User",
+      "action": "Action",
+      "resource": "Resource",
+      "ip": "IP"
+    },
+    "actions": {
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "login": "Login",
+      "approve": "Approve",
+      "reject": "Reject",
+      "export": "Export"
+    }
   }
 }
