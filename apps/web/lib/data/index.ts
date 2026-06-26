@@ -1,21 +1,22 @@
 import type { DocumentType } from "./types";
 import type { EmployeeRepository, ProjectRepository } from "./repository";
 import {
-  MockEmployeeRepository,
-  MockProjectRepository,
-} from "./mock/repositories";
-import { DOCUMENT_TYPES } from "./mock/seed";
+  SupabaseEmployeeRepository,
+  SupabaseProjectRepository,
+} from "./supabase/repositories";
+import { supabase } from "@/lib/supabase/client";
 
-/**
- * Data-layer entry point. Screens import the singletons below; when the
- * Supabase backend lands, only these bindings change.
- */
 export const employeeRepository: EmployeeRepository =
-  new MockEmployeeRepository();
+  new SupabaseEmployeeRepository();
 
-export const projectRepository: ProjectRepository = new MockProjectRepository();
+export const projectRepository: ProjectRepository =
+  new SupabaseProjectRepository();
 
-/** Tenant document checklist (seeded — docs/02 §document_types). */
 export async function listDocumentTypes(): Promise<DocumentType[]> {
-  return [...DOCUMENT_TYPES].sort((a, b) => a.sort_order - b.sort_order);
+  const { data, error } = await supabase
+    .from("document_types")
+    .select("*")
+    .order("sort_order", { ascending: true });
+  if (error || !data) return [];
+  return data as unknown as DocumentType[];
 }
