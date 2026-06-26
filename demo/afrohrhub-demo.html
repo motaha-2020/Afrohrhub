@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AfroHR Hub — Interactive Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1a56db; --primary-dark:#1340a3; --primary-light:#e8f0fe;
+  --sidebar:#0f1f3d; --sidebar-hover:#1b3263;
+  --bg:#f4f6fa; --card:#fff; --border:#e5e9f0;
+  --text:#1b2430; --muted:#6b7686;
+  --green:#0e9f6e; --green-bg:#e6f6f0; --yellow:#c27803; --yellow-bg:#fdf6e3;
+  --red:#e02424; --red-bg:#fde8e8; --blue-bg:#e8f0fe; --purple:#7e3af2; --purple-bg:#f1e9fe;
+  --radius:12px; --shadow:0 1px 3px rgba(16,24,40,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',Tahoma,sans-serif}
+body{background:var(--bg);color:var(--text);font-size:14px}
+/* ===== Layout ===== */
+.app{display:flex;min-height:100vh}
+.sidebar{width:248px;background:var(--sidebar);color:#cbd5e8;position:fixed;top:0;bottom:0;left:0;overflow-y:auto;z-index:50}
+.main{margin-left:248px;flex:1;display:flex;flex-direction:column;min-width:0}
+.logo{display:flex;align-items:center;gap:10px;padding:18px 20px;border-bottom:1px solid #1c2f57}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7e3af2);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:16px}
+.logo b{color:#fff;font-size:16px}.logo small{display:block;font-size:10px;color:#8da2c8}
+.nav-sec{padding:14px 20px 4px;font-size:10px;letter-spacing:1px;color:#7187b3;font-weight:700;text-transform:uppercase}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 20px;color:#cbd5e8;text-decoration:none;font-size:13.5px;border-left:3px solid transparent;cursor:pointer}
+.nav a:hover{background:var(--sidebar-hover)}
+.nav a.active{background:var(--sidebar-hover);color:#fff;border-left-color:#4f8df9;font-weight:700}
+.nav a .ic{width:20px;text-align:center;font-size:15px}
+.nav a .pill{margin-left:auto;background:#e02424;color:#fff;font-size:10px;border-radius:99px;padding:0 7px;font-weight:700}
+.topbar{height:60px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;padding:0 24px;position:sticky;top:0;z-index:40}
+.search{flex:1;max-width:420px;background:var(--bg);border:1px solid var(--border);border-radius:99px;padding:8px 16px;color:var(--muted);font-size:13px}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px}
+.bell{position:relative;font-size:18px;cursor:pointer}
+.bell .dot{position:absolute;top:-4px;right:-6px;background:var(--red);color:#fff;font-size:9px;border-radius:99px;padding:1px 5px;font-weight:700}
+.avatar{width:36px;height:36px;border-radius:99px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.who{font-size:12px;line-height:1.3;text-align:right}.who b{display:block;font-size:13px}
+.content{padding:24px;max-width:1280px;width:100%}
+.demo-note{background:#fff8e6;border:1px solid #f3d27a;color:#8a6100;border-radius:var(--radius);padding:10px 16px;margin-bottom:18px;font-size:12.5px}
+/* ===== Components ===== */
+.page-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.page-head h1{font-size:21px}
+.page-head p{color:var(--muted);font-size:12.5px}
+.btn{border:none;border-radius:9px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.btn-p{background:var(--primary);color:#fff}.btn-p:hover{background:var(--primary-dark)}
+.btn-o{background:#fff;color:var(--primary);border:1.5px solid var(--primary)}
+.btn-g{background:var(--green);color:#fff}.btn-r{background:#fff;color:var(--red);border:1.5px solid var(--red)}
+.btn-sm{padding:5px 12px;font-size:12px}
+.cards{display:grid;gap:16px;margin-bottom:20px}
+.cards-4{grid-template-columns:repeat(4,1fr)}.cards-3{grid-template-columns:repeat(3,1fr)}.cards-2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+.kpi .lbl{color:var(--muted);font-size:12px;font-weight:600}
+.kpi .val{font-size:26px;font-weight:800;margin:4px 0}
+.kpi .sub{font-size:11.5px}
+.up{color:var(--green)}.down{color:var(--red)}
+.card h3{font-size:14.5px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.card h3 a{font-size:11.5px;color:var(--primary);text-decoration:none;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-size:11.5px;font-weight:700;padding:8px 10px;border-bottom:1.5px solid var(--border);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfd}
+.badge{display:inline-block;border-radius:99px;padding:2px 11px;font-size:11px;font-weight:700;white-space:nowrap}
+.b-green{background:var(--green-bg);color:var(--green)}.b-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.b-red{background:var(--red-bg);color:var(--red)}.b-blue{background:var(--blue-bg);color:var(--primary)}
+.b-purple{background:var(--purple-bg);color:var(--purple)}.b-gray{background:#eef1f5;color:var(--muted)}
+.emp{display:flex;align-items:center;gap:10px}
+.emp .av{width:34px;height:34px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#fff;flex-shrink:0}
+.emp small{display:block;color:var(--muted);font-size:11px}
+.filters{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.filters select,.filters input{border:1px solid var(--border);border-radius:9px;padding:8px 12px;font-family:inherit;font-size:12.5px;background:#fff;color:var(--text)}
+.bar{height:7px;background:#edf0f5;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px}
+/* SLA chip */
+.sla{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;border-radius:8px;padding:3px 9px}
+.sla::before{content:'⏱'}
+/* Stepper */
+.stepper{display:flex;align-items:flex-start;overflow-x:auto;padding:6px 0 14px;gap:0}
+.step{flex:1;min-width:96px;text-align:center;position:relative;font-size:11px;color:var(--muted)}
+.step::before{content:'';position:absolute;top:14px;left:-50%;width:100%;height:3px;background:#e3e8f0;z-index:0}
+.step:first-child::before{display:none}
+.step .dot{width:30px;height:30px;border-radius:99px;background:#e3e8f0;color:var(--muted);display:flex;align-items:center;justify-content:center;font-weight:800;margin:0 auto 6px;position:relative;z-index:1;font-size:12px}
+.step.done .dot{background:var(--green);color:#fff}.step.done::before{background:var(--green)}
+.step.cur .dot{background:var(--primary);color:#fff;box-shadow:0 0 0 4px var(--primary-light)}.step.cur::before{background:var(--green)}
+.step.cur{color:var(--primary);font-weight:700}
+/* Kanban */
+.kanban{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px}
+.kcol{background:#eef1f6;border-radius:var(--radius);min-width:230px;max-width:230px;padding:12px}
+.kcol h4{font-size:12.5px;display:flex;justify-content:space-between;margin-bottom:10px;color:#3a4860}
+.kcol h4 span{background:#fff;border-radius:99px;padding:0 8px;font-size:11px}
+.kcard{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:10px;box-shadow:var(--shadow);cursor:pointer}
+.kcard b{font-size:12.5px;display:block}
+.kcard small{color:var(--muted);font-size:11px;display:block;margin:2px 0 6px}
+/* Checklist */
+.chk{list-style:none}
+.chk li{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px dashed var(--border);font-size:13px}
+.chk li:last-child{border:none}
+.chk .st{width:21px;height:21px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;font-weight:800}
+.st-ok{background:var(--green);color:#fff}.st-no{background:#eef1f5;color:var(--muted)}.st-warn{background:var(--yellow);color:#fff}.st-x{background:var(--red);color:#fff}
+.chk .meta{margin-left:auto;font-size:11px;color:var(--muted);text-align:right}
+/* Tabs */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--border);margin-bottom:18px;overflow-x:auto}
+.tabs button{border:none;background:none;padding:10px 16px;font-family:inherit;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tabs button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:800}
+/* Timeline */
+.tl{list-style:none;position:relative;padding-left:22px}
+.tl::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.tl li{position:relative;padding:0 0 18px}
+.tl li::before{content:'';position:absolute;left:-21px;top:5px;width:12px;height:12px;border-radius:99px;background:var(--primary);border:2.5px solid #fff;box-shadow:0 0 0 2px var(--primary-light)}
+.tl b{font-size:13px}.tl small{display:block;color:var(--muted);font-size:11.5px}
+/* Phone mock */
+.phone-wrap{display:flex;gap:30px;align-items:flex-start;flex-wrap:wrap}
+.phone{width:330px;background:#0b1220;border-radius:38px;padding:14px;box-shadow:0 18px 50px rgba(10,20,50,.3);flex-shrink:0}
+.phone .scr{background:var(--bg);border-radius:26px;overflow:hidden;min-height:600px}
+.p-head{background:linear-gradient(135deg,var(--primary),#7e3af2);color:#fff;padding:38px 18px 16px;border-radius:0 0 22px 22px}
+.p-head small{opacity:.85;font-size:11px}
+.p-head .row{display:flex;justify-content:space-between;align-items:center}
+.p-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+.p-tile{background:#fff;border-radius:16px;padding:16px 12px;text-align:center;border:1px solid var(--border);cursor:pointer}
+.p-tile .em{font-size:26px}
+.p-tile b{display:block;font-size:13px;margin-top:6px}
+.p-tile small{color:var(--muted);font-size:10.5px}
+.checkin{margin:4px 16px 14px;background:#fff;border-radius:18px;padding:16px;text-align:center;border:1px solid var(--border)}
+.checkin .big{width:108px;height:108px;border-radius:99px;border:none;background:var(--green);color:#fff;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 8px 22px rgba(14,159,110,.4)}
+.checkin .big.out{background:var(--red);box-shadow:0 8px 22px rgba(224,36,36,.35)}
+.wapp{max-width:330px;background:#e7f8ef;border:1px solid #bfe8d2;border-radius:14px;padding:14px;font-size:12.5px}
+.wapp .h{display:flex;gap:8px;align-items:center;font-weight:800;color:#0c6b43;margin-bottom:8px}
+.wapp .msg{background:#fff;border-radius:10px;padding:10px;margin-bottom:8px;box-shadow:var(--shadow)}
+.wapp .msg small{color:var(--muted);font-size:10px;display:block;text-align:right}
+/* Toast */
+#toast{position:fixed;bottom:24px;right:24px;background:#0f1f3d;color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;font-size:13px;opacity:0;transform:translateY(15px);transition:.3s;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:440px}
+#toast.show{opacity:1;transform:none}
+/* misc */
+.grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.grid-2e{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.chart{display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:10px}
+.chart .c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;font-size:10.5px;color:var(--muted)}
+.chart .c i{width:100%;background:linear-gradient(180deg,#4f8df9,var(--primary));border-radius:6px 6px 0 0;display:block}
+.screen{display:none}.screen.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.note-sm{font-size:11.5px;color:var(--muted);margin-top:8px}
+.alert{border-radius:10px;padding:10px 14px;font-size:12.5px;margin-bottom:12px;font-weight:600}
+.al-red{background:var(--red-bg);color:var(--red);border:1px solid #f5c2c2}
+.al-yellow{background:var(--yellow-bg);color:var(--yellow);border:1px solid #ecd9a0}
+.al-green{background:var(--green-bg);color:var(--green);border:1px solid #b8e6d3}
+.lock{font-size:12px;color:var(--muted)}
+@media(max-width:1100px){.cards-4{grid-template-columns:1fr 1fr}.grid-2,.grid-2e{grid-template-columns:1fr}.sidebar{display:none}.main{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ============ SIDEBAR ============ -->
+<aside class="sidebar">
+  <div class="logo"><div class="logo-mark">A</div><div><b>AfroHR Hub</b><small>Afro Egypt Contracting</small></div></div>
+  <nav class="nav">
+    <div class="nav-sec">General</div>
+    <a data-s="dash" class="active"><span class="ic">📊</span> Dashboard</a>
+    <a data-s="approvals"><span class="ic">✅</span> My Approvals <span class="pill">4</span></a>
+    <a data-s="sla"><span class="ic">⏱</span> SLA Dashboard <span class="pill">3</span></a>
+    <div class="nav-sec">Employee Lifecycle</div>
+    <a data-s="employees"><span class="ic">👥</span> Employees</a>
+    <a data-s="profile"><span class="ic">🪪</span> Employee Profile 360°</a>
+    <a data-s="recruit"><span class="ic">🎯</span> Recruitment</a>
+    <a data-s="onboard"><span class="ic">🚀</span> Onboarding</a>
+    <a data-s="offboard"><span class="ic">📦</span> Offboarding</a>
+    <div class="nav-sec">Finance & Operations</div>
+    <a data-s="payroll"><span class="ic">💰</span> Payroll & Allowances</a>
+    <a data-s="attendance"><span class="ic">📍</span> Attendance</a>
+    <a data-s="leave"><span class="ic">🏖</span> Leave</a>
+    <div class="nav-sec">Employee Portal</div>
+    <a data-s="ess"><span class="ic">📱</span> ESS App (Mobile)</a>
+    <div class="nav-sec">System</div>
+    <a data-s="settings"><span class="ic">⚙️</span> Settings</a>
+  </nav>
+</aside>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+<header class="topbar">
+  <input class="search" placeholder="🔍 Search by name, HR code, or National ID…">
+  <div style="display:flex;align-items:center;gap:8px;background:var(--primary-light);border:1.5px solid var(--primary);border-radius:99px;padding:4px 6px 4px 14px">
+    <b style="font-size:12px;color:var(--primary);white-space:nowrap">👤 View as:</b>
+    <select id="roleSel" onchange="applyRole(this.value)" style="border:none;background:#fff;border-radius:99px;padding:5px 10px;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--primary);cursor:pointer">
+      <option value="hrm">HR Manager — Mona Taha</option>
+      <option value="ta">Talent Acquisition — Heba Samir</option>
+      <option value="personnel">Personnel — Mostafa Kamel</option>
+      <option value="payroll">Payroll — Nermin Lotfy</option>
+      <option value="finance">Finance — Sherif Anwar</option>
+      <option value="hse">HSE — Tarek Selim</option>
+      <option value="pm">Project Manager — Walid El-Gendy</option>
+      <option value="ess">Employee (ESS) — Mahmoud El-Naggar</option>
+    </select>
+  </div>
+  <div class="top-actions">
+    <span class="bell" onclick="toast('🔔 7 new notifications — latest: Criminal record certificate expires in 7 days for Karim Fawzy')">🔔<span class="dot">7</span></span>
+    <div class="who"><b>Mona Taha</b>HR Manager</div>
+    <div class="avatar">MT</div>
+  </div>
+</header>
+<main class="content">
+<div class="demo-note">🧪 <b>Interactive demo</b> — all data is sample data. Navigate between screens from the sidebar and try the buttons and tabs. <b>Try the "View as" switcher in the top bar</b> to see how each HR role gets a different app: different menus, screens, and data access (RBAC + Row Level Security).</div>
+<div class="alert" id="roleBanner" style="display:none"></div>
+
+<!-- ======== 1) DASHBOARD ======== -->
+<section class="screen active" id="s-dash">
+  <div class="page-head"><div><h1>Good morning, Mona 👋</h1><p>Thursday, June 12, 2026 — here's today's summary at Afro Egypt</p></div><button class="btn btn-p" onclick="go('recruit')">+ New Hiring Request</button></div>
+  <div class="cards cards-4">
+    <div class="card kpi"><div class="lbl">Active Employees</div><div class="val">3,247</div><div class="sub up">▲ 38 this month</div></div>
+    <div class="card kpi"><div class="lbl">Open Hiring Requests</div><div class="val">14</div><div class="sub"><span class="badge b-red">5 × P0 critical</span></div></div>
+    <div class="card kpi"><div class="lbl">Onboarding In Progress</div><div class="val">23</div><div class="sub up">9 ready for activation</div></div>
+    <div class="card kpi"><div class="lbl">June Payroll Cycle</div><div class="val">20–23</div><div class="sub"><span class="badge b-yellow">Deductions stage</span></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>⏱ Stages approaching SLA breach <a onclick="go('sla')" href="#">View all →</a></h3>
+      <table>
+        <tr><th>Entity</th><th>Stage</th><th>Priority</th><th>Remaining</th></tr>
+        <tr><td>Request #HR-118 — Power Electrical Engineer</td><td>Sourcing & Screening</td><td><span class="badge b-red">P0</span></td><td><span class="sla" style="background:var(--red-bg);color:var(--red)">6 hours overdue</span></td></tr>
+        <tr><td>Job offer — Eng. Hossam El-Deeb</td><td>Offer Acceptance (30 days)</td><td><span class="badge b-blue">P1</span></td><td><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">3 days left</span></td></tr>
+        <tr><td>Onboarding — Ahmed Ragab (Rigger)</td><td>HSE Requirements</td><td><span class="badge b-red">P0</span></td><td><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">2 days left</span></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>✅ Pending your approval <a onclick="go('approvals')" href="#">Approvals inbox →</a></h3>
+      <ul class="chk">
+        <li><span class="st st-warn">!</span> Hiring request: 4 welders — Nile Bridge, Assiut <span class="meta">2h ago</span></li>
+        <li><span class="st st-warn">!</span> Advance EGP 8,000 — Mahmoud El-Naggar <span class="meta">5h ago</span></li>
+        <li><span class="st st-warn">!</span> Final settlement — Khaled Mansour <span class="meta">yesterday</span></li>
+        <li><span class="st st-warn">!</span> 5-day leave — Eng. Sara Adel <span class="meta">yesterday</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid-2e" style="margin-top:16px">
+    <div class="card">
+      <h3>📈 Hires vs. Departures (6 months)</h3>
+      <div class="chart">
+        <div class="c"><i style="height:42%"></i>Jan</div><div class="c"><i style="height:58%"></i>Feb</div>
+        <div class="c"><i style="height:35%"></i>Mar</div><div class="c"><i style="height:72%"></i>Apr</div>
+        <div class="c"><i style="height:65%"></i>May</div><div class="c"><i style="height:88%"></i>Jun</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>🏗 Headcount by Project</h3>
+      <table>
+        <tr><td>Benban 500kV Substation <small style="color:var(--muted)">(PRJ-014)</small></td><td style="width:38%"><div class="bar"><i style="width:84%;background:var(--primary)"></i></div></td><td><b>1,120</b></td></tr>
+        <tr><td>New Alamein Towers <small style="color:var(--muted)">(PRJ-009)</small></td><td><div class="bar"><i style="width:62%;background:#7e3af2"></i></div></td><td><b>846</b></td></tr>
+        <tr><td>Nile Bridge — Assiut <small style="color:var(--muted)">(PRJ-021)</small></td><td><div class="bar"><i style="width:47%;background:var(--green)"></i></div></td><td><b>633</b></td></tr>
+        <tr><td>Ain Sokhna Cement Plant <small style="color:var(--muted)">(PRJ-017)</small></td><td><div class="bar"><i style="width:33%;background:var(--yellow)"></i></div></td><td><b>451</b></td></tr>
+        <tr><td>Head Office — Cairo</td><td><div class="bar"><i style="width:15%;background:#94a3b8"></i></div></td><td><b>197</b></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 2) EMPLOYEES ======== -->
+<section class="screen" id="s-employees">
+  <div class="page-head"><div><h1>👥 Employee Directory</h1><p>3,247 active · 41 pending activation · 12 offboarding</p></div>
+  <div><button class="btn btn-o" onclick="toast('📥 Excel import wizard — column mapping + error checking + dry-run')">Import Excel</button> <button class="btn btn-p" onclick="toast('➕ Manual employee entry form')">+ New Employee</button></div></div>
+  <div class="filters">
+    <select><option>All projects</option><option>Benban 500kV</option><option>Alamein Towers</option><option>Assiut Bridge</option></select>
+    <select><option>All statuses</option><option>Active</option><option>Pending</option><option>Offboarding</option><option>Archived</option></select>
+    <select><option>White / Blue Collar</option><option>White Collar</option><option>Blue Collar</option></select>
+    <select><option>⚠️ Documents</option><option>Expired documents</option><option>Missing documents</option><option>Expired medical exam</option></select>
+    <input placeholder="Search…">
+  </div>
+  <div class="card" style="padding:0 18px">
+    <table>
+      <tr><th>Employee</th><th>HR Code</th><th>Job Title</th><th>Project</th><th>Type</th><th>Status</th><th>Documents</th><th></th></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#1a56db">AA</div><div><b>Ahmed Abdel Halim Saad</b><small>Joined 03/2024</small></div></div></td><td>AFR-2024-0312</td><td>Civil Site Engineer</td><td>Benban 500kV</td><td><span class="badge b-blue">White</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-green">13/13 ✓</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">View →</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#7e3af2">MN</div><div><b>Mahmoud Sayed El-Naggar</b><small>Joined 07/2023</small></div></div></td><td>AFR-2023-0871</td><td>Argon Welder</td><td>Sokhna Cement Plant</td><td><span class="badge b-purple">Blue</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-yellow">⚠ Practice license expires in 28 days</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">View →</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#0e9f6e">SA</div><div><b>Sara Adel Tawfik</b><small>Joined 01/2025</small></div></div></td><td>AFR-2025-0044</td><td>PMO Planning Engineer</td><td>Head Office</td><td><span class="badge b-blue">White</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-green">13/13 ✓</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">View →</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#c27803">AR</div><div><b>Ahmed Ragab Attia</b><small>In onboarding</small></div></div></td><td>AFR-2026-0119</td><td>CM/PM Rigger</td><td>Alamein Towers</td><td><span class="badge b-purple">Blue</span></td><td><span class="badge b-yellow">Pending</span></td><td><span class="badge b-red">9/13 — 4 missing</span></td><td><a href="#" onclick="go('onboard')" style="color:var(--primary);font-weight:700;font-size:12px">Case →</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#e02424">KM</div><div><b>Khaled Mansour Ibrahim</b><small>Last day 19/06</small></div></div></td><td>AFR-2021-0233</td><td>Site Accountant</td><td>Assiut Bridge</td><td><span class="badge b-blue">White</span></td><td><span class="badge b-red">Offboarding</span></td><td><span class="badge b-gray">Assets to return: 3</span></td><td><a href="#" onclick="go('offboard')" style="color:var(--primary);font-weight:700;font-size:12px">Case →</a></td></tr>
+      <tr><td><div class="emp"><div class="av" style="background:#475569">KF</div><div><b>Karim Fawzy El-Shenawy</b><small>Joined 11/2022</small></div></div></td><td>AFR-2022-0540</td><td>Electrical Installer</td><td>Benban 500kV</td><td><span class="badge b-purple">Blue</span></td><td><span class="badge b-green">Active</span></td><td><span class="badge b-red">⚠ Criminal record cert. expires in 7 days</span></td><td><a href="#" onclick="go('profile')" style="color:var(--primary);font-weight:700;font-size:12px">View →</a></td></tr>
+    </table>
+  </div>
+  <p class="note-sm">Showing 6 of 3,247 — <b style="color:var(--primary)">‹ 1 2 3 … 542 ›</b> &nbsp;·&nbsp; 🔒 Salary column hidden — your role accesses it only from the employee profile (Policy 9)</p>
+</section>
+
+<!-- ======== 3) PROFILE 360 ======== -->
+<section class="screen" id="s-profile">
+  <div class="card" style="display:flex;gap:18px;align-items:center;margin-bottom:18px;flex-wrap:wrap">
+    <div class="av" style="width:72px;height:72px;border-radius:18px;background:#1a56db;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800">AA</div>
+    <div style="flex:1;min-width:220px">
+      <h1 style="font-size:19px">Ahmed Abdel Halim Saad <span class="badge b-green">Active</span></h1>
+      <p style="color:var(--muted);font-size:12.5px">Civil Site Engineer · Grade E3 · AFR-2024-0312 · Benban 500kV (80%) + Head Office (20%)</p>
+      <p style="font-size:12px;margin-top:4px">📞 0100 234 5678 · ✉️ a.abdelhalim@afroegypt.com · Manager: Eng. Walid El-Gendy</p>
+    </div>
+    <div><button class="btn btn-o btn-sm" onclick="toast('📝 New action: promotion / project transfer / salary change — goes through an approval chain')">New Action</button> <button class="btn btn-p btn-sm" onclick="toast('🖨 Generate HR letter: salary certificate / employment letter')">HR Letters</button></div>
+  </div>
+  <div class="tabs" id="ptabs">
+    <button class="active" data-t="p1">Documents (13)</button><button data-t="p2">Timeline</button><button data-t="p3">Compensation 🔒</button><button data-t="p4">Projects & Allocation</button><button data-t="p5">HSE</button>
+  </div>
+  <div class="ptab" id="p1">
+    <div class="card">
+      <h3>🗂 Document Vault — Manual checklist <span class="badge b-green">12 received · 1 expiring soon</span></h3>
+      <div class="grid-2e">
+        <ul class="chk">
+          <li><span class="st st-ok">✓</span> Computerized birth certificate <span class="badge b-blue">Original held</span><span class="meta">Received by: Heba Samir 12/03/2024</span></li>
+          <li><span class="st st-ok">✓</span> Academic qualification (BSc Civil Eng.) <span class="badge b-blue">Original held</span><span class="meta">✓ Verified</span></li>
+          <li><span class="st st-ok">✓</span> Military service certificate <span class="badge b-blue">Original</span><span class="meta">✓ Verified</span></li>
+          <li><span class="st st-ok">✓</span> Form 6 / social insurance printout <span class="meta">✓ Verified</span></li>
+          <li><span class="st st-ok">✓</span> Employment card (Kaab Amal) <span class="meta">✓ Verified</span></li>
+          <li><span class="st st-warn">!</span> Criminal record cert. (in company name) <span class="badge b-yellow">Expires 30/06/2026</span><span class="meta">60/30/7 alerts armed</span></li>
+          <li><span class="st st-ok">✓</span> 6 personal photos <span class="meta">✓</span></li>
+        </ul>
+        <ul class="chk">
+          <li><span class="st st-ok">✓</span> 2 copies of valid National ID <span class="meta">Expires 2030 · OCR ✓ match</span></li>
+          <li><span class="st st-ok">✓</span> Medical exam — Form 111 <span class="badge b-green">Fit</span><span class="meta">Renew 03/2027</span></li>
+          <li><span class="st st-ok">✓</span> Engineers Syndicate card <span class="meta">2024 membership ✓</span></li>
+          <li><span class="st st-no">—</span> Skill level certificate <span class="badge b-gray">N/A (engineer)</span></li>
+          <li><span class="st st-no">—</span> Professional practice license <span class="badge b-gray">N/A</span></li>
+          <li><span class="st st-ok">✓</span> Signed contract + Handbook acknowledgment <span class="meta">Signed 10/03/2024</span></li>
+        </ul>
+      </div>
+      <p class="note-sm">📤 On every upload: AI auto-classifies the file, matches it to the checklist, and extracts the expiry date (OCR) — then Personnel verifies it.</p>
+    </div>
+  </div>
+  <div class="ptab" id="p2" style="display:none">
+    <div class="card"><h3>🕐 Employment History Timeline</h3>
+      <ul class="tl">
+        <li><b>Promotion to Grade E3</b> + merit raise<small>01/05/2026 · Approved: HR Manager ← Project Manager · Attachment: promotion letter</small></li>
+        <li><b>Partial transfer to Head Office</b> — cost allocation now 80/20<small>15/01/2026 · Requested by PMO · Fully approved</small></li>
+        <li><b>Annual contract renewal</b><small>01/03/2025 · Signed electronically</small></li>
+        <li><b>Verbal warning — repeated lateness</b> (closed)<small>22/08/2024 · Direct manager · Resolved after a month of compliance</small></li>
+        <li><b>Hired — Civil Site Engineer</b><small>10/03/2024 · Onboarding completed in 9 working days (P0 ✓ within SLA)</small></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ptab" id="p3" style="display:none">
+    <div class="alert al-yellow">🔒 Viewing this tab is recorded in the Audit Log — accessing compensation data is a logged event (Policies 9 + 16)</div>
+    <div class="cards cards-3">
+      <div class="card kpi"><div class="lbl">Net Salary</div><div class="val">28,500 <small style="font-size:13px">EGP</small></div><div class="sub">Gross 36,200 · Insurable 12,600</div></div>
+      <div class="card kpi"><div class="lbl">Monthly Allowances</div><div class="val">6,400</div><div class="sub">Site 4,000 · Transport 1,400 · Meal 1,000</div></div>
+      <div class="card kpi"><div class="lbl">Bank Account</div><div class="val" style="font-size:16px">CIB •••• 4471</div><div class="sub"><span class="badge b-green">✓ Verified</span> by Payroll on 11/03/2024</div></div>
+    </div>
+    <div class="card"><h3>Social Insurance</h3><p style="font-size:13px">SI number: 1198xxxx21 · Nasr City office · Form (1) filed 11/03/2024 · Last payment: May 2026 ✓</p></div>
+  </div>
+  <div class="ptab" id="p4" style="display:none">
+    <div class="card"><h3>🏗 Cost Allocation</h3>
+      <table>
+        <tr><th>Project</th><th>Code</th><th>Share</th><th>Location</th><th>Since</th></tr>
+        <tr><td>Benban 500kV Substation</td><td>PRJ-014</td><td><b>80%</b></td><td>Benban site — Aswan</td><td>15/01/2026</td></tr>
+        <tr><td>Head Office (technical support)</td><td>HQ-001</td><td><b>20%</b></td><td>New Cairo</td><td>15/01/2026</td></tr>
+      </table>
+      <div class="alert al-green" style="margin-top:12px">✓ Total = 100% — payroll cost reports are distributed automatically by these shares (Policy 12)</div>
+    </div>
+  </div>
+  <div class="ptab" id="p5" style="display:none">
+    <div class="card"><h3>🦺 HSE Record</h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> Medical exam (Form 111) — <b>Fit</b> <span class="meta">Renew 03/2027</span></li>
+        <li><span class="st st-ok">✓</span> Fire Fighting <span class="meta">Valid until 09/2026 — 60-day alert goes out 07/2026</span></li>
+        <li><span class="st st-ok">✓</span> First Aid <span class="meta">Valid until 03/2027</span></li>
+        <li><span class="st st-ok">✓</span> Risk Assessment <span class="meta">Valid</span></li>
+        <li><span class="st st-warn">!</span> Working at Heights <span class="badge b-yellow">Expires 20/07/2026</span><span class="meta">Renewal scheduled 05/07</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 4) RECRUITMENT ======== -->
+<section class="screen" id="s-recruit">
+  <div class="page-head"><div><h1>🎯 Recruitment — Pipeline</h1><p>14 open requests · 87 candidates in pipeline · Avg. Time-to-Hire: 11 days (P0)</p></div>
+  <button class="btn btn-p" onclick="toast('📋 Hiring request form: title, vacancies, project code, approved salary range, P0/P1, new/replacement (with automatic validation of the resigned employee\'s HR code)')">+ Hiring Request</button></div>
+  <div class="filters">
+    <select><option>Request: HR-118 — Power Electrical Engineer (Benban) — P0</option><option>HR-121 — 4 welders (Assiut) — P1</option><option>HR-117 — Site Accountant (replacement: Khaled Mansour AFR-2021-0233 ✓)</option></select>
+    <span class="sla" style="background:var(--red-bg);color:var(--red)">Screening SLA P0 = 72h — 6h overdue, auto-escalated to HR Manager</span>
+  </div>
+  <div class="kanban">
+    <div class="kcol"><h4>2· Sourcing & Screening <span>12</span></h4>
+      <div class="kcard" onclick="toast('Open candidate profile — CV parsed automatically by AI')"><b>Eng. Amr El-Sebaey</b><small>Power electrical · 7 yrs exp. · available now</small><span class="badge b-green">Match 92%</span> <span class="badge b-gray">Expectation: in range</span></div>
+      <div class="kcard"><b>Eng. Dina Magdy</b><small>Control electrical · 5 yrs · 1-month notice</small><span class="badge b-green">Match 87%</span></div>
+      <div class="kcard"><b>Eng. Sherif Helmy</b><small>Power · 4 yrs · solar plants</small><span class="badge b-yellow">Match 74%</span> <span class="badge b-red">Expectation above range</span></div>
+    </div>
+    <div class="kcol"><h4>3· Requester Review <span>3</span></h4>
+      <div class="kcard"><b>Eng. Yasmin Fouad</b><small>Waiting on Eng. Walid El-Gendy for 22h</small><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">P0: 2h left</span></div>
+    </div>
+    <div class="kcol"><h4>4· Interviews <span>4</span></h4>
+      <div class="kcard"><b>Eng. Hatem El-Sheikh</b><small>Technical ✓ 4.2/5 · HSE today 2:00 PM · HR tomorrow</small><span class="badge b-blue">Calendar invites sent</span></div>
+      <div class="kcard"><b>Eng. Noha Abdel Aziz</b><small>Technical scheduled Sunday</small><span class="badge b-gray">Auto-reminder to interviewer</span></div>
+    </div>
+    <div class="kcol"><h4>5· Final Selection <span>2</span></h4>
+      <div class="kcard" onclick="toast('🆚 Open final candidate comparison screen — side by side')"><b>Compare: Hatem × Karim</b><small>Evaluations + salaries + availability</small><span class="badge b-purple">Sequential approval 2/3</span></div>
+    </div>
+    <div class="kcol"><h4>6–7· Offer & Acceptance <span>2</span></h4>
+      <div class="kcard"><b>Eng. Hossam El-Deeb</b><small>Offer sent 18/05 · e-acceptance link</small><span class="sla" style="background:var(--yellow-bg);color:var(--yellow)">30-day window: 3 days left</span></div>
+      <div class="kcard"><b>Eng. Manar Sabry</b><small>✓ Accepted — joining 01/07</small><span class="badge b-green">Ready for handover</span></div>
+    </div>
+    <div class="kcol"><h4>8· Handover to Personnel <span>1</span></h4>
+      <div class="kcard" onclick="toast('📨 Handover button: transfers the full file, auto-generates the 14-field Hiring Email, and opens the Onboarding case')"><b>Eng. Manar Sabry</b><small>File complete</small><button class="btn btn-g btn-sm" style="margin-top:4px">Handover → Onboarding</button></div>
+    </div>
+  </div>
+  <p class="note-sm">🤖 AI: candidate ranking by Match % · semantic Talent Pool search ("power mechanical engineer who worked on plants") · JD generator · automatic polite rejections</p>
+</section>
+
+<!-- ======== 5) ONBOARDING ======== -->
+<section class="screen" id="s-onboard">
+  <div class="page-head"><div><h1>🚀 Onboarding — Ahmed Ragab Attia</h1><p>CM/PM Rigger · Alamein Towers (PRJ-009) · Joining 01/06/2026 · Priority P0</p></div>
+  <span class="badge b-yellow" style="font-size:13px;padding:6px 16px">Stage 7 of 9 — HSE Requirements</span></div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="stepper">
+      <div class="step done"><div class="dot">✓</div>Initiation</div>
+      <div class="step done"><div class="dot">✓</div>Hiring Notification</div>
+      <div class="step done"><div class="dot">✓</div>Documents</div>
+      <div class="step done"><div class="dot">✓</div>Contracting</div>
+      <div class="step done"><div class="dot">✓</div>System Registration</div>
+      <div class="step done"><div class="dot">✓</div>Equipment</div>
+      <div class="step cur"><div class="dot">7</div>HSE Requirements</div>
+      <div class="step"><div class="dot">8</div>Orientation</div>
+      <div class="step"><div class="dot">9</div>Activation</div>
+    </div>
+    <div class="alert al-yellow">⏱ Stage SLA (P0): 10–15 working days — 8 days elapsed, 2 days to warning threshold</div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>🦺 Stage 7: HSE Requirements <span class="badge b-red">Rigger = mandatory medical exam</span></h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> Medical exam (mandatory for CM/PM riggers) — <b>Fit</b> <span class="meta">05/06 · Form 111 uploaded</span></li>
+        <li><span class="st st-ok">✓</span> Fire Fighting <span class="meta">Certificate 07/06</span></li>
+        <li><span class="st st-ok">✓</span> First Aid <span class="meta">Certificate 08/06</span></li>
+        <li><span class="st st-warn">!</span> Working at Heights <span class="badge b-yellow">Course tomorrow 13/06</span><span class="meta">Owner: Eng. Tarek, HSE</span></li>
+        <li><span class="st st-no">○</span> Risk Assessment <span class="meta">Scheduled 15/06</span></li>
+      </ul>
+    </div>
+    <div class="card"><h3>🔐 Activation Gate — the six conditions</h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> Documents complete (13/13 after 4 collected this week)</li>
+        <li><span class="st st-ok">✓</span> Contracts signed (contract + Form 1 + Handbook ack.)</li>
+        <li><span class="st st-warn">!</span> HSE requirements — 2 courses remaining</li>
+        <li><span class="st st-ok">✓</span> Medical clearance — Fit</li>
+        <li><span class="st st-ok">✓</span> Systems ready (HR Code generated · no corporate email — Blue Collar)</li>
+        <li><span class="st st-ok">✓</span> Required certificates (skill level + practice license ✓)</li>
+      </ul>
+      <button class="btn btn-p" style="width:100%;margin-top:10px;opacity:.5;cursor:not-allowed">Activate Employee — disabled until all conditions met (5/6)</button>
+      <p class="note-sm">Once complete, status becomes Active and the employee enters the next New Hire Sheet automatically on the 18th (Policy 1)</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>📨 Hiring Email (auto-generated at handover — the 14 fields)</h3>
+    <p style="font-size:12.5px;color:var(--muted);line-height:2">Ahmed Ragab Attia · أحمد رجب عطية · National ID 2940112xxxxxxx · 0109 887 2231 · CM/PM Rigger · <b>PRJ-009</b> · New Alamein Towers · Manager: Eng. Hany Abdel Fattah · Location: Alamein · Net salary: 🔒 · Allowances: 🔒 · SI number: 1311xxxx08 · Contract signing: 01/06/2026 · Joining: 01/06/2026</p>
+  </div>
+</section>
+
+<!-- ======== 6) OFFBOARDING ======== -->
+<section class="screen" id="s-offboard">
+  <div class="page-head"><div><h1>📦 Offboarding — Khaled Mansour Ibrahim</h1><p>Site Accountant · Nile Bridge Assiut · AFR-2021-0233 · Trigger: <b>Resignation</b> (submitted via ESS) · Last working day: <b>19/06/2026</b></p></div>
+  <span class="badge b-yellow" style="font-size:13px;padding:6px 16px">Stage 4 of 6 — Clearance</span></div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="stepper">
+      <div class="step done"><div class="dot">✓</div>Case Opened</div>
+      <div class="step done"><div class="dot">✓</div>Access Deactivation</div>
+      <div class="step done"><div class="dot">✓</div>Handover</div>
+      <div class="step cur"><div class="dot">4</div>Clearance</div>
+      <div class="step"><div class="dot">5</div>Legal & Financial Closure</div>
+      <div class="step"><div class="dot">6</div>Archiving</div>
+    </div>
+    <div class="alert al-green">✓ Mandatory rule: access-cutoff task scheduled 19/06 (last working day) — IT task open with automatic escalation if late</div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>🧾 Clearance Matrix</h3>
+      <table>
+        <tr><th>Department</th><th>Items</th><th>Status</th></tr>
+        <tr><td><b>IT</b></td><td>Laptop · email closure · hardware recovery</td><td><span class="badge b-green">✓ 2/3 done</span> <span class="badge b-yellow">Laptop on the 19th</span></td></tr>
+        <tr><td><b>Operations / Admin</b></td><td>ID card · medical card · asset return</td><td><span class="badge b-yellow">In progress</span></td></tr>
+        <tr><td><b>Finance</b></td><td>Advance settlement (EGP 2,400 left) · petty cash · liabilities</td><td><span class="badge b-yellow">Advance deducted from settlement</span></td></tr>
+        <tr><td><b>Direct Manager</b></td><td>Handover approval</td><td><span class="badge b-green">✓ Approved 10/06</span></td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>💰 Final Settlement (draft — paid after clearance + Finance approval)</h3>
+      <table>
+        <tr><td>Salary for 19 days of June</td><td style="text-align:right"><b>+ EGP 11,083</b></td></tr>
+        <tr><td>Unused leave balance (9 days × daily rate)</td><td style="text-align:right"><b>+ EGP 5,250</b></td></tr>
+        <tr><td>Deduction: remaining advance</td><td style="text-align:right;color:var(--red)"><b>− EGP 2,400</b></td></tr>
+        <tr><td><b>Net due</b></td><td style="text-align:right;font-size:16px"><b>EGP 13,933</b></td></tr>
+      </table>
+      <ul class="chk" style="margin-top:8px">
+        <li><span class="st st-ok">✓</span> Exit interview documented <span class="meta">Reason: better offer — oil & gas sector</span></li>
+        <li><span class="st st-no">○</span> Social Insurance Form (6) — filed on the 19th</li>
+        <li><span class="st st-no">○</span> Return original documents + signed receipt</li>
+      </ul>
+      <button class="btn btn-p btn-sm" onclick="toast('🔒 Payment blocked until clearance is complete and Finance approves (Policy 13)')">Send for Finance approval</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 7) PAYROLL ======== -->
+<section class="screen" id="s-payroll">
+  <div class="page-head"><div><h1>💰 June 2026 Payroll Cycle</h1><p>3,247 eligible employees · estimated total: EGP 41.2M · today is 12/06 — <b>cycle opens automatically on the 18th</b></p></div>
+  <span class="badge b-blue" style="font-size:13px;padding:6px 16px">May cycle: paid ✓ and locked 🔒</span></div>
+  <div class="card" style="margin-bottom:16px"><h3>📅 Cycle calendar (from the manual — Policy 2)</h3>
+    <div class="stepper">
+      <div class="step done"><div class="dot">18</div>New Hire Sheet<br>auto from Onboarding</div>
+      <div class="step done"><div class="dot">19</div>Data Validation</div>
+      <div class="step done"><div class="dot">19</div>Register Update</div>
+      <div class="step cur"><div class="dot">23</div>Project Allocation</div>
+      <div class="step cur"><div class="dot">23</div>Deductions</div>
+      <div class="step"><div class="dot">23</div>Processing & Taxes</div>
+      <div class="step"><div class="dot">25</div>Submit to Finance</div>
+      <div class="step"><div class="dot">28</div>Payment</div>
+      <div class="step"><div class="dot">10</div>Cost Reports</div>
+    </div>
+    <p class="note-sm">⬆ Showing the completed May cycle as a calendar example. Project allocations missing the 23rd are carried to the next cycle automatically (Policy 3)</p>
+  </div>
+  <div class="alert al-red">⛔ 3 employees auto-excluded from the cycle: 2 with Pending status (Policy 1 — no payroll before activation) · 1 unverified bank account (Policy 6)</div>
+  <div class="alert al-yellow">🤖 AI anomaly check: "Eng. Hesham Kandil" salary is 22% above last month with no approved adjustment — review before submission (Policy 11)</div>
+  <div class="grid-2">
+    <div class="card" style="padding:0 18px"><h3 style="padding-top:18px">Cycle register (sample)</h3>
+      <table>
+        <tr><th>Employee</th><th>Project</th><th>Net</th><th>Deductions</th><th>Status</th></tr>
+        <tr><td>Ahmed Abdel Halim</td><td>Benban 80% / HQ 20%</td><td>28,500</td><td>—</td><td><span class="badge b-green">Ready</span></td></tr>
+        <tr><td>Mahmoud El-Naggar</td><td>Sokhna 100%</td><td>14,200</td><td>Advance installment 1,000 <span class="badge b-green">Approved ✓</span></td><td><span class="badge b-green">Ready</span></td></tr>
+        <tr><td>Sara Adel</td><td>HQ 100%</td><td>31,000</td><td>—</td><td><span class="badge b-green">Ready</span></td></tr>
+        <tr><td>Hesham Kandil</td><td>Alamein 100%</td><td style="color:var(--red)"><b>22,600 ⚠</b></td><td>—</td><td><span class="badge b-red">Anomaly review</span></td></tr>
+        <tr><td>Ahmed Ragab</td><td>Alamein</td><td colspan="2" style="color:var(--muted)">Excluded — Pending (joins July cycle after activation)</td><td><span class="badge b-gray">Excluded</span></td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px"><h3>💵 Allowances (cycle 10–17)</h3>
+        <table>
+          <tr><td>Benban — site allowances, 1,120 employees</td><td><span class="badge b-green">✓ Received from PM</span></td></tr>
+          <tr><td>Alamein — 846 employees</td><td><span class="badge b-green">✓ Received</span></td></tr>
+          <tr><td>Assiut Bridge — 633</td><td><span class="badge b-red">Late — reminder sent to PM</span></td></tr>
+        </table>
+        <p class="note-sm">Finance submission by the 17th · payment 20–25</p>
+      </div>
+      <div class="card"><h3>🏆 KPI — Q2 2026</h3>
+        <p style="font-size:13px">PMO evaluations due end of June · last payout (Q1): EGP 2.84M to 412 employees ✓ · cost reports distributed by project</p>
+        <button class="btn btn-o btn-sm" style="margin-top:8px" onclick="toast('📊 Q1 cost reports by project: Benban 41% · Alamein 28% · Assiut 19% · Sokhna 12%')">Cost reports by project</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 8) ATTENDANCE ======== -->
+<section class="screen" id="s-attendance">
+  <div class="page-head"><div><h1>📍 Attendance — Today 12/06/2026</h1><p>Live from sites · 4 capture methods: GPS · supervisor sheet · office biometric · justified manual</p></div></div>
+  <div class="cards cards-4">
+    <div class="card kpi"><div class="lbl">Present now</div><div class="val" style="color:var(--green)">2,987</div><div class="sub">92% of expected</div></div>
+    <div class="card kpi"><div class="lbl">Approved leave</div><div class="val">184</div><div class="sub">Auto-flagged from the Leave module</div></div>
+    <div class="card kpi"><div class="lbl">Unjustified absence</div><div class="val" style="color:var(--red)">31</div><div class="sub">Managers notified</div></div>
+    <div class="card kpi"><div class="lbl">Overtime pending approval</div><div class="val">126 <small style="font-size:13px">hrs</small></div><div class="sub">With direct managers</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>🏗 Sites now</h3>
+      <table>
+        <tr><th>Site</th><th>Capture method</th><th>Present/Expected</th><th></th></tr>
+        <tr><td>Benban — Aswan</td><td>GPS + 400m geofence</td><td>1,058 / 1,120</td><td><div class="bar"><i style="width:94%;background:var(--green)"></i></div></td></tr>
+        <tr><td>Alamein Towers</td><td>Supervisor sheet (3 supervisors)</td><td>791 / 846</td><td><div class="bar"><i style="width:93%;background:var(--green)"></i></div></td></tr>
+        <tr><td>Assiut Bridge</td><td>GPS + supervisor sheet</td><td>562 / 633</td><td><div class="bar"><i style="width:89%;background:var(--yellow)"></i></div></td></tr>
+        <tr><td>Head Office</td><td>Biometric</td><td>176 / 197</td><td><div class="bar"><i style="width:89%;background:var(--yellow)"></i></div></td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>⚠️ Exceptions needing review</h3>
+      <ul class="chk">
+        <li><span class="st st-x">!</span> <div><b>GPS check-in out of range</b> — Benban worker 2.1 km away<small style="color:var(--muted)">Verification photo requested automatically</small></div></li>
+        <li><span class="st st-warn">!</span> <div><b>Suspicious pattern (AI)</b> — Alamein supervisor sheet: 14 entries less than a second apart<small style="color:var(--muted)">Referred to Operations</small></div></li>
+        <li><span class="st st-warn">!</span> <div><b>Repeated lateness</b> — Karim Fawzy: 5 times this month<small style="color:var(--muted)">If a deduction is approved → enters cycle adjustments with a document and approval (Policies 4+7)</small></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 9) LEAVE ======== -->
+<section class="screen" id="s-leave">
+  <div class="page-head"><div><h1>🏖 Leave Management</h1><p>Per Egyptian Labor Law — balances computed automatically from service length and age</p></div></div>
+  <div class="grid-2">
+    <div class="card" style="padding:0 18px"><h3 style="padding-top:18px">Requests pending approval</h3>
+      <table>
+        <tr><th>Employee</th><th>Type</th><th>Duration</th><th>Balance after</th><th>Approver</th><th></th></tr>
+        <tr><td>Eng. Sara Adel</td><td>Annual</td><td>5 days (21–25/06)</td><td>9 → 4</td><td>PMO Manager</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">Approve</button> <button class="btn btn-r btn-sm" onclick="reject(this)">Reject</button></td></tr>
+        <tr><td>Mahmoud El-Naggar</td><td>Casual</td><td>1 day (15/06)</td><td>4 → 3 (from annual)</td><td>Site Manager</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">Approve</button> <button class="btn btn-r btn-sm" onclick="reject(this)">Reject</button></td></tr>
+        <tr><td>Eng. Hany Abdel Fattah</td><td>Sick</td><td>3 days + medical report attached</td><td>75% pay (social insurance)</td><td>HR</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">Approve</button> <button class="btn btn-r btn-sm" onclick="reject(this)">Reject</button></td></tr>
+      </table>
+      <div class="alert al-yellow" style="margin:12px 0">⚠️ Overlap alert: 34% of Benban site engineers requested leave during Eid Al-Adha week — review coverage</div>
+    </div>
+    <div class="card"><h3>Entitlement rules (seeded — configurable)</h3>
+      <table>
+        <tr><td>Annual — first year (after 6 months)</td><td><b>15 days</b></td></tr>
+        <tr><td>Annual — after one year</td><td><b>21 days</b></td></tr>
+        <tr><td>Annual — 10 years of service or age 50</td><td><b>30 days</b></td></tr>
+        <tr><td>Casual (deducted from annual)</td><td><b>7 days</b></td></tr>
+        <tr><td>Maternity</td><td><b>4 months</b></td></tr>
+        <tr><td>Hajj/Umrah (after 5 years — once)</td><td><b>1 month</b></td></tr>
+      </table>
+      <p class="note-sm">Unused balance flows automatically into the final settlement at offboarding</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 10) APPROVALS ======== -->
+<section class="screen" id="s-approvals">
+  <div class="page-head"><div><h1>✅ My Approvals</h1><p>Everything waiting for your decision across all modules — reminder after 24h, escalation after 48h</p></div></div>
+  <div class="card" style="padding:0 18px">
+    <table>
+      <tr><th>Request</th><th>Type</th><th>Requester</th><th>Chain</th><th>Age</th><th>Decision</th></tr>
+      <tr><td><b>Hiring request HR-121:</b> 4 welders — Assiut Bridge — P1<br><small style="color:var(--muted)">Approved range: within project budget ✓</small></td><td><span class="badge b-blue">Recruitment</span></td><td>Eng. Adel Roshdy (PM)</td><td>PM ✓ → <b>HR Manager</b> → Admin</td><td>2h</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">Approve</button> <button class="btn btn-r btn-sm" onclick="reject(this)">Reject</button></td></tr>
+      <tr><td><b>Advance EGP 8,000</b> — Mahmoud El-Naggar (1,000 × 8 installments)<br><small style="color:var(--muted)">Supporting document attached ✓ (Policy 7)</small></td><td><span class="badge b-purple">Financial</span></td><td>ESS</td><td>Manager ✓ → <b>HR</b> → Finance</td><td>5h</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">Approve</button> <button class="btn btn-r btn-sm" onclick="reject(this)">Reject</button></td></tr>
+      <tr><td><b>Final settlement EGP 13,933</b> — Khaled Mansour<br><small style="color:var(--muted)">Awaiting clearance completion (on the 19th)</small></td><td><span class="badge b-red">Offboarding</span></td><td>Personnel</td><td>HR → <b>You</b> → Finance</td><td>1d</td><td><button class="btn btn-g btn-sm" onclick="toast('🔒 Cannot approve before clearance is complete — Policy 13')">Approve</button></td></tr>
+      <tr><td><b>5-day leave</b> — Eng. Sara Adel<br><small style="color:var(--muted)">Balance sufficient ✓ · no team overlap</small></td><td><span class="badge b-green">Leave</span></td><td>ESS</td><td>Manager ✓ → <b>HR</b></td><td>1d</td><td><button class="btn btn-g btn-sm" onclick="approve(this)">Approve</button> <button class="btn btn-r btn-sm" onclick="reject(this)">Reject</button></td></tr>
+    </table>
+  </div>
+  <p class="note-sm">Every decision is recorded in the Audit Log with your name, timestamp, and comment (Policy 16) · you can delegate your approvals while on leave</p>
+</section>
+
+<!-- ======== 11) SLA DASHBOARD ======== -->
+<section class="screen" id="s-sla">
+  <div class="page-head"><div><h1>⏱ SLA Dashboard</h1><p>Live timers in working hours (Friday off + public holidays) · yellow at 75% · automatic escalation on breach</p></div></div>
+  <div class="cards cards-3">
+    <div class="card kpi"><div class="lbl">Compliance this month</div><div class="val" style="color:var(--green)">91%</div><div class="sub up">▲ 4% vs. May</div></div>
+    <div class="card kpi"><div class="lbl">Stages in breach now</div><div class="val" style="color:var(--red)">3</div><div class="sub">Auto-escalated</div></div>
+    <div class="card kpi"><div class="lbl">Avg. Time-to-Hire (P0)</div><div class="val">11 days</div><div class="sub">Manual target: 9–14</div></div>
+  </div>
+  <div class="card" style="padding:0 18px">
+    <table>
+      <tr><th>Entity</th><th>Module</th><th>Stage</th><th>Priority</th><th>SLA</th><th>Elapsed</th><th>State</th></tr>
+      <tr><td>HR-118 Power Electrical Engineer</td><td>Recruitment</td><td>Sourcing & Screening</td><td><span class="badge b-red">P0</span></td><td>72 working hrs</td><td>78 hrs</td><td><span class="badge b-red">🔴 Breached — escalated to HR Manager</span></td></tr>
+      <tr><td>Onboarding — Manar Sabry</td><td>Onboarding</td><td>Equipment Preparation</td><td><span class="badge b-red">P0</span></td><td>1–2 working days</td><td>1.6 days</td><td><span class="badge b-yellow">🟡 Warning 80%</span></td></tr>
+      <tr><td>Offboarding — Khaled Mansour</td><td>Offboarding</td><td>Clearance</td><td>—</td><td>Exit day 19/06</td><td>—</td><td><span class="badge b-green">🟢 On time</span></td></tr>
+      <tr><td>HR-117 Accountant (replacement)</td><td>Recruitment</td><td>Interviews</td><td><span class="badge b-blue">P1</span></td><td>5–7 working days</td><td>3 days</td><td><span class="badge b-green">🟢</span></td></tr>
+      <tr><td>June payroll cycle</td><td>Payroll</td><td>Assiut Bridge allowances</td><td>—</td><td>15th of month</td><td>2 days late</td><td><span class="badge b-red">🔴 2nd reminder to PM + Payroll notified</span></td></tr>
+    </table>
+  </div>
+  <div class="alert al-yellow" style="margin-top:14px">📌 Calibration note: "Screening P1" SLA corrected to <b>5 working days</b> (original manual says "5 hours" — documented typo, pending official management sign-off — editable in Settings)</div>
+</section>
+
+<!-- ======== 12) ESS ======== -->
+<section class="screen" id="s-ess">
+  <div class="page-head"><div><h1>📱 Employee App (ESS)</h1><p>Mobile-first · simple language · phone number + OTP login (no email) · works on weak networks</p></div></div>
+  <div class="phone-wrap">
+    <div class="phone"><div class="scr">
+      <div class="p-head">
+        <div class="row"><div><small>Good morning 👷</small><div style="font-weight:800;font-size:17px">Mahmoud El-Naggar</div><small>Argon welder · Sokhna Cement Plant</small></div><span style="font-size:24px">🔔</span></div>
+      </div>
+      <div class="checkin">
+        <small style="color:var(--muted)">Thursday, June 12 · morning shift 7:00 AM – 3:00 PM</small><br><br>
+        <button class="big" id="cibtn" onclick="checkin()">Check<br>In ✋</button>
+        <p class="note-sm" id="cista">Tap the button while inside the site zone (GPS)</p>
+      </div>
+      <div class="p-grid">
+        <div class="p-tile" onclick="toast('🏖 Your balance: 12 annual + 4 casual days — request leave in 3 steps')"><span class="em">🏖</span><b>My Leave</b><small>Balance: 12 days</small></div>
+        <div class="p-tile" onclick="toast('🔐 Enter your PIN to view the May payslip (PDF)')"><span class="em">💰</span><b>My Salary</b><small>May payslip ✓</small></div>
+        <div class="p-tile" onclick="toast('📄 Document expiring soon: professional practice license — photograph it and it will be classified automatically')"><span class="em">📄</span><b>My Documents</b><small>⚠️ 1 expiring soon</small></div>
+        <div class="p-tile" onclick="toast('💵 Advance request: set the amount and installments — goes to your manager, then HR, then Finance')"><span class="em">🤲</span><b>Request Advance</b><small>Current installment: EGP 1,000</small></div>
+      </div>
+    </div></div>
+    <div style="flex:1;min-width:280px">
+      <div class="wapp">
+        <div class="h">🟢 WhatsApp — system messages to the employee</div>
+        <div class="msg">Hi Mahmoud 👋 Your May salary has been paid. Full details inside the app.<small>28/05 · 4:02 PM ✓✓</small></div>
+        <div class="msg">⚠️ Reminder: your professional practice license expires in 28 days (10/07). Please renew and upload a photo from the app.<small>Today · 9:00 AM ✓✓</small></div>
+        <div class="msg">✅ Your leave on 15/06 has been approved. Enjoy!<small>Today · 11:30 AM ✓</small></div>
+      </div>
+      <div class="card" style="margin-top:16px"><h3>Why this design?</h3>
+        <ul class="chk">
+          <li><span class="st st-ok">✓</span> Big buttons, short sentences — blue-collar friendly</li>
+          <li><span class="st st-ok">✓</span> No email required — phone + OTP</li>
+          <li><span class="st st-ok">✓</span> Salary behind an extra PIN (Policy 9)</li>
+          <li><span class="st st-ok">✓</span> Check-in works offline and syncs later</li>
+          <li><span class="st st-ok">✓</span> Managers get a "My Team" tab for daily approvals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== 13) SETTINGS ======== -->
+<section class="screen" id="s-settings">
+  <div class="page-head"><div><h1>⚙️ Company Settings</h1><p>Tenant: Afro Egypt Contracting · Enterprise plan · 3,247 employees</p></div></div>
+  <div class="grid-2e">
+    <div class="card"><h3>🏗 Organization Structure</h3>
+      <table>
+        <tr><td>Departments</td><td>14</td><td><a href="#" style="color:var(--primary);font-size:12px;font-weight:700" onclick="toast('Manage departments')">Manage</a></td></tr>
+        <tr><td>Grades</td><td>E1–E5 · T1–T4 · M1–M3</td><td><a href="#" style="color:var(--primary);font-size:12px;font-weight:700" onclick="toast('Manage grades')">Manage</a></td></tr>
+        <tr><td>Active projects</td><td>4 + Head Office</td><td><a href="#" style="color:var(--primary);font-size:12px;font-weight:700" onclick="toast('Manage projects, locations, and geofences')">Manage</a></td></tr>
+        <tr><td>HR Code format</td><td><code>AFR-{YYYY}-{####}</code></td><td><span class="lock">🔒 codes are never reused</span></td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>⏱ SLA values (editable)</h3>
+      <table>
+        <tr><th>Stage</th><th>P0</th><th>P1</th></tr>
+        <tr><td>Sourcing & Screening</td><td>72 working hrs</td><td>5 working days <span class="badge b-yellow">corrected — pending management sign-off</span></td></tr>
+        <tr><td>Interviews</td><td>3–5 days</td><td>5–7 days</td></tr>
+        <tr><td>HSE Requirements</td><td>10–15 days</td><td>20–25 days</td></tr>
+      </table>
+    </div>
+    <div class="card"><h3>📅 Payroll Calendar</h3>
+      <table>
+        <tr><td>New Hire Sheet</td><td>Day <b>18</b></td></tr>
+        <tr><td>Submission to Finance</td><td>By day <b>25</b></td></tr>
+        <tr><td>Payment</td><td><b>28</b> — month end</td></tr>
+        <tr><td>Cost reports</td><td>By day <b>10</b></td></tr>
+      </table>
+      <p class="note-sm">Defaults from the manual — any deviation requires justification and approval (Policy 15)</p>
+    </div>
+    <div class="card"><h3>🔔 Notification Channels</h3>
+      <ul class="chk">
+        <li><span class="st st-ok">✓</span> In-App + Email (Resend)</li>
+        <li><span class="st st-ok">✓</span> WhatsApp Business API <span class="badge b-green">12 approved templates</span></li>
+        <li><span class="st st-ok">✓</span> SMS (local provider) — fallback & OTP</li>
+        <li><span class="st st-ok">✓</span> Expiry alerts: 60 / 30 / 7 days</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+<div id="toast"></div>
+<script>
+// Navigation
+const links=document.querySelectorAll('.nav a');
+function go(s){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById('s-'+s).classList.add('active');
+  links.forEach(l=>l.classList.toggle('active',l.dataset.s===s));
+  document.querySelector('.content').scrollIntoView({behavior:'smooth',block:'start'});
+}
+links.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();go(l.dataset.s)}));
+// ===== RBAC role switcher =====
+// Each role: visible screens (in sidebar order), compensation-tab access, who label, and scope description.
+const ROLES={
+ hrm:{name:'Mona Taha',title:'HR Manager',av:'MT',comp:true,screens:['dash','approvals','sla','employees','profile','recruit','onboard','offboard','payroll','attendance','leave','ess','settings'],
+   banner:'🟢 <b>HR Manager</b> — full HR oversight: all modules, approvals, SLA, and compensation access (every read is audit-logged).'},
+ ta:{name:'Heba Samir',title:'Talent Acquisition',av:'HS',comp:false,screens:['dash','approvals','sla','recruit','employees','onboard'],
+   banner:'🎯 <b>Talent Acquisition</b> — owns Recruitment stages 1–8 and the handover to Personnel. Can read employee basics (e.g., to validate a replacement\'s HR code) but has <b>no access to salaries, payroll, offboarding, or settings</b>.'},
+ personnel:{name:'Mostafa Kamel',title:'Personnel',av:'MK',comp:false,screens:['dash','approvals','sla','employees','profile','onboard','offboard','leave'],
+   banner:'🗂 <b>Personnel</b> — manages employee files, documents, contracts, onboarding and offboarding cases. <b>Cannot see salaries</b> (Policy 9): the Compensation tab is locked even though they manage the rest of the profile.'},
+ payroll:{name:'Nermin Lotfy',title:'Payroll',av:'NL',comp:true,screens:['dash','approvals','sla','payroll','employees','profile','attendance','leave'],
+   banner:'💰 <b>Payroll</b> — runs the monthly cycle, adjustments, allowances and KPI sheets. Full compensation access (audit-logged). <b>Cannot create employees, run recruitment, or approve final payments</b> — payment release is Finance\'s call (Policy 13).'},
+ finance:{name:'Sherif Anwar',title:'Finance',av:'SA',comp:true,screens:['dash','approvals','payroll','offboard'],
+   banner:'🏦 <b>Finance</b> — approves and executes payments (salaries, allowances, KPI, final settlements) and clears financial obligations at offboarding. <b>No access to recruitment, documents, or HR operations</b>.'},
+ hse:{name:'Tarek Selim',title:'HSE',av:'TS',comp:false,screens:['dash','approvals','sla','onboard','employees','profile'],
+   banner:'🦺 <b>HSE</b> — owns medical exams, safety courses and HSE interviews. Sees the HSE tab of employee profiles and HSE onboarding tasks. <b>No financial or contractual access</b>.'},
+ pm:{name:'Walid El-Gendy',title:'Project Manager — Benban 500kV',av:'WG',comp:false,screens:['dash','approvals','recruit','attendance','leave'],
+   banner:'🏗 <b>Project Manager</b> — scope limited to <b>his own project and team</b>: submits hiring requests, reviews his candidates, approves his team\'s leave/overtime, and submits project allowance data. Sees no other projects and no salaries.'},
+ ess:{name:'Mahmoud El-Naggar',title:'Employee (ESS)',av:'MN',comp:false,screens:['ess'],
+   banner:'📱 <b>Employee (ESS)</b> — sees <b>only himself</b>: his attendance, leave, payslip (behind a PIN), documents and requests. Enforced at the database row level (employee_id = jwt.employee_id), not just in the UI.'}
+};
+let curRole='hrm';
+function applyRole(r){
+  curRole=r;const cfg=ROLES[r];
+  // sidebar visibility
+  links.forEach(l=>{l.style.display=cfg.screens.includes(l.dataset.s)?'flex':'none'});
+  // identity in topbar
+  document.querySelector('.who').innerHTML='<b>'+cfg.name+'</b>'+cfg.title;
+  document.querySelector('.avatar').textContent=cfg.av;
+  // banner
+  const bn=document.getElementById('roleBanner');bn.style.display='block';bn.className='alert '+(r==='hrm'?'al-green':'al-yellow');bn.innerHTML=cfg.banner;
+  // compensation tab lock
+  const p3btn=document.querySelector('#ptabs button[data-t="p3"]');
+  if(p3btn)p3btn.innerHTML=cfg.comp?'Compensation 🔒':'Compensation 🚫';
+  // land on the first allowed screen
+  go(cfg.screens[0]);
+  toast('👤 Now viewing as: '+cfg.title+' — sidebar and access rights changed');
+}
+// Profile tabs (with field-level RBAC on the Compensation tab)
+document.querySelectorAll('#ptabs button').forEach(b=>b.addEventListener('click',()=>{
+  if(b.dataset.t==='p3'&&!ROLES[curRole].comp){toast('🚫 Access denied: compensation data is restricted to Payroll / HR Manager / Finance (Policy 9). This attempt is recorded in the Audit Log.');return}
+  document.querySelectorAll('#ptabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  document.querySelectorAll('.ptab').forEach(p=>p.style.display='none');
+  document.getElementById(b.dataset.t).style.display='block';
+}));
+// Toast
+let tt;function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3800)}
+// Approve/Reject demo
+function approve(b){b.parentElement.innerHTML='<span class="badge b-green">✓ Approved — recorded in Audit Log</span>';toast('✅ Approved — the request moved to the next step in the chain')}
+function reject(b){b.parentElement.innerHTML='<span class="badge b-red">✗ Rejected — requester notified with reason</span>';toast('❌ Rejected — the requester was notified immediately')}
+// ESS check-in
+let cin=false;
+function checkin(){const b=document.getElementById('cibtn'),s=document.getElementById('cista');
+ if(!cin){b.classList.add('out');b.innerHTML='Check<br>Out 🏁';s.innerHTML='✅ Checked in 6:54 AM — inside site zone (GPS verified)';toast('✋ Checked in at 6:54 AM — Sokhna Cement Plant site ✓');cin=true}
+ else{b.classList.remove('out');b.innerHTML='Check<br>In ✋';s.innerHTML='🏁 Checked out 3:02 PM — full workday · overtime: 0';toast('🏁 Checked out — thanks for your work today!');cin=false}}
+</script>
+</body>
+</html>

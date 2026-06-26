@@ -1,0 +1,511 @@
+{
+  "common": {
+    "appName": "AfroHR Hub",
+    "searchPlaceholder": "🔍 Search by name, HR code, or National ID…",
+    "viewAs": "👤 View as:",
+    "viewAsHint": "Dev-only role switcher — replaced by real sign-in",
+    "notifications": "Notifications",
+    "localeToggle": "ع",
+    "localeToggleLabel": "التبديل إلى العربية",
+    "egp": "EGP",
+    "signOut": "Sign out"
+  },
+  "login": {
+    "title": "AfroHR Hub",
+    "subtitle": "Sign in to your workspace",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "errorMissing": "Please enter your email and password.",
+    "errorInvalid": "Incorrect email or password.",
+    "demoHint": "Demo accounts: hrm@afrohr.test · password Afrohr@2026"
+  },
+  "nav": {
+    "soon": "Soon",
+    "sections": {
+      "general": "General",
+      "lifecycle": "Employee Lifecycle",
+      "finance": "Finance & Operations",
+      "portal": "Employee Portal",
+      "system": "System"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "approvals": "My Approvals",
+      "sla": "SLA Dashboard",
+      "employees": "Employees",
+      "recruitment": "Recruitment",
+      "onboarding": "Onboarding",
+      "offboarding": "Offboarding",
+      "payroll": "Payroll & Allowances",
+      "attendance": "Attendance",
+      "leave": "Leave",
+      "ess": "ESS App (Mobile)",
+      "settings": "Settings",
+      "audit": "Audit"
+    }
+  },
+  "roles": {
+    "super_admin": "Super Admin",
+    "company_admin": "Company Admin",
+    "hr_manager": "HR Manager",
+    "talent_acquisition": "Talent Acquisition",
+    "personnel": "Personnel",
+    "payroll": "Payroll",
+    "finance": "Finance",
+    "hse": "HSE",
+    "it": "IT",
+    "operations_admin": "Operations / Admin",
+    "pmo": "PMO",
+    "direct_manager": "Direct Manager",
+    "employee": "Employee"
+  },
+  "status": {
+    "active": "Active",
+    "pending": "Pending",
+    "suspended": "Suspended",
+    "offboarding": "Offboarding",
+    "archived": "Archived"
+  },
+  "collar": {
+    "white": "White Collar",
+    "blue": "Blue Collar"
+  },
+  "dashboard": {
+    "greeting": "Good morning, {name} 👋",
+    "subtitle": "{date} — here's today's summary at {tenant}",
+    "newHiringRequest": "+ New Hiring Request",
+    "kpi": {
+      "activeEmployees": "Active Employees",
+      "activeEmployeesSub": "▲ {count} this month",
+      "openRequests": "Open Hiring Requests",
+      "openRequestsSub": "{count} × P0 critical",
+      "onboarding": "Onboarding In Progress",
+      "onboardingSub": "{count} ready for activation",
+      "payrollCycle": "June Payroll Cycle",
+      "payrollCycleSub": "Deductions stage"
+    },
+    "approvals": {
+      "title": "✅ Pending your approval",
+      "viewAll": "Approvals inbox →",
+      "item1": "Hiring request: 4 welders — Nile Bridge, Assiut",
+      "item1Time": "2h ago",
+      "item2": "Advance EGP 8,000 — Mahmoud El-Naggar",
+      "item2Time": "5h ago",
+      "item3": "Final settlement — Khaled Mansour",
+      "item3Time": "yesterday",
+      "item4": "5-day leave — Eng. Sara Adel",
+      "item4Time": "yesterday"
+    },
+    "headcount": {
+      "title": "🏗 Headcount by Project",
+      "employees": "employees"
+    }
+  },
+  "employees": {
+    "title": "👥 Employee Directory",
+    "subtitle": "{active} active · {pending} pending activation · {offboarding} offboarding",
+    "import": "Import Excel",
+    "new": "+ New Employee",
+    "filters": {
+      "allProjects": "All projects",
+      "allStatuses": "All statuses",
+      "allCollars": "White / Blue Collar",
+      "search": "Search…"
+    },
+    "columns": {
+      "employee": "Employee",
+      "hrCode": "HR Code",
+      "jobTitle": "Job Title",
+      "project": "Project",
+      "type": "Type",
+      "status": "Status",
+      "documents": "Documents",
+      "actions": ""
+    },
+    "joined": "Joined {date}",
+    "lastDay": "Last day {date}",
+    "inOnboarding": "In onboarding",
+    "view": "View →",
+    "case": "Case →",
+    "docsComplete": "{received}/{total} ✓",
+    "docsMissing": "{received}/{total} — {missing} missing",
+    "docExpiring": "⚠ {doc} expires in {days} days",
+    "assetsToReturn": "Assets to return: {count}",
+    "showing": "Showing {shown} of {total}",
+    "salaryNote": "🔒 Salary column hidden — your role accesses it only from the employee profile (Policy 9)",
+    "empty": {
+      "title": "No matching results",
+      "description": "Try adjusting the filters or the search term."
+    }
+  },
+  "profile": {
+    "notFound": {
+      "title": "Employee not found",
+      "description": "Check the link or go back to the employee directory.",
+      "back": "Back to directory"
+    },
+    "grade": "Grade {grade}",
+    "manager": "Manager: {name}",
+    "newAction": "New Action",
+    "hrLetters": "HR Letters",
+    "tabs": {
+      "documents": "Documents ({count})",
+      "timeline": "Timeline",
+      "compensation": "Compensation 🔒",
+      "projects": "Projects & Allocation",
+      "hse": "HSE"
+    },
+    "documents": {
+      "title": "🗂 Document Vault — Manual checklist",
+      "summary": "{received} received · {expiring} expiring soon",
+      "summaryComplete": "{received} received · complete ✓",
+      "originalHeld": "Original held",
+      "expires": "Expires {date}",
+      "na": "N/A",
+      "statusLabel": {
+        "required": "Required",
+        "received": "Received",
+        "verified": "✓ Verified",
+        "expired": "Expired"
+      },
+      "aiNote": "📤 On every upload: AI auto-classifies the file, matches it to the checklist, and extracts the expiry date (OCR) — then Personnel verifies it."
+    },
+    "timeline": {
+      "title": "🕐 Employment History Timeline",
+      "empty": {
+        "title": "No recorded events",
+        "description": "Hires, promotions, transfers and contract renewals appear here."
+      }
+    },
+    "compensation": {
+      "auditNotice": "🔒 Viewing this tab is recorded in the Audit Log — accessing compensation data is a logged event (Policies 9 + 16)",
+      "denied": {
+        "title": "🔒 You don't have access to compensation data",
+        "body": "Salary data is protected at the database level (Policy 9) and restricted to the Payroll, HR Manager, Finance and Company Admin roles. This access attempt has been recorded in the Audit Log (Policy 16)."
+      },
+      "netSalary": "Net Salary",
+      "netSalarySub": "Gross {gross} · Insurable {insurable}",
+      "allowancesTitle": "Monthly Allowances",
+      "allowance": {
+        "site": "Site",
+        "transport": "Transport",
+        "meal": "Meal"
+      },
+      "bank": "Bank Account",
+      "bankVerified": "✓ Verified",
+      "bankVerifiedBy": "by Payroll on {date}",
+      "bankUnverified": "Not verified — no payment is released before verification (Policy 6)",
+      "noData": "No compensation data recorded for this employee.",
+      "si": {
+        "title": "Social Insurance",
+        "body": "SI number: {number} · {office} office · Form (1) filed {date}"
+      }
+    },
+    "projects": {
+      "title": "🏗 Cost Allocation",
+      "columns": {
+        "project": "Project",
+        "code": "Code",
+        "share": "Share",
+        "location": "Location",
+        "since": "Since"
+      },
+      "totalOk": "✓ Total = 100% — payroll cost reports are distributed automatically by these shares (Policy 12)",
+      "totalBad": "⚠ Total = {total}% — active allocations must add up to 100%",
+      "empty": {
+        "title": "No active allocations",
+        "description": "This employee is not allocated to any project yet."
+      }
+    },
+    "hse": {
+      "title": "🦺 HSE Record",
+      "result": {
+        "fit": "Fit",
+        "unfit": "Unfit",
+        "pass": "Pass",
+        "fail": "Fail"
+      },
+      "validUntil": "Valid until {date}",
+      "expiresSoon": "Expires {date}",
+      "noExpiry": "No expiry",
+      "empty": {
+        "title": "No HSE records",
+        "description": "No medical exams or safety courses recorded for this employee yet."
+      }
+    }
+  },
+  "approvals": {
+    "title": "My Approvals",
+    "subtitle": "Configurable approval chains with live SLA timers — Approval Engine (docs/05).",
+    "queueTitle": "Approval queue",
+    "engineNote": "Chains, conditions and escalations are seeded from the People & Culture manual and are tenant-configurable.",
+    "empty": "Nothing awaiting your decision",
+    "approve": "Approve",
+    "reject": "Reject",
+    "done": "Done",
+    "hoursLeft": "{hours}h left",
+    "breachedBy": "Breached by {hours}h",
+    "kpi": {
+      "awaitingMe": "Awaiting my decision",
+      "breached": "SLA breached",
+      "breachedSub": "▼ escalated",
+      "dueToday": "Due today",
+      "approvedWeek": "Approved this week",
+      "approvedSub": "▲ on track"
+    },
+    "columns": {
+      "ref": "Ref",
+      "type": "Request",
+      "requestedBy": "Requested by",
+      "step": "Current step",
+      "priority": "Priority",
+      "sla": "SLA",
+      "state": "State",
+      "actions": "Actions"
+    },
+    "states": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "escalated": "Escalated"
+    }
+  },
+  "sla": {
+    "title": "SLA Dashboard",
+    "subtitle": "P0/P1/P2 timers measured in working hours with automatic escalation — SLA Engine (docs/04).",
+    "tableTitle": "SLA metrics",
+    "note": "Targets shown reflect the manual's policies; the screening P1 target (5 working days) is pending formal sign-off.",
+    "kpi": {
+      "open": "Open timers",
+      "breached": "Breached",
+      "breachedSub": "▼ needs attention",
+      "onTime": "On-time rate",
+      "onTimeSub": "▲ trailing 30 days",
+      "escalations": "Escalations this week"
+    },
+    "columns": {
+      "metric": "Metric",
+      "priority": "Priority",
+      "target": "Target",
+      "open": "Open",
+      "breached": "Breached",
+      "onTime": "On-time"
+    }
+  },
+  "recruitment": {
+    "title": "Recruitment",
+    "subtitle": "8-stage hiring pipeline, Talent Pool and AI candidate matching (docs/modules/02).",
+    "newRequest": "New hiring request",
+    "pipelineTitle": "Pipeline",
+    "candidatesTitle": "Active candidates",
+    "view": "View",
+    "days": "{n} days",
+    "kpi": {
+      "openRequests": "Open requests",
+      "activeCandidates": "Active candidates",
+      "offersOut": "Offers out",
+      "timeToHire": "Avg. time to hire"
+    },
+    "columns": {
+      "candidate": "Candidate",
+      "role": "Role",
+      "project": "Project",
+      "match": "Match",
+      "stage": "Stage",
+      "actions": "Actions"
+    },
+    "stages": {
+      "request": "Request",
+      "sourcing": "Sourcing",
+      "screening": "Screening",
+      "interview": "Interview",
+      "offer": "Offer",
+      "handover": "Handover"
+    }
+  },
+  "onboarding": {
+    "title": "Onboarding",
+    "subtitle": "9-stage new-hire workflow with 6 activation conditions (docs/modules/03).",
+    "newCase": "New onboarding case",
+    "slaDays": "{n}d SLA",
+    "conditions": "{met}/6 conditions",
+    "currentStage": "Stage {n} of 9 — {label}",
+    "openCase": "Open case",
+    "activate": "Activate employee",
+    "kpi": {
+      "inProgress": "In progress",
+      "readyToActivate": "Ready to activate",
+      "readySub": "▲ conditions met",
+      "hsePending": "HSE pending",
+      "overdue": "Overdue",
+      "overdueSub": "▼ past SLA"
+    }
+  },
+  "offboarding": {
+    "title": "Offboarding",
+    "subtitle": "6-stage exit workflow: access cutoff, clearance and final settlement (docs/modules/04).",
+    "newCase": "New offboarding case",
+    "lastDay": "Last working day {date}",
+    "accessCut": "Access cut off",
+    "accessActive": "Access still active",
+    "accessWarning": "Stage 2 mandatory: revoke all system access by the last working day.",
+    "clearanceTitle": "Clearance ({done}/{total})",
+    "settlementTitle": "Final settlement",
+    "netSettlement": "Net settlement (incl. leave balance)",
+    "egp": "EGP",
+    "settlementNote": "Includes accrued annual-leave cash-out, minus outstanding advances.",
+    "openCase": "Open case",
+    "advanceStage": "Advance stage",
+    "settlement": {
+      "pending": "Pending approval",
+      "approved": "Approved",
+      "paid": "Paid"
+    },
+    "kpi": {
+      "openCases": "Open cases",
+      "dueWeek": "Due this week",
+      "dueSub": "▼ before last day",
+      "pendingClearance": "Pending clearance",
+      "pendingSettlement": "Pending settlement"
+    }
+  },
+  "payroll": {
+    "title": "Payroll & Allowances",
+    "subtitle": "{period} monthly cycle — 9 stages with tax and social-insurance calculation (docs/modules/05).",
+    "window": "Payroll window {window}",
+    "approveStage": "Approve current stage",
+    "cycleTitle": "Monthly cycle",
+    "currentStage": "Current stage: {label}",
+    "byProjectTitle": "Cost by project",
+    "million": "M",
+    "egp": "EGP",
+    "note": "Tax and social-insurance brackets are maintained as updatable tables and reviewed annually with the company accountant.",
+    "kpi": {
+      "headcount": "Headcount",
+      "gross": "Gross payroll",
+      "deductions": "Deductions",
+      "deductionsSub": "Tax {tax} · Insurance {ins}",
+      "net": "Net payroll",
+      "netSub": "▲ ready to disburse"
+    },
+    "columns": {
+      "project": "Project",
+      "headcount": "Headcount",
+      "cost": "Cost",
+      "share": "Share"
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": "{date} — GPS check-in with supervisor verification (docs/modules/06).",
+    "tableTitle": "Today's attendance",
+    "gpsOk": "GPS ✓",
+    "gpsFlag": "GPS flag",
+    "note": "GPS is verified against each employee's assigned site geofence; flags route to the supervisor's daily sheet.",
+    "kpi": {
+      "present": "Present",
+      "presentSub": "{pct}% of workforce",
+      "late": "Late",
+      "absent": "Absent",
+      "absentSub": "▼ follow-up needed",
+      "onLeave": "On leave"
+    },
+    "columns": {
+      "employee": "Employee",
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "hours": "Hours",
+      "gps": "GPS",
+      "state": "State"
+    },
+    "states": {
+      "present": "Present",
+      "late": "Late",
+      "absent": "Absent",
+      "leave": "On leave",
+      "remote": "Remote"
+    }
+  },
+  "leave": {
+    "title": "Leave",
+    "subtitle": "Requests and balances under the Egyptian Labour Law (docs/modules/07).",
+    "newRequest": "New leave request",
+    "balancesTitle": "Balances (sample employee)",
+    "requestsTitle": "Leave requests",
+    "balanceDays": "{n} days left",
+    "usedOf": "{used} used of {total}",
+    "hours": "{n}h",
+    "approve": "Approve",
+    "reject": "Reject",
+    "note": "Annual (21d), casual (7d) and sick (up to 180d) entitlements follow the Egyptian Labour Law; balances accrue monthly.",
+    "kpi": {
+      "pending": "Pending decision",
+      "approvedMonth": "Approved this month",
+      "onLeaveToday": "On leave today",
+      "avgDecision": "Avg. decision time"
+    },
+    "columns": {
+      "employee": "Employee",
+      "type": "Type",
+      "dates": "Dates",
+      "days": "Days",
+      "approver": "Approver",
+      "state": "State",
+      "actions": "Actions"
+    },
+    "states": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
+  },
+  "ess": {
+    "greeting": "Welcome, {name}",
+    "subtitle": "Your self-service portal — mobile-first, Arabic-friendly (docs/modules/08).",
+    "todayCheckIn": "Today's check-in",
+    "leaveBalance": "{type} leave balance",
+    "lastPayslip": "Last payslip ({period})",
+    "unreadNotifs": "Unread notifications",
+    "quickActions": "Quick actions",
+    "notifications": "Notifications",
+    "markAllRead": "Mark all read",
+    "mobileNote": "This is a desktop preview. The ESS portal is designed as a mobile-first PWA for blue-collar workers — phone-number OTP login, large buttons, and offline GPS check-in."
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Tenant configuration — HR code format, payroll calendar, working days and notification channels.",
+    "save": "Save changes",
+    "edit": "Edit",
+    "locked": "Locked",
+    "note": "Changes to payroll calendar and HR code format take effect from the next cycle. WhatsApp and SMS channels require external API setup."
+  },
+  "audit": {
+    "title": "Audit Log",
+    "subtitle": "Policy 16 — append-only, immutable audit trail of all sensitive operations.",
+    "logTitle": "Recent activity",
+    "note": "Audit entries are append-only (no hard deletes — Policy 14). Time-travel queries and data export are available for compliance reporting.",
+    "kpi": {
+      "entriesToday": "Entries today",
+      "uniqueUsers": "Unique users",
+      "sensitive": "Sensitive actions",
+      "exports": "Data exports"
+    },
+    "columns": {
+      "timestamp": "Time",
+      "user": "User",
+      "action": "Action",
+      "resource": "Resource",
+      "ip": "IP"
+    },
+    "actions": {
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "login": "Login",
+      "approve": "Approve",
+      "reject": "Reject",
+      "export": "Export"
+    }
+  }
+}
