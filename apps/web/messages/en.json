@@ -223,5 +223,230 @@
         "description": "No medical exams or safety courses recorded for this employee yet."
       }
     }
+  },
+  "approvals": {
+    "title": "My Approvals",
+    "subtitle": "Configurable approval chains with live SLA timers — Approval Engine (docs/05).",
+    "queueTitle": "Approval queue",
+    "engineNote": "Chains, conditions and escalations are seeded from the People & Culture manual and are tenant-configurable.",
+    "empty": "Nothing awaiting your decision",
+    "approve": "Approve",
+    "reject": "Reject",
+    "done": "Done",
+    "hoursLeft": "{hours}h left",
+    "breachedBy": "Breached by {hours}h",
+    "kpi": {
+      "awaitingMe": "Awaiting my decision",
+      "breached": "SLA breached",
+      "breachedSub": "▼ escalated",
+      "dueToday": "Due today",
+      "approvedWeek": "Approved this week",
+      "approvedSub": "▲ on track"
+    },
+    "columns": {
+      "ref": "Ref",
+      "type": "Request",
+      "requestedBy": "Requested by",
+      "step": "Current step",
+      "priority": "Priority",
+      "sla": "SLA",
+      "state": "State",
+      "actions": "Actions"
+    },
+    "states": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "escalated": "Escalated"
+    }
+  },
+  "sla": {
+    "title": "SLA Dashboard",
+    "subtitle": "P0/P1/P2 timers measured in working hours with automatic escalation — SLA Engine (docs/04).",
+    "tableTitle": "SLA metrics",
+    "note": "Targets shown reflect the manual's policies; the screening P1 target (5 working days) is pending formal sign-off.",
+    "kpi": {
+      "open": "Open timers",
+      "breached": "Breached",
+      "breachedSub": "▼ needs attention",
+      "onTime": "On-time rate",
+      "onTimeSub": "▲ trailing 30 days",
+      "escalations": "Escalations this week"
+    },
+    "columns": {
+      "metric": "Metric",
+      "priority": "Priority",
+      "target": "Target",
+      "open": "Open",
+      "breached": "Breached",
+      "onTime": "On-time"
+    }
+  },
+  "recruitment": {
+    "title": "Recruitment",
+    "subtitle": "8-stage hiring pipeline, Talent Pool and AI candidate matching (docs/modules/02).",
+    "newRequest": "New hiring request",
+    "pipelineTitle": "Pipeline",
+    "candidatesTitle": "Active candidates",
+    "view": "View",
+    "days": "{n} days",
+    "kpi": {
+      "openRequests": "Open requests",
+      "activeCandidates": "Active candidates",
+      "offersOut": "Offers out",
+      "timeToHire": "Avg. time to hire"
+    },
+    "columns": {
+      "candidate": "Candidate",
+      "role": "Role",
+      "project": "Project",
+      "match": "Match",
+      "stage": "Stage",
+      "actions": "Actions"
+    },
+    "stages": {
+      "request": "Request",
+      "sourcing": "Sourcing",
+      "screening": "Screening",
+      "interview": "Interview",
+      "offer": "Offer",
+      "handover": "Handover"
+    }
+  },
+  "onboarding": {
+    "title": "Onboarding",
+    "subtitle": "9-stage new-hire workflow with 6 activation conditions (docs/modules/03).",
+    "newCase": "New onboarding case",
+    "slaDays": "{n}d SLA",
+    "conditions": "{met}/6 conditions",
+    "currentStage": "Stage {n} of 9 — {label}",
+    "openCase": "Open case",
+    "activate": "Activate employee",
+    "kpi": {
+      "inProgress": "In progress",
+      "readyToActivate": "Ready to activate",
+      "readySub": "▲ conditions met",
+      "hsePending": "HSE pending",
+      "overdue": "Overdue",
+      "overdueSub": "▼ past SLA"
+    }
+  },
+  "offboarding": {
+    "title": "Offboarding",
+    "subtitle": "6-stage exit workflow: access cutoff, clearance and final settlement (docs/modules/04).",
+    "newCase": "New offboarding case",
+    "lastDay": "Last working day {date}",
+    "accessCut": "Access cut off",
+    "accessActive": "Access still active",
+    "accessWarning": "Stage 2 mandatory: revoke all system access by the last working day.",
+    "clearanceTitle": "Clearance ({done}/{total})",
+    "settlementTitle": "Final settlement",
+    "netSettlement": "Net settlement (incl. leave balance)",
+    "egp": "EGP",
+    "settlementNote": "Includes accrued annual-leave cash-out, minus outstanding advances.",
+    "openCase": "Open case",
+    "advanceStage": "Advance stage",
+    "settlement": {
+      "pending": "Pending approval",
+      "approved": "Approved",
+      "paid": "Paid"
+    },
+    "kpi": {
+      "openCases": "Open cases",
+      "dueWeek": "Due this week",
+      "dueSub": "▼ before last day",
+      "pendingClearance": "Pending clearance",
+      "pendingSettlement": "Pending settlement"
+    }
+  },
+  "payroll": {
+    "title": "Payroll & Allowances",
+    "subtitle": "{period} monthly cycle — 9 stages with tax and social-insurance calculation (docs/modules/05).",
+    "window": "Payroll window {window}",
+    "approveStage": "Approve current stage",
+    "cycleTitle": "Monthly cycle",
+    "currentStage": "Current stage: {label}",
+    "byProjectTitle": "Cost by project",
+    "million": "M",
+    "egp": "EGP",
+    "note": "Tax and social-insurance brackets are maintained as updatable tables and reviewed annually with the company accountant.",
+    "kpi": {
+      "headcount": "Headcount",
+      "gross": "Gross payroll",
+      "deductions": "Deductions",
+      "deductionsSub": "Tax {tax} · Insurance {ins}",
+      "net": "Net payroll",
+      "netSub": "▲ ready to disburse"
+    },
+    "columns": {
+      "project": "Project",
+      "headcount": "Headcount",
+      "cost": "Cost",
+      "share": "Share"
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "subtitle": "{date} — GPS check-in with supervisor verification (docs/modules/06).",
+    "tableTitle": "Today's attendance",
+    "gpsOk": "GPS ✓",
+    "gpsFlag": "GPS flag",
+    "note": "GPS is verified against each employee's assigned site geofence; flags route to the supervisor's daily sheet.",
+    "kpi": {
+      "present": "Present",
+      "presentSub": "{pct}% of workforce",
+      "late": "Late",
+      "absent": "Absent",
+      "absentSub": "▼ follow-up needed",
+      "onLeave": "On leave"
+    },
+    "columns": {
+      "employee": "Employee",
+      "checkIn": "Check-in",
+      "checkOut": "Check-out",
+      "hours": "Hours",
+      "gps": "GPS",
+      "state": "State"
+    },
+    "states": {
+      "present": "Present",
+      "late": "Late",
+      "absent": "Absent",
+      "leave": "On leave",
+      "remote": "Remote"
+    }
+  },
+  "leave": {
+    "title": "Leave",
+    "subtitle": "Requests and balances under the Egyptian Labour Law (docs/modules/07).",
+    "newRequest": "New leave request",
+    "balancesTitle": "Balances (sample employee)",
+    "requestsTitle": "Leave requests",
+    "balanceDays": "{n} days left",
+    "usedOf": "{used} used of {total}",
+    "hours": "{n}h",
+    "approve": "Approve",
+    "reject": "Reject",
+    "note": "Annual (21d), casual (7d) and sick (up to 180d) entitlements follow the Egyptian Labour Law; balances accrue monthly.",
+    "kpi": {
+      "pending": "Pending decision",
+      "approvedMonth": "Approved this month",
+      "onLeaveToday": "On leave today",
+      "avgDecision": "Avg. decision time"
+    },
+    "columns": {
+      "employee": "Employee",
+      "type": "Type",
+      "dates": "Dates",
+      "days": "Days",
+      "approver": "Approver",
+      "state": "State",
+      "actions": "Actions"
+    },
+    "states": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    }
   }
 }

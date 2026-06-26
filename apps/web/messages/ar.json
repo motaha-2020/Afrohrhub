@@ -223,5 +223,230 @@
         "description": "لم تُسجَّل فحوص طبية أو دورات سلامة لهذا الموظف بعد."
       }
     }
+  },
+  "approvals": {
+    "title": "اعتماداتي",
+    "subtitle": "سلاسل اعتماد قابلة للتهيئة بعدّادات SLA حيّة — محرك الاعتمادات (docs/05).",
+    "queueTitle": "قائمة الاعتمادات",
+    "engineNote": "السلاسل والشروط والتصعيد مزروعة من دليل People & Culture وقابلة للتهيئة لكل شركة.",
+    "empty": "لا يوجد ما ينتظر قرارك",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "done": "مكتمل",
+    "hoursLeft": "باقٍ {hours} س",
+    "breachedBy": "تجاوز بـ {hours} س",
+    "kpi": {
+      "awaitingMe": "بانتظار قراري",
+      "breached": "تجاوز الـ SLA",
+      "breachedSub": "▼ تم التصعيد",
+      "dueToday": "مستحق اليوم",
+      "approvedWeek": "اعتُمد هذا الأسبوع",
+      "approvedSub": "▲ ضمن المسار"
+    },
+    "columns": {
+      "ref": "المرجع",
+      "type": "الطلب",
+      "requestedBy": "مقدّم الطلب",
+      "step": "الخطوة الحالية",
+      "priority": "الأولوية",
+      "sla": "الـ SLA",
+      "state": "الحالة",
+      "actions": "إجراءات"
+    },
+    "states": {
+      "pending": "قيد الانتظار",
+      "approved": "معتمد",
+      "rejected": "مرفوض",
+      "escalated": "مُصعّد"
+    }
+  },
+  "sla": {
+    "title": "لوحة الـ SLA",
+    "subtitle": "عدّادات P0/P1/P2 بساعات العمل مع تصعيد تلقائي — محرك الـ SLA (docs/04).",
+    "tableTitle": "مؤشرات الـ SLA",
+    "note": "الأهداف تعكس سياسات الدليل؛ هدف فرز التوظيف P1 (5 أيام عمل) بانتظار الاعتماد الرسمي.",
+    "kpi": {
+      "open": "عدّادات مفتوحة",
+      "breached": "متجاوزة",
+      "breachedSub": "▼ تحتاج متابعة",
+      "onTime": "نسبة الالتزام",
+      "onTimeSub": "▲ آخر 30 يوماً",
+      "escalations": "تصعيدات هذا الأسبوع"
+    },
+    "columns": {
+      "metric": "المؤشر",
+      "priority": "الأولوية",
+      "target": "الهدف",
+      "open": "مفتوح",
+      "breached": "متجاوز",
+      "onTime": "الالتزام"
+    }
+  },
+  "recruitment": {
+    "title": "التوظيف",
+    "subtitle": "خط توظيف من 8 مراحل، Talent Pool ومطابقة المرشحين بالـ AI (docs/modules/02).",
+    "newRequest": "طلب توظيف جديد",
+    "pipelineTitle": "خط الأنابيب",
+    "candidatesTitle": "المرشحون النشطون",
+    "view": "عرض",
+    "days": "{n} يوم",
+    "kpi": {
+      "openRequests": "طلبات مفتوحة",
+      "activeCandidates": "مرشحون نشطون",
+      "offersOut": "عروض قائمة",
+      "timeToHire": "متوسط زمن التعيين"
+    },
+    "columns": {
+      "candidate": "المرشح",
+      "role": "الوظيفة",
+      "project": "المشروع",
+      "match": "المطابقة",
+      "stage": "المرحلة",
+      "actions": "إجراءات"
+    },
+    "stages": {
+      "request": "طلب",
+      "sourcing": "بحث",
+      "screening": "فرز",
+      "interview": "مقابلة",
+      "offer": "عرض",
+      "handover": "تسليم"
+    }
+  },
+  "onboarding": {
+    "title": "التعيين والإلحاق",
+    "subtitle": "تدفّق تعيين من 9 مراحل بـ 6 شروط تفعيل (docs/modules/03).",
+    "newCase": "حالة تعيين جديدة",
+    "slaDays": "{n} يوم SLA",
+    "conditions": "{met}/6 شروط",
+    "currentStage": "المرحلة {n} من 9 — {label}",
+    "openCase": "فتح الحالة",
+    "activate": "تفعيل الموظف",
+    "kpi": {
+      "inProgress": "قيد التنفيذ",
+      "readyToActivate": "جاهز للتفعيل",
+      "readySub": "▲ اكتملت الشروط",
+      "hsePending": "بانتظار الـ HSE",
+      "overdue": "متأخر",
+      "overdueSub": "▼ تجاوز الـ SLA"
+    }
+  },
+  "offboarding": {
+    "title": "إنهاء الخدمة",
+    "subtitle": "تدفّق خروج من 6 مراحل: قطع الصلاحيات، إخلاء الطرف والتسوية النهائية (docs/modules/04).",
+    "newCase": "حالة إنهاء جديدة",
+    "lastDay": "آخر يوم عمل {date}",
+    "accessCut": "قُطعت الصلاحيات",
+    "accessActive": "الصلاحيات نشطة",
+    "accessWarning": "المرحلة 2 إلزامية: إلغاء كل صلاحيات الوصول بنهاية آخر يوم عمل.",
+    "clearanceTitle": "إخلاء الطرف ({done}/{total})",
+    "settlementTitle": "التسوية النهائية",
+    "netSettlement": "صافي التسوية (شامل رصيد الإجازات)",
+    "egp": "ج.م",
+    "settlementNote": "تشمل صرف رصيد الإجازة السنوية نقداً، مخصوماً منها السلف القائمة.",
+    "openCase": "فتح الحالة",
+    "advanceStage": "تقديم المرحلة",
+    "settlement": {
+      "pending": "بانتظار الاعتماد",
+      "approved": "معتمد",
+      "paid": "مدفوع"
+    },
+    "kpi": {
+      "openCases": "حالات مفتوحة",
+      "dueWeek": "مستحق هذا الأسبوع",
+      "dueSub": "▼ قبل آخر يوم",
+      "pendingClearance": "بانتظار الإخلاء",
+      "pendingSettlement": "بانتظار التسوية"
+    }
+  },
+  "payroll": {
+    "title": "الرواتب والبدلات",
+    "subtitle": "دورة {period} الشهرية — 9 مراحل بحساب الضرائب والتأمينات (docs/modules/05).",
+    "window": "نافذة الصرف {window}",
+    "approveStage": "اعتماد المرحلة الحالية",
+    "cycleTitle": "الدورة الشهرية",
+    "currentStage": "المرحلة الحالية: {label}",
+    "byProjectTitle": "التكلفة حسب المشروع",
+    "million": "م",
+    "egp": "ج.م",
+    "note": "شرائح الضرائب والتأمينات محفوظة كجداول قابلة للتحديث وتُراجع سنوياً مع محاسب الشركة.",
+    "kpi": {
+      "headcount": "عدد الموظفين",
+      "gross": "إجمالي الرواتب",
+      "deductions": "الاستقطاعات",
+      "deductionsSub": "ضرائب {tax} · تأمينات {ins}",
+      "net": "صافي الرواتب",
+      "netSub": "▲ جاهز للصرف"
+    },
+    "columns": {
+      "project": "المشروع",
+      "headcount": "العدد",
+      "cost": "التكلفة",
+      "share": "النسبة"
+    }
+  },
+  "attendance": {
+    "title": "الحضور",
+    "subtitle": "{date} — تسجيل حضور بالـ GPS مع كشف المشرف (docs/modules/06).",
+    "tableTitle": "حضور اليوم",
+    "gpsOk": "GPS ✓",
+    "gpsFlag": "تنبيه GPS",
+    "note": "يُتحقق من الـ GPS مقابل النطاق الجغرافي للموقع المخصص لكل موظف؛ التنبيهات تُحال لكشف المشرف اليومي.",
+    "kpi": {
+      "present": "حاضر",
+      "presentSub": "{pct}% من القوى العاملة",
+      "late": "متأخر",
+      "absent": "غائب",
+      "absentSub": "▼ يحتاج متابعة",
+      "onLeave": "في إجازة"
+    },
+    "columns": {
+      "employee": "الموظف",
+      "checkIn": "الحضور",
+      "checkOut": "الانصراف",
+      "hours": "الساعات",
+      "gps": "GPS",
+      "state": "الحالة"
+    },
+    "states": {
+      "present": "حاضر",
+      "late": "متأخر",
+      "absent": "غائب",
+      "leave": "إجازة",
+      "remote": "عن بُعد"
+    }
+  },
+  "leave": {
+    "title": "الإجازات",
+    "subtitle": "الطلبات والأرصدة وفق قانون العمل المصري (docs/modules/07).",
+    "newRequest": "طلب إجازة جديد",
+    "balancesTitle": "الأرصدة (موظف نموذجي)",
+    "requestsTitle": "طلبات الإجازة",
+    "balanceDays": "باقٍ {n} يوم",
+    "usedOf": "استُخدم {used} من {total}",
+    "hours": "{n} س",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "note": "أرصدة الاعتيادية (21 يوماً) والعارضة (7 أيام) والمرضية (حتى 180 يوماً) وفق قانون العمل المصري وتُستحق شهرياً.",
+    "kpi": {
+      "pending": "بانتظار القرار",
+      "approvedMonth": "اعتُمد هذا الشهر",
+      "onLeaveToday": "في إجازة اليوم",
+      "avgDecision": "متوسط زمن القرار"
+    },
+    "columns": {
+      "employee": "الموظف",
+      "type": "النوع",
+      "dates": "التواريخ",
+      "days": "الأيام",
+      "approver": "المعتمِد",
+      "state": "الحالة",
+      "actions": "إجراءات"
+    },
+    "states": {
+      "pending": "قيد الانتظار",
+      "approved": "معتمد",
+      "rejected": "مرفوض"
+    }
   }
 }
