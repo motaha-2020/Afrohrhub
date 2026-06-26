@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useSession } from "@/lib/auth/session";
 import { initials, localizedName } from "@/lib/utils/format";
 import { LocaleSwitcher } from "./LocaleSwitcher";
+import { SignOutButton } from "./SignOutButton";
 import { ViewAsSwitcher } from "./ViewAsSwitcher";
 
 export function Topbar() {
@@ -43,6 +44,7 @@ export function Topbar() {
         <div className="flex size-9 items-center justify-center rounded-full bg-primary text-[13px] font-bold text-white">
           {initials(userName)}
         </div>
+        <SignOutButton />
       </div>
     </header>
   );

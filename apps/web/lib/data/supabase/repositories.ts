@@ -1,6 +1,6 @@
 import "server-only";
 
-import { supabase } from "@/lib/supabase/client";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { daysBetween } from "@/lib/utils/format";
 import type {
   AllocationWithProject,
@@ -59,6 +59,7 @@ function rowToEmployee(r: Record<string, unknown>): Employee {
 
 export class SupabaseEmployeeRepository implements EmployeeRepository {
   async list(filters: EmployeeFilters = {}): Promise<EmployeeListItem[]> {
+    const supabase = await createSupabaseServerClient();
     let query = supabase
       .from("employees")
       .select(
@@ -149,6 +150,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getById(id: string): Promise<Employee | null> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("employees")
       .select("*")
@@ -159,6 +161,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getListItem(id: string): Promise<EmployeeListItem | null> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("employees")
       .select(
@@ -201,6 +204,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   async getDocuments(
     employeeId: string
   ): Promise<EmployeeDocumentWithType[]> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("employee_documents")
       .select(
@@ -219,6 +223,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getEvents(employeeId: string): Promise<EmployeeEvent[]> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("employee_events")
       .select("*")
@@ -231,6 +236,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   async getAllocations(
     employeeId: string
   ): Promise<AllocationWithProject[]> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("employee_project_allocations")
       .select(
@@ -251,6 +257,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   async getCompensation(
     employeeId: string
   ): Promise<EmployeeCompensation | null> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("employee_compensation")
       .select("*")
@@ -261,6 +268,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
   }
 
   async getHseRecords(employeeId: string): Promise<HseRecord[]> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("hse_records")
       .select("*")
@@ -305,6 +313,7 @@ export class SupabaseEmployeeRepository implements EmployeeRepository {
 
 export class SupabaseProjectRepository implements ProjectRepository {
   async list(): Promise<Project[]> {
+    const supabase = await createSupabaseServerClient();
     const { data, error } = await supabase
       .from("projects")
       .select("*")

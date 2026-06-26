@@ -7,7 +7,18 @@
     "notifications": "الإشعارات",
     "localeToggle": "EN",
     "localeToggleLabel": "Switch to English",
-    "egp": "ج.م"
+    "egp": "ج.م",
+    "signOut": "تسجيل الخروج"
+  },
+  "login": {
+    "title": "AfroHR Hub",
+    "subtitle": "سجّل الدخول إلى مساحة عملك",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "submit": "تسجيل الدخول",
+    "errorMissing": "من فضلك أدخل البريد الإلكتروني وكلمة المرور.",
+    "errorInvalid": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "demoHint": "حسابات تجريبية: hrm@afrohr.test · كلمة المرور Afrohr@2026"
   },
   "nav": {
     "soon": "قريباً",

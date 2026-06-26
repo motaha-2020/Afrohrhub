@@ -4,7 +4,7 @@ import {
   SupabaseEmployeeRepository,
   SupabaseProjectRepository,
 } from "./supabase/repositories";
-import { supabase } from "@/lib/supabase/client";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const employeeRepository: EmployeeRepository =
   new SupabaseEmployeeRepository();
@@ -13,6 +13,7 @@ export const projectRepository: ProjectRepository =
   new SupabaseProjectRepository();
 
 export async function listDocumentTypes(): Promise<DocumentType[]> {
+  const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
     .from("document_types")
     .select("*")

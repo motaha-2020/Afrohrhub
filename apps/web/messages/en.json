@@ -7,7 +7,18 @@
     "notifications": "Notifications",
     "localeToggle": "ع",
     "localeToggleLabel": "التبديل إلى العربية",
-    "egp": "EGP"
+    "egp": "EGP",
+    "signOut": "Sign out"
+  },
+  "login": {
+    "title": "AfroHR Hub",
+    "subtitle": "Sign in to your workspace",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "errorMissing": "Please enter your email and password.",
+    "errorInvalid": "Incorrect email or password.",
+    "demoHint": "Demo accounts: hrm@afrohr.test · password Afrohr@2026"
   },
   "nav": {
     "soon": "Soon",
